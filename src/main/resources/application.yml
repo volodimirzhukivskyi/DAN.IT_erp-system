@@ -28,7 +28,7 @@ api:
 spring:
   config:
     activate:
-      on-profile: dev
+      on-profile: test
     import: optional:secrets.properties[.properties]
   sql:
     init:
