@@ -12,12 +12,12 @@ public interface BaseService<T> {
   List<T> getAllPageable(int size, int pageNumber);
 
   @Transactional(readOnly = true)
-  T getById(Long userId);
+  T findById(Long userId);
 
   void update(T obj);
 
-  void create(T obj);
+  T create(T obj);
 
-  void delete(Integer id);
+  void delete(Long id);
 }
 
