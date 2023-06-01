@@ -36,6 +36,7 @@ public class PersonalCardService implements BaseService<PersonalCard> {
 
   @Override
   public PersonalCard create(PersonalCard obj) {
+    //TODO  - логіку перенести в dtoMapper
     Optional<University> university= universityRepository.findByName(obj.getUniversity().getName());
      University saveUniversity = university.orElseGet(obj::getUniversity);
 
@@ -71,7 +72,7 @@ public class PersonalCardService implements BaseService<PersonalCard> {
        .email(obj.getEmail())
        .password(obj.getPassword())
        .idCode(obj.getIdCode())
-      .university(new University("test"))
+      .university(obj.getUniversity())
        .build();
         personalCardRepository.save(personalCard);
   }

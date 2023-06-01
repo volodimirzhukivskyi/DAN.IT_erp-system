@@ -2,20 +2,21 @@ package com.danit.erp.domain.personalcard;
 
 import com.danit.erp.domain.BaseEntity;
 import com.danit.erp.domain.dictionary.EducationSpecialization;
-import com.danit.erp.domain.dictionary.EmailList;
+import com.danit.erp.domain.dictionary.Email;
 import com.danit.erp.domain.dictionary.Profession;
 import com.danit.erp.domain.dictionary.Role;
 import com.danit.erp.domain.dictionary.University;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,7 +44,7 @@ public class PersonalCard extends BaseEntity {
   private String linkToCRM;
   @ManyToOne(targetEntity = Profession.class)
   private Profession initialProfession;
-  @ManyToOne(targetEntity = University.class,cascade=CascadeType.ALL)
+  @ManyToOne(targetEntity = University.class,cascade=CascadeType.ALL,fetch = FetchType.EAGER)
   @JoinColumn(name = "universities_id")
   private University university;
   @ManyToOne(targetEntity = Role.class)
@@ -51,8 +52,15 @@ public class PersonalCard extends BaseEntity {
   @ManyToOne(targetEntity = EducationSpecialization.class)
   private EducationSpecialization educationSpecialization;
 
-  @OneToOne(cascade = CascadeType.MERGE)
-  @JoinColumn(name = "email_id_code")
-  private EmailList email;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "email_id_code", referencedColumnName = "id_code")
+  private Email email;
 
+//TODO  - Цю логіку перенести в dtoMapper
+  @PrePersist
+  public void prePersist() {
+    if (email != null) {
+      email.setIdCode(this.idCode);
+    }
+  }
 }
