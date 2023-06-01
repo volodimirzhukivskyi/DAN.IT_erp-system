@@ -1,7 +1,7 @@
-package com.danit.erp.controller;
+package com.danit.erp.controller.dictionary;
 
-import com.danit.erp.domain.dictionary.University;
-import com.danit.erp.service.dictionary.UniversityService;
+import com.danit.erp.domain.dictionary.Profession;
+import com.danit.erp.service.dictionary.ProfessionService;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,34 +17,34 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 @RestController
 @AllArgsConstructor
-@RequestMapping("${api.version}/university")
-public class UniversityController {
-  private final UniversityService universityService;
+@RequestMapping("${api.version}/profession")
+public class ProfessionController {
+  private final ProfessionService professionService;
 
   @GetMapping("/")
-  public List<University> getAll() {
-    return universityService.findAll();
+  public List<Profession> getAllTweets() {
+    return professionService.findAll();
   }
 
   @GetMapping("/{id}")
-  public University getById(@PathVariable("id") String userId) throws Exception {
-    return universityService.findById(Long.parseLong(userId));
+  public Profession getById(@PathVariable("id") String userId) throws Exception {
+    return professionService.findById(Long.parseLong(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    universityService.delete(Long.parseLong(userId));
+    professionService.delete(Long.parseLong(userId));
   }
 
   @PutMapping("/update")
-  public void update(@RequestBody University personalCard) {
-    universityService.update(personalCard);
+  public void update(@RequestBody Profession personalCard) {
+    professionService.update(personalCard);
   }
 
 
 
   @PostMapping("/create")
-  public University create(@RequestBody University personalCard) {
-    return universityService.create(personalCard);
+  public Profession create(@RequestBody Profession personalCard) {
+    return professionService.create(personalCard);
   }
 }

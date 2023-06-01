@@ -1,8 +1,10 @@
 package com.danit.erp.service;
 
+import com.danit.erp.domain.dictionary.Profession;
 import com.danit.erp.domain.dictionary.University;
 import com.danit.erp.domain.personalcard.PersonalCard;
 import com.danit.erp.repository.PersonalCardRepository;
+import com.danit.erp.repository.dictionary.ProfessionRepository;
 import com.danit.erp.repository.dictionary.UniversityRepository;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class PersonalCardService implements BaseService<PersonalCard> {
   private final PersonalCardRepository personalCardRepository;
      private final UniversityRepository universityRepository;
+     private final ProfessionRepository professionRepository;
 
   @Override
   public List<PersonalCard> findAll() {
@@ -39,7 +42,8 @@ public class PersonalCardService implements BaseService<PersonalCard> {
     //TODO  - логіку перенести в dtoMapper
     Optional<University> university= universityRepository.findByName(obj.getUniversity().getName());
      University saveUniversity = university.orElseGet(obj::getUniversity);
-
+    Optional<Profession> profession= professionRepository.findByName(obj.getInitialProfession().getName());
+    Profession saveInitialProfession = profession.orElseGet(obj::getInitialProfession);
 
     PersonalCard personalCard= PersonalCard.builder()
       .name(obj.getName())
@@ -52,6 +56,7 @@ public class PersonalCardService implements BaseService<PersonalCard> {
       .password(obj.getPassword())
       .idCode(obj.getIdCode())
       .university(saveUniversity)
+      .initialProfession(saveInitialProfession)
       .build();
     return    personalCardRepository.save(personalCard);
   }
@@ -73,6 +78,7 @@ public class PersonalCardService implements BaseService<PersonalCard> {
        .password(obj.getPassword())
        .idCode(obj.getIdCode())
       .university(obj.getUniversity())
+      .initialProfession(obj.getInitialProfession())
        .build();
         personalCardRepository.save(personalCard);
   }

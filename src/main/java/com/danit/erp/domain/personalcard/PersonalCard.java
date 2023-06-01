@@ -42,12 +42,11 @@ public class PersonalCard extends BaseEntity {
   private String passportData;
   @Column(name = "link_to_crm")
   private String linkToCRM;
-  @ManyToOne(targetEntity = Profession.class)
+  @ManyToOne(targetEntity = Profession.class,cascade=CascadeType.ALL)
   private Profession initialProfession;
-  @ManyToOne(targetEntity = University.class,cascade=CascadeType.ALL,fetch = FetchType.EAGER)
-  @JoinColumn(name = "universities_id")
+  @ManyToOne(targetEntity = University.class,cascade=CascadeType.ALL)
   private University university;
-  @ManyToOne(targetEntity = Role.class)
+  @ManyToOne(targetEntity = Role.class,cascade=CascadeType.ALL)
   private Role role;
   @ManyToOne(targetEntity = EducationSpecialization.class)
   private EducationSpecialization educationSpecialization;

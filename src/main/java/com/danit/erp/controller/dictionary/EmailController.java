@@ -22,7 +22,7 @@ public class EmailController {
   private final EmailListService emailListService;
 
   @GetMapping("/")
-  public List<Email> getAllTweets() {
+  public List<Email> getAll() {
     return emailListService.findAll();
   }
 

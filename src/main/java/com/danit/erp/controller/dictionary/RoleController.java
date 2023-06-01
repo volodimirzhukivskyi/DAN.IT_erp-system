@@ -1,7 +1,7 @@
-package com.danit.erp.controller;
+package com.danit.erp.controller.dictionary;
 
-import com.danit.erp.domain.dictionary.University;
-import com.danit.erp.service.dictionary.UniversityService;
+import com.danit.erp.domain.dictionary.Role;
+import com.danit.erp.service.dictionary.RoleService;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,34 +17,34 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 @RestController
 @AllArgsConstructor
-@RequestMapping("${api.version}/university")
-public class UniversityController {
-  private final UniversityService universityService;
+@RequestMapping("${api.version}/role")
+public class RoleController {
+  private final RoleService roleService;
 
   @GetMapping("/")
-  public List<University> getAll() {
-    return universityService.findAll();
+  public List<Role> getAll() {
+    return roleService.findAll();
   }
 
   @GetMapping("/{id}")
-  public University getById(@PathVariable("id") String userId) throws Exception {
-    return universityService.findById(Long.parseLong(userId));
+  public Role getById(@PathVariable("id") String userId) throws Exception {
+    return roleService.findById(Long.parseLong(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    universityService.delete(Long.parseLong(userId));
+    roleService.delete(Long.parseLong(userId));
   }
 
   @PutMapping("/update")
-  public void update(@RequestBody University personalCard) {
-    universityService.update(personalCard);
+  public void update(@RequestBody Role personalCard) {
+    roleService.update(personalCard);
   }
 
 
 
   @PostMapping("/create")
-  public University create(@RequestBody University personalCard) {
-    return universityService.create(personalCard);
+  public Role create(@RequestBody Role personalCard) {
+    return roleService.create(personalCard);
   }
 }
