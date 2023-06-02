@@ -1,7 +1,7 @@
-package com.danit.erp.controller;
+package com.danit.erp.controller.dictionary;
 
-import com.danit.erp.domain.contract.Contract;
-import com.danit.erp.service.ContractService;
+import com.danit.erp.domain.dictionary.ContractStatus;
+import com.danit.erp.service.dictionary.ContractStatusService;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,34 +17,34 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 @RestController
 @AllArgsConstructor
-@RequestMapping("${api.version}/contract")
-public class ContractController {
-  private final ContractService contractService;
+@RequestMapping("${api.version}/contract_status")
+public class ContractStatusController {
+  private final ContractStatusService contractStatusService;
 
   @GetMapping("/")
-  public List<Contract> getAllTwees() {
-    return contractService.findAll();
+  public List<ContractStatus> getAll() {
+    return contractStatusService.findAll();
   }
 
   @GetMapping("/{id}")
-  public Contract getById(@PathVariable("id") String userId) throws Exception {
-    return contractService.findById(Long.parseLong(userId));
+  public ContractStatus getById(@PathVariable("id") String userId) throws Exception {
+    return contractStatusService.findById(Long.parseLong(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    contractService.delete(Long.parseLong(userId));
+    contractStatusService.delete(Long.parseLong(userId));
   }
 
   @PutMapping("/update")
-  public void update(@RequestBody Contract personalCard) {
-     contractService.update(personalCard);
-    }
+  public void update(@RequestBody ContractStatus personalCard) {
+    contractStatusService.update(personalCard);
+  }
 
 
 
   @PostMapping("/create")
-  public Contract create(@RequestBody Contract personalCard) {
-    return contractService.create(personalCard);
+  public ContractStatus create(@RequestBody ContractStatus personalCard) {
+    return contractStatusService.create(personalCard);
   }
 }

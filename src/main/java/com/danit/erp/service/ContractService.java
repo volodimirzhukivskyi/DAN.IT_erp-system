@@ -1,8 +1,11 @@
 package com.danit.erp.service;
 
-import com.danit.erp.domain.personalcard.Contract;
+import com.danit.erp.domain.contract.Contract;
+import com.danit.erp.domain.personalcard.PersonalCard;
 import com.danit.erp.repository.ContractRepository;
+import com.danit.erp.repository.PersonalCardRepository;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ContractService implements BaseService<Contract> {
   private final ContractRepository contractRepository;
-
+  private final PersonalCardRepository personalCardRepository;
 
   @Override
   public List<Contract> findAll() {
@@ -37,11 +40,17 @@ public class ContractService implements BaseService<Contract> {
 //     University saveUniversity = university.orElseGet(obj::getUniversity);
 //    Optional<Profession> profession= professionRepository.findByName(obj.getInitialProfession().getName());
 //    Profession saveInitialProfession = profession.orElseGet(obj::getInitialProfession);
-
+    Optional<PersonalCard> personalCard =
+      personalCardRepository.findByIdCode(obj.getPersonalCard().getIdCode());
+//! Варіант 1
+//    PersonalCard saveInitialCard = personalCard.orElse(null);
+//    String saveName = saveInitialCard == null ? obj.getClientName() :
+//      String.format("%s " + "%s", personalCard.get().getSurname(), personalCard.get().getName());
+//! Варіант 2
+  PersonalCard saveInitialCard = personalCard.orElseThrow(()->new Error());
     Contract contract =
       Contract.builder().contractNo(obj.getContractNo()).contractDate(obj.getContractDate())
-        .clientName(obj.getClientName())
-//        .contractStatus(obj.getContractStatus())
+        .personalCard(saveInitialCard).contractStatus(obj.getContractStatus()).manager(obj.getManager())
         .contractValue(obj.getContractValue()).docLink(obj.getDocLink()).build();
     return contractRepository.save(contract);
   }
@@ -51,9 +60,10 @@ public class ContractService implements BaseService<Contract> {
     Contract findContract = contractRepository.findById(obj.getId()).orElseThrow(() -> new Error());
 
     Contract contract = Contract.builder().id(findContract.getId()).contractNo(obj.getContractNo())
-      .contractDate(obj.getContractDate()).clientName(obj.getClientName())
-//      .contractStatus(obj.getContractStatus())
-      .contractValue(obj.getContractValue())
+      .contractDate(obj.getContractDate())
+      .personalCard(obj.getPersonalCard())
+      .manager(obj.getManager())
+      .contractStatus(obj.getContractStatus()).contractValue(obj.getContractValue())
       .docLink(obj.getDocLink()).build();
     contractRepository.save(contract);
   }

@@ -45,7 +45,7 @@ public class PersonalCard extends BaseEntity {
   private Profession initialProfession;
   @ManyToOne(targetEntity = University.class,cascade=CascadeType.ALL)
   private University university;
-  @ManyToOne(targetEntity = Role.class,cascade=CascadeType.ALL)
+  @ManyToOne(targetEntity = Role.class,cascade=CascadeType.PERSIST)
   private Role role;
   @ManyToOne(targetEntity = Education.class)
   private Education education;

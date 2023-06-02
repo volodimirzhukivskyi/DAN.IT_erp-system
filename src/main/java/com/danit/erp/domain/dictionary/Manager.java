@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "responsible_managers")
@@ -14,6 +15,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponsibleManager extends BaseEntity {
+@SuperBuilder
+public class Manager extends BaseEntity {
   private String fullName;
+  private boolean deleted;
+
+
 }
