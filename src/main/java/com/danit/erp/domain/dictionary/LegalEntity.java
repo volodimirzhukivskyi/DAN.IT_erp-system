@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "legal_entities")
@@ -14,13 +15,15 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 public class LegalEntity extends BaseEntity {
-private String legalEntity;
+private String legalEntityName;
 private String  idCode;
 private String  legalAddress;
 private String  IBAN;
 private String bank;
 private String  representedBy;
 private String statuteEntity;
+private boolean deleted;
 
 }

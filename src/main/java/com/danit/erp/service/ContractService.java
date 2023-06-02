@@ -1,9 +1,13 @@
 package com.danit.erp.service;
 
 import com.danit.erp.domain.contract.Contract;
+import com.danit.erp.domain.dictionary.LegalEntity;
+import com.danit.erp.domain.dictionary.Program;
 import com.danit.erp.domain.personalcard.PersonalCard;
 import com.danit.erp.repository.ContractRepository;
 import com.danit.erp.repository.PersonalCardRepository;
+import com.danit.erp.repository.dictionary.LegalEntityRepository;
+import com.danit.erp.repository.dictionary.ProgramRepository;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class ContractService implements BaseService<Contract> {
   private final ContractRepository contractRepository;
   private final PersonalCardRepository personalCardRepository;
+  private final ProgramRepository programRepository;
+  private final LegalEntityRepository legalEntityRepository;
 
   @Override
   public List<Contract> findAll() {
@@ -42,16 +48,24 @@ public class ContractService implements BaseService<Contract> {
 //    Profession saveInitialProfession = profession.orElseGet(obj::getInitialProfession);
     Optional<PersonalCard> personalCard =
       personalCardRepository.findByIdCode(obj.getPersonalCard().getIdCode());
+    Optional<Program> program =
+      programRepository.findByProgram(obj.getProgram().getProgram());
+
+    Optional<LegalEntity> legalEntity =
+      legalEntityRepository.findByIdCode(obj.getLegalEntity().getIdCode());
 //! Варіант 1
 //    PersonalCard saveInitialCard = personalCard.orElse(null);
 //    String saveName = saveInitialCard == null ? obj.getClientName() :
 //      String.format("%s " + "%s", personalCard.get().getSurname(), personalCard.get().getName());
 //! Варіант 2
+    //TODO   в дто значення змінити
     PersonalCard saveInitialCard = personalCard.orElseThrow(() -> new Error());
+    Program saveInitialProgram = program.orElseThrow(() -> new Error());
+    LegalEntity saveLegalEntity  =legalEntity.orElseThrow(()->new Error());
     Contract contract =
       Contract.builder().contractNo(obj.getContractNo()).contractDate(obj.getContractDate())
         .coordinator(obj.getCoordinator()).personalCard(saveInitialCard)
-        .contractStatus(obj.getContractStatus()).manager(obj.getManager())
+        .contractStatus(obj.getContractStatus()).legalEntity(saveLegalEntity).program(saveInitialProgram).manager(obj.getManager())
         .contractValue(obj.getContractValue()).docLink(obj.getDocLink()).build();
     return contractRepository.save(contract);
   }
@@ -62,7 +76,7 @@ public class ContractService implements BaseService<Contract> {
 
     Contract contract = Contract.builder().id(findContract.getId()).contractNo(obj.getContractNo())
       .contractDate(obj.getContractDate()).personalCard(obj.getPersonalCard())
-      .manager(obj.getManager()).coordinator(obj.getCoordinator())
+      .manager(obj.getManager()).legalEntity(obj.getLegalEntity()).coordinator(obj.getCoordinator()).program(obj.getProgram())
       .contractStatus(obj.getContractStatus()).contractValue(obj.getContractValue())
       .docLink(obj.getDocLink()).build();
     contractRepository.save(contract);

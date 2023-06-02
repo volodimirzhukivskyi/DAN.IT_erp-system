@@ -7,15 +7,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import com.danit.erp.domain.BaseEntity;
+import java.time.LocalDateTime;
 @Entity
-@Table(name = "roles")
+@Table(name = "groups")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Program extends BaseEntity {
-  private String program;
-  private Integer programHours;
+
+public class Group extends BaseEntity {
+  private String groupName;
+  private LocalDateTime startDate;
   private boolean deleted;
 }
