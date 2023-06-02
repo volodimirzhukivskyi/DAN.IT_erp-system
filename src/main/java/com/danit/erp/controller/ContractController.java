@@ -1,7 +1,7 @@
 package com.danit.erp.controller;
 
-import com.danit.erp.domain.personalcard.PersonalCard;
-import com.danit.erp.service.PersonalCardService;
+import com.danit.erp.domain.personalcard.Contract;
+import com.danit.erp.service.ContractService;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,34 +17,34 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 @RestController
 @AllArgsConstructor
-@RequestMapping("${api.version}/personal_card")
-public class PersonalCardController {
-  private final PersonalCardService personalCardService;
+@RequestMapping("${api.version}/contract")
+public class ContractController {
+  private final ContractService contractService;
 
   @GetMapping("/")
-  public List<PersonalCard> getAll() {
-    return personalCardService.findAll();
+  public List<Contract> getAllTwees() {
+    return contractService.findAll();
   }
 
   @GetMapping("/{id}")
-  public PersonalCard getById(@PathVariable("id") String userId) throws Exception {
-    return personalCardService.findById(Long.parseLong(userId));
+  public Contract getById(@PathVariable("id") String userId) throws Exception {
+    return contractService.findById(Long.parseLong(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    personalCardService.delete(Long.parseLong(userId));
+    contractService.delete(Long.parseLong(userId));
   }
 
   @PutMapping("/update")
-  public void update(@RequestBody PersonalCard personalCard) {
-     personalCardService.update(personalCard);
+  public void update(@RequestBody Contract personalCard) {
+     contractService.update(personalCard);
     }
 
 
 
   @PostMapping("/create")
-  public PersonalCard create(@RequestBody PersonalCard personalCard) {
-    return personalCardService.create(personalCard);
+  public Contract create(@RequestBody Contract personalCard) {
+    return contractService.create(personalCard);
   }
 }

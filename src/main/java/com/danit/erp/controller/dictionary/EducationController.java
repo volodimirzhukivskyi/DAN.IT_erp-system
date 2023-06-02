@@ -1,7 +1,7 @@
-package com.danit.erp.controller;
+package com.danit.erp.controller.dictionary;
 
-import com.danit.erp.domain.personalcard.PersonalCard;
-import com.danit.erp.service.PersonalCardService;
+import com.danit.erp.domain.dictionary.Education;
+import com.danit.erp.service.dictionary.EducationService;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,34 +17,34 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 @RestController
 @AllArgsConstructor
-@RequestMapping("${api.version}/personal_card")
-public class PersonalCardController {
-  private final PersonalCardService personalCardService;
+@RequestMapping("${api.version}/education")
+public class EducationController {
+  private final EducationService educationService;
 
   @GetMapping("/")
-  public List<PersonalCard> getAll() {
-    return personalCardService.findAll();
+  public List<Education> getAll() {
+    return educationService.findAll();
   }
 
   @GetMapping("/{id}")
-  public PersonalCard getById(@PathVariable("id") String userId) throws Exception {
-    return personalCardService.findById(Long.parseLong(userId));
+  public Education getById(@PathVariable("id") String userId) throws Exception {
+    return educationService.findById(Long.parseLong(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    personalCardService.delete(Long.parseLong(userId));
+    educationService.delete(Long.parseLong(userId));
   }
 
   @PutMapping("/update")
-  public void update(@RequestBody PersonalCard personalCard) {
-     personalCardService.update(personalCard);
-    }
+  public void update(@RequestBody Education personalCard) {
+    educationService.update(personalCard);
+  }
 
 
 
   @PostMapping("/create")
-  public PersonalCard create(@RequestBody PersonalCard personalCard) {
-    return personalCardService.create(personalCard);
+  public Education create(@RequestBody Education personalCard) {
+    return educationService.create(personalCard);
   }
 }

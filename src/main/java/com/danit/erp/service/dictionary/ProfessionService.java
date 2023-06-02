@@ -33,28 +33,28 @@ public class ProfessionService implements BaseService<Profession> {
 
   @Override
   public Profession create(Profession obj) {
-    Profession university = Profession.builder().name(obj.getName()).build();
-    return professionRepository.save(university);
+    Profession profession = Profession.builder().name(obj.getName()).build();
+    return professionRepository.save(profession);
   }
 
   @Override
   public void update(Profession obj) {
-    Profession findUniversity =
+    Profession findProfession =
       professionRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new Error());
 
-    Profession university =
-      Profession.builder().id(findUniversity.getId()).name(obj.getName()).build();
-    professionRepository.save(university);
+    Profession profession =
+      Profession.builder().id(findProfession.getId()).name(obj.getName()).build();
+    professionRepository.save(profession);
   }
 
   @Override
   public void delete(Long userId) {
-    Profession university =
+    Profession profession =
       professionRepository.findById(userId).orElseThrow(() -> new Error());
 
     //TODO зробити помилку
-    university.setDeleted(true);
-    professionRepository.save(university);
+    profession.setDeleted(true);
+    professionRepository.save(profession);
 
   }
 }

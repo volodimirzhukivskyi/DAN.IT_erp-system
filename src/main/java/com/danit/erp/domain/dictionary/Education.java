@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "education_specializations")
@@ -14,6 +15,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EducationSpecialization extends BaseEntity {
+@SuperBuilder
+public class Education extends BaseEntity {
   private String specialization;
+  private boolean deleted;
+
 }

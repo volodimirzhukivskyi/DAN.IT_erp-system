@@ -1,7 +1,7 @@
 package com.danit.erp.domain.personalcard;
 
 import com.danit.erp.domain.BaseEntity;
-import com.danit.erp.domain.dictionary.EducationSpecialization;
+import com.danit.erp.domain.dictionary.Education;
 import com.danit.erp.domain.dictionary.Email;
 import com.danit.erp.domain.dictionary.Profession;
 import com.danit.erp.domain.dictionary.Role;
@@ -9,7 +9,6 @@ import com.danit.erp.domain.dictionary.University;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
@@ -48,8 +47,8 @@ public class PersonalCard extends BaseEntity {
   private University university;
   @ManyToOne(targetEntity = Role.class,cascade=CascadeType.ALL)
   private Role role;
-  @ManyToOne(targetEntity = EducationSpecialization.class)
-  private EducationSpecialization educationSpecialization;
+  @ManyToOne(targetEntity = Education.class)
+  private Education education;
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "email_id_code", referencedColumnName = "id_code")
