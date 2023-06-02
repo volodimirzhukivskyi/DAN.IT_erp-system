@@ -47,10 +47,11 @@ public class ContractService implements BaseService<Contract> {
 //    String saveName = saveInitialCard == null ? obj.getClientName() :
 //      String.format("%s " + "%s", personalCard.get().getSurname(), personalCard.get().getName());
 //! Варіант 2
-  PersonalCard saveInitialCard = personalCard.orElseThrow(()->new Error());
+    PersonalCard saveInitialCard = personalCard.orElseThrow(() -> new Error());
     Contract contract =
       Contract.builder().contractNo(obj.getContractNo()).contractDate(obj.getContractDate())
-        .personalCard(saveInitialCard).contractStatus(obj.getContractStatus()).manager(obj.getManager())
+        .coordinator(obj.getCoordinator()).personalCard(saveInitialCard)
+        .contractStatus(obj.getContractStatus()).manager(obj.getManager())
         .contractValue(obj.getContractValue()).docLink(obj.getDocLink()).build();
     return contractRepository.save(contract);
   }
@@ -60,9 +61,8 @@ public class ContractService implements BaseService<Contract> {
     Contract findContract = contractRepository.findById(obj.getId()).orElseThrow(() -> new Error());
 
     Contract contract = Contract.builder().id(findContract.getId()).contractNo(obj.getContractNo())
-      .contractDate(obj.getContractDate())
-      .personalCard(obj.getPersonalCard())
-      .manager(obj.getManager())
+      .contractDate(obj.getContractDate()).personalCard(obj.getPersonalCard())
+      .manager(obj.getManager()).coordinator(obj.getCoordinator())
       .contractStatus(obj.getContractStatus()).contractValue(obj.getContractValue())
       .docLink(obj.getDocLink()).build();
     contractRepository.save(contract);

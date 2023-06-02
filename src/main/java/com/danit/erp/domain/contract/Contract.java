@@ -2,6 +2,7 @@ package com.danit.erp.domain.contract;
 
 import com.danit.erp.domain.BaseEntity;
 import com.danit.erp.domain.dictionary.ContractStatus;
+import com.danit.erp.domain.dictionary.Coordinator;
 import com.danit.erp.domain.dictionary.Manager;
 import com.danit.erp.domain.personalcard.PersonalCard;
 import jakarta.persistence.CascadeType;
@@ -37,7 +38,8 @@ public class Contract extends BaseEntity {
   private PersonalCard personalCard;
   @ManyToOne(targetEntity = Manager.class,cascade=CascadeType.PERSIST)
   private Manager manager;
-//  private Cordinator cordinator;
+  @ManyToOne(targetEntity = Coordinator.class,cascade=CascadeType.PERSIST)
+  private Coordinator coordinator;
 @ManyToOne(targetEntity = ContractStatus.class,cascade= CascadeType.PERSIST)
  private ContractStatus contractStatus;
 //  private Program program;
