@@ -34,23 +34,22 @@ public class Contract extends BaseEntity {
   private LocalDateTime contractDate;
   private Double contractValue;
   private String docLink;
-//  private String clientName;
+
   @ManyToOne(targetEntity = PersonalCard.class)
   private LegalEntity legalEntity;
   @ManyToOne(targetEntity = PersonalCard.class)
   @JoinColumn(name = "id_code")
   private PersonalCard personalCard;
-  @ManyToOne(targetEntity = Manager.class,cascade=CascadeType.PERSIST)
+  @ManyToOne(targetEntity = Manager.class, cascade = CascadeType.PERSIST)
   private Manager manager;
-  @ManyToOne(targetEntity = Coordinator.class,cascade=CascadeType.PERSIST)
+  @ManyToOne(targetEntity = Coordinator.class, cascade = CascadeType.PERSIST)
   private Coordinator coordinator;
-@ManyToOne(targetEntity = ContractStatus.class,cascade= CascadeType.PERSIST)
- private ContractStatus contractStatus;
-  @ManyToOne(targetEntity = Program.class,cascade= CascadeType.PERSIST)
+  @ManyToOne(targetEntity = ContractStatus.class, cascade = CascadeType.PERSIST)
+  private ContractStatus contractStatus;
+  @ManyToOne(targetEntity = Program.class, cascade = CascadeType.PERSIST)
   private Program program;
-  @ManyToOne(targetEntity = Group.class,cascade= CascadeType.PERSIST)
-
-  private Group groups;
+  @ManyToOne(targetEntity = Group.class, cascade = CascadeType.PERSIST)
+  private Group group;
   private String paymentMethod;
 
 }

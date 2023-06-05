@@ -1,6 +1,8 @@
 package com.danit.erp.controller;
 
-import com.danit.erp.domain.contract.Contract;
+
+import com.danit.erp.dto.contract.ContractRequest;
+import com.danit.erp.dto.contract.ContractResponse;
 import com.danit.erp.service.ContractService;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -22,12 +24,12 @@ public class ContractController {
   private final ContractService contractService;
 
   @GetMapping("/")
-  public List<Contract> getAllTwees() {
+  public List<ContractResponse> getAll() {
     return contractService.findAll();
   }
 
   @GetMapping("/{id}")
-  public Contract getById(@PathVariable("id") String userId) throws Exception {
+  public ContractResponse getById(@PathVariable("id") String userId) throws Exception {
     return contractService.findById(Long.parseLong(userId));
   }
 
@@ -37,14 +39,14 @@ public class ContractController {
   }
 
   @PutMapping("/update")
-  public void update(@RequestBody Contract personalCard) {
-     contractService.update(personalCard);
+  public void update(@RequestBody ContractRequest contractRequest) {
+     contractService.update(contractRequest);
     }
 
 
 
   @PostMapping("/create")
-  public Contract create(@RequestBody Contract personalCard) {
-    return contractService.create(personalCard);
+  public ContractResponse create(@RequestBody ContractRequest contractRequest) {
+    return contractService.create(contractRequest);
   }
 }

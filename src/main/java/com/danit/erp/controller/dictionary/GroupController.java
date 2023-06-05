@@ -44,7 +44,7 @@ public class GroupController {
 
 
   @PostMapping("/create")
-  public Group create(@RequestBody Group personalCard) {
-    return groupService.create(personalCard);
+  public Group create(@RequestBody Group group) {
+    return groupService.create(group);
   }
 }

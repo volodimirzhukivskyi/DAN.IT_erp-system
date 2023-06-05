@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ManagerRepository extends JpaRepository<Manager, Long> {
+  Optional<Manager> findByFullName(String fullName);
   List<Manager> findByDeletedFalse();
   Optional<Manager> findByIdAndDeletedFalse(Long userId);
 
