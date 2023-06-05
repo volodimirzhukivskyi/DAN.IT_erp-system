@@ -7,7 +7,7 @@ import com.danit.erp.domain.dictionary.Group;
 import com.danit.erp.domain.dictionary.LegalEntity;
 import com.danit.erp.domain.dictionary.Manager;
 import com.danit.erp.domain.dictionary.Program;
-import com.danit.erp.domain.personalcard.PersonalCard;
+import com.danit.erp.domain.personal_card.PersonalCard;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,4 +1,4 @@
-package com.danit.erp.domain.personalcard;
+package com.danit.erp.domain.personal_card;
 
 import com.danit.erp.domain.BaseEntity;
 import com.danit.erp.domain.dictionary.Education;

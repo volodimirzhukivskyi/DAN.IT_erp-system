@@ -1,4 +1,4 @@
-package com.danit.erp.facade.contract;
+package com.danit.erp.facade.personal_card;
 
 import com.danit.erp.domain.contract.Contract;
 import com.danit.erp.domain.dictionary.ContractStatus;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 
-public class ContractRequestMapper extends GeneralFacade<Contract, ContractRequest> {
+public class PersonalCardRequestMapper extends GeneralFacade<Contract, ContractRequest> {
   private final LegalEntityRepository legalEntityRepository;
   private final PersonalCardRepository personalCardRepository;
   private final ProgramRepository programRepository;
@@ -31,7 +31,7 @@ public class ContractRequestMapper extends GeneralFacade<Contract, ContractReque
   private final CoordinatorRepository coordinatorRepository;
   private final GroupRepository groupRepository;
 
-  public ContractRequestMapper(
+  public PersonalCardRequestMapper(
     LegalEntityRepository legalEntityRepository,
     PersonalCardRepository personalCardRepository, ProgramRepository programRepository,
     ContractStatusRepository contractStatusRepository, ManagerRepository managerRepository,

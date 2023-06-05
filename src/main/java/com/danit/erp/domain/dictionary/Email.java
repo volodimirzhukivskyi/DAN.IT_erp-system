@@ -1,12 +1,8 @@
 package com.danit.erp.domain.dictionary;
 
 import com.danit.erp.domain.BaseEntity;
-import com.danit.erp.domain.personalcard.PersonalCard;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

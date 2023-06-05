@@ -1,10 +1,10 @@
-package com.danit.erp.dto.contract;
+package com.danit.erp.dto.personal_card;
 
 import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
-public class ContractRequest {
+public class PersonalCardRequest {
   private Long contractNo;
   private LocalDateTime contractDate;
   private Double contractValue;

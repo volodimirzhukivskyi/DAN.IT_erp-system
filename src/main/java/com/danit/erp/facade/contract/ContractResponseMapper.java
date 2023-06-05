@@ -1,7 +1,7 @@
 package com.danit.erp.facade.contract;
 
 import com.danit.erp.domain.contract.Contract;
-import com.danit.erp.domain.personalcard.PersonalCard;
+import com.danit.erp.domain.personal_card.PersonalCard;
 import com.danit.erp.dto.contract.ContractResponse;
 import com.danit.erp.facade.GeneralFacade;
 import java.time.LocalDateTime;

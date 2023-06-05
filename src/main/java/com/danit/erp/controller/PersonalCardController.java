@@ -1,6 +1,7 @@
 package com.danit.erp.controller;
 
-import com.danit.erp.domain.personalcard.PersonalCard;
+import com.danit.erp.domain.personal_card.PersonalCard;
+import com.danit.erp.dto.personal_card.PersonalCardResponse;
 import com.danit.erp.service.PersonalCardService;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -22,12 +23,12 @@ public class PersonalCardController {
   private final PersonalCardService personalCardService;
 
   @GetMapping("/")
-  public List<PersonalCard> getAll() {
+  public List<PersonalCardResponse> getAll() {
     return personalCardService.findAll();
   }
 
   @GetMapping("/{id}")
-  public PersonalCard getById(@PathVariable("id") String userId) throws Exception {
+  public PersonalCardResponse getById(@PathVariable("id") String userId) throws Exception {
     return personalCardService.findById(Long.parseLong(userId));
   }
 
@@ -44,7 +45,7 @@ public class PersonalCardController {
 
 
   @PostMapping("/create")
-  public PersonalCard create(@RequestBody PersonalCard personalCard) {
+  public PersonalCardResponse create(@RequestBody PersonalCard personalCard) {
     return personalCardService.create(personalCard);
   }
 }

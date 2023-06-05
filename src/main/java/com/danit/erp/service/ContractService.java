@@ -1,19 +1,12 @@
 package com.danit.erp.service;
 
 import com.danit.erp.domain.contract.Contract;
-import com.danit.erp.domain.dictionary.LegalEntity;
-import com.danit.erp.domain.dictionary.Program;
-import com.danit.erp.domain.personalcard.PersonalCard;
 import com.danit.erp.dto.contract.ContractRequest;
 import com.danit.erp.dto.contract.ContractResponse;
 import com.danit.erp.facade.contract.ContractRequestMapper;
 import com.danit.erp.facade.contract.ContractResponseMapper;
 import com.danit.erp.repository.ContractRepository;
-import com.danit.erp.repository.PersonalCardRepository;
-import com.danit.erp.repository.dictionary.LegalEntityRepository;
-import com.danit.erp.repository.dictionary.ProgramRepository;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
