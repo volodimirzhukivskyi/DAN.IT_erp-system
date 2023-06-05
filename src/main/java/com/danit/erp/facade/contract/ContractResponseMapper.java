@@ -4,6 +4,7 @@ import com.danit.erp.domain.contract.Contract;
 import com.danit.erp.domain.personal_card.PersonalCard;
 import com.danit.erp.dto.contract.ContractResponse;
 import com.danit.erp.facade.GeneralFacade;
+import com.danit.erp.utils.Helper;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Service;
@@ -23,21 +24,18 @@ public class ContractResponseMapper extends GeneralFacade<Contract, ContractResp
         clientCard.getName());
     //TODO винести в окрему функцію потрібна в різних місцях додатка.
     LocalDateTime contractDate = entity.getContractDate();
-    LocalDateTime startGropDate = entity.getGroup().getStartDate();
-    DateTimeFormatter contractFormatter =
-      DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    String contractDateString = contractDate.format(contractFormatter);
-    String startDateString=startGropDate.format(contractFormatter);
+    LocalDateTime startGroupDate = entity.getGroup().getStartDate();
+
     dto.setLegalEntity(entity.getLegalEntity().getRepresentedBy());
     dto.setClientName(clientName);
-    dto.setContractDate(contractDateString);
+    dto.setContractDate(Helper.convertDate(contractDate));
     dto.setProgram(entity.getProgram().getProgram());
     dto.setProgramHours(entity.getProgram().getProgramHours());
     dto.setResponsibleManager(entity.getManager().getFullName());
     dto.setCoordinator(entity.getCoordinator().getFullName());
     dto.setStatus(entity.getContractStatus().getStatus());
     dto.setGroup(entity.getGroup().getGroupName());
-    dto.setStartDate(startDateString);
+    dto.setStartDate(Helper.convertDate(startGroupDate));
     super.decorateDto(dto, entity);
   }
 

@@ -3,7 +3,7 @@ package com.danit.erp.service.dictionary;
 import com.danit.erp.domain.dictionary.Email;
 import com.danit.erp.domain.personal_card.PersonalCard;
 import com.danit.erp.repository.PersonalCardRepository;
-import com.danit.erp.repository.dictionary.EmailListRepository;
+import com.danit.erp.repository.dictionary.EmailRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class EmailListService implements BaseService<Email> {
-  private final EmailListRepository emailListRepository;
+public class EmailService implements BaseService<Email> {
+  private final EmailRepository emailListRepository;
   private final PersonalCardRepository personalCardRepository;
 
   @Override

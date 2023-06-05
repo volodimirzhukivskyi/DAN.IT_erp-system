@@ -1,20 +1,25 @@
 package com.danit.erp.dto.personal_card;
 
-import java.time.LocalDateTime;
+
 import lombok.Data;
 
 @Data
 public class PersonalCardRequest {
-  private Long contractNo;
-  private LocalDateTime contractDate;
-  private Double contractValue;
-  private String docLink;
-  private String legalEntityCode;
-  private String personalCardCode;
-  private String coordinatorFullName;
-  private String responsibleManagerFullName;
-  private String contractStatus;
-  private String programName;
-  private String groupName;
-  private String paymentMethod;
+  private Long id;
+  private String password;
+  private String surname;
+  private String name;
+  private String secondName;
+
+  private String dateOfBirth;
+  private String idCode;
+  private String passportData;
+  private String linkToCRM;
+  private String initialProfession;
+  private String email;
+  private String universityName;
+
+  private String roleName;
+  private String specializationName;
+
 }

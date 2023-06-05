@@ -1,7 +1,7 @@
 package com.danit.erp.controller.dictionary;
 
 import com.danit.erp.domain.dictionary.Email;
-import com.danit.erp.service.dictionary.EmailListService;
+import com.danit.erp.service.dictionary.EmailService;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 @RestController
 @AllArgsConstructor
-@RequestMapping("${api.version}/email_list")
+@RequestMapping("${api.version}/email")
 public class EmailController {
-  private final EmailListService emailListService;
+  private final EmailService emailListService;
 
   @GetMapping("/")
   public List<Email> getAll() {

@@ -1,6 +1,7 @@
 package com.danit.erp.controller;
 
 import com.danit.erp.domain.personal_card.PersonalCard;
+import com.danit.erp.dto.personal_card.PersonalCardRequest;
 import com.danit.erp.dto.personal_card.PersonalCardResponse;
 import com.danit.erp.service.PersonalCardService;
 import java.util.List;
@@ -38,14 +39,14 @@ public class PersonalCardController {
   }
 
   @PutMapping("/update")
-  public void update(@RequestBody PersonalCard personalCard) {
+  public void update(@RequestBody PersonalCardRequest personalCard) {
      personalCardService.update(personalCard);
     }
 
 
 
   @PostMapping("/create")
-  public PersonalCardResponse create(@RequestBody PersonalCard personalCard) {
+  public PersonalCardResponse create(@RequestBody PersonalCardRequest personalCard) {
     return personalCardService.create(personalCard);
   }
 }

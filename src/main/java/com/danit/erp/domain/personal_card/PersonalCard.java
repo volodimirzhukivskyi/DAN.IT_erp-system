@@ -54,11 +54,4 @@ public class PersonalCard extends BaseEntity {
   @JoinColumn(name = "email_id_code", referencedColumnName = "id_code")
   private Email email;
 
-//TODO  - Цю логіку перенести в dtoMapper
-  @PrePersist
-  public void prePersist() {
-    if (email != null) {
-      email.setIdCode(this.idCode);
-    }
-  }
 }

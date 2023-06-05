@@ -16,14 +16,14 @@ public class PersonalCardResponse {
   private String name;
   private String secondName;
 
-  private LocalDateTime dateOfBirth;
+  private String dateOfBirth;
   private String idCode;
   private String passportData;
   private String linkToCRM;
-  private Profession initialProfession;
-  private University university;
-  private Role role;
-  private Education educationSpecialization;
+  private String initialProfession;
+  private String university;
+  private String role;
+  private String educationSpecialization;
 
-  private Email email;
+  private String email;
 }

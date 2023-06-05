@@ -1,89 +1,84 @@
 package com.danit.erp.facade.personal_card;
 
-import com.danit.erp.domain.contract.Contract;
-import com.danit.erp.domain.dictionary.ContractStatus;
-import com.danit.erp.domain.dictionary.Coordinator;
-import com.danit.erp.domain.dictionary.Group;
-import com.danit.erp.domain.dictionary.LegalEntity;
-import com.danit.erp.domain.dictionary.Manager;
-import com.danit.erp.domain.dictionary.Program;
+import com.danit.erp.domain.dictionary.Education;
+import com.danit.erp.domain.dictionary.Email;
+import com.danit.erp.domain.dictionary.Profession;
+import com.danit.erp.domain.dictionary.Role;
+import com.danit.erp.domain.dictionary.University;
 import com.danit.erp.domain.personal_card.PersonalCard;
-import com.danit.erp.dto.contract.ContractRequest;
+import com.danit.erp.dto.personal_card.PersonalCardRequest;
 import com.danit.erp.facade.GeneralFacade;
-import com.danit.erp.repository.PersonalCardRepository;
-import com.danit.erp.repository.dictionary.ContractStatusRepository;
-import com.danit.erp.repository.dictionary.CoordinatorRepository;
-import com.danit.erp.repository.dictionary.GroupRepository;
-import com.danit.erp.repository.dictionary.LegalEntityRepository;
-import com.danit.erp.repository.dictionary.ManagerRepository;
-import com.danit.erp.repository.dictionary.ProgramRepository;
-import java.util.Optional;
+import com.danit.erp.repository.dictionary.EducationRepository;
+import com.danit.erp.repository.dictionary.EmailRepository;
+import com.danit.erp.repository.dictionary.ProfessionRepository;
+import com.danit.erp.repository.dictionary.RoleRepository;
+import com.danit.erp.repository.dictionary.UniversityRepository;
+import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 @Service
 
-public class PersonalCardRequestMapper extends GeneralFacade<Contract, ContractRequest> {
-  private final LegalEntityRepository legalEntityRepository;
-  private final PersonalCardRepository personalCardRepository;
-  private final ProgramRepository programRepository;
-  private final ContractStatusRepository contractStatusRepository;
-  private final ManagerRepository managerRepository;
-  private final CoordinatorRepository coordinatorRepository;
-  private final GroupRepository groupRepository;
+public class PersonalCardRequestMapper extends GeneralFacade<PersonalCard, PersonalCardRequest> {
+
+  private final EmailRepository emailRepository;
+  private final UniversityRepository universityRepository;
+  private final ProfessionRepository professionRepository;
+  private final RoleRepository roleRepository;
+  private final EducationRepository educationRepository;
 
   public PersonalCardRequestMapper(
-    LegalEntityRepository legalEntityRepository,
-    PersonalCardRepository personalCardRepository, ProgramRepository programRepository,
-    ContractStatusRepository contractStatusRepository, ManagerRepository managerRepository,
-    CoordinatorRepository coordinatorRepository, GroupRepository groupRepository) {
-    super(Contract.class, ContractRequest.class);
-    this.legalEntityRepository = legalEntityRepository;
-    this.personalCardRepository = personalCardRepository;
+    EmailRepository emailRepository, UniversityRepository universityRepository,
+    ProfessionRepository professionRepository, RoleRepository roleRepository,
+    EducationRepository educationRepository) {
+    super(PersonalCard.class, PersonalCardRequest.class);
 
-    this.programRepository = programRepository;
-    this.contractStatusRepository = contractStatusRepository;
-    this.managerRepository = managerRepository;
-    this.coordinatorRepository = coordinatorRepository;
-    this.groupRepository = groupRepository;
+    this.emailRepository = emailRepository;
+    this.universityRepository = universityRepository;
+    this.professionRepository = professionRepository;
+    this.roleRepository = roleRepository;
+    this.educationRepository = educationRepository;
   }
 
   @Override
-  protected void decorateDto(ContractRequest dto, Contract entity) {
+  protected void decorateDto(PersonalCardRequest dto, PersonalCard entity) {
 
     super.decorateDto(dto, entity);
   }
 
   @Override
-  protected void decorateEntity(Contract entity, ContractRequest dto) {
-    Optional<LegalEntity> legalEntity =
-      legalEntityRepository.findByIdCode(dto.getLegalEntityCode());
-    LegalEntity saveLegalEntity = legalEntity.orElseThrow(() -> new Error());
-    Optional<PersonalCard> personalCard =
-      personalCardRepository.findByIdCode(dto.getPersonalCardCode());
-    PersonalCard savePersonalCard = personalCard.orElseThrow(()->new Error());
-    Optional<Program> program =
-      programRepository.findByProgram(dto.getProgramName());
-    Program saveProgram = program.orElseThrow(()->new Error());
-    Optional<ContractStatus> findContractStatus =
-      contractStatusRepository.findByStatus(dto.getContractStatus());
-    ContractStatus saveContractStatus = findContractStatus.orElseThrow(()->new Error());
-    Optional<Manager> findManager =
-      managerRepository.findByFullName(dto.getResponsibleManagerFullName());
-    Manager saveManager = findManager.orElseThrow(()->new Error());
-    Optional<Coordinator> findCoordinator =
-      coordinatorRepository.findByFullName(dto.getCoordinatorFullName());
-    Coordinator saveCoordinator = findCoordinator.orElseThrow(()->new Error());
-Optional<Group> findGroup =
-      groupRepository.findByGroupName(dto.getGroupName());
-    Group saveGroup = findGroup.orElseThrow(()->new Error());
+  protected void decorateEntity(PersonalCard entity, PersonalCardRequest dto) {
 
-    entity.setLegalEntity(saveLegalEntity);
-    entity.setPersonalCard(savePersonalCard);
-    entity.setProgram(saveProgram);
-    entity.setContractStatus(saveContractStatus);
-    entity.setManager(saveManager);
-    entity.setCoordinator(saveCoordinator);
-    entity.setGroup(saveGroup);
+    Email findEmail = emailRepository.findByIdCode(dto.getIdCode()).orElse(null);
+    University findUniversity =
+      universityRepository.findByName(dto.getUniversityName()).orElse(null);
+    Profession findProfession =
+      professionRepository.findByName(dto.getInitialProfession()).orElse(null);
+    Education findSpecialization =
+      educationRepository.findBySpecialization(dto.getSpecializationName()).orElse(null);
+    if (dto.getEmail() != null && findEmail == null) {
+      findEmail = emailRepository.save(new Email(dto.getIdCode(), dto.getEmail()));
+    }
+    if (dto.getUniversityName() != null && findUniversity == null) {
+      findUniversity =
+        universityRepository.save(University.builder().name(dto.getUniversityName()).build());
+    }
+    if (dto.getInitialProfession() != null && findProfession == null) {
+      findProfession =
+        professionRepository.save(Profession.builder().name(dto.getInitialProfession()).build());
+    }
+    if (dto.getSpecializationName() != null && findSpecialization == null) {
+      findSpecialization =
+        educationRepository.save(Education.builder().specialization(dto.getSpecializationName()).build());
+    }
+    Role findRole = roleRepository.findByRole(dto.getRoleName()).orElseThrow(() -> new Error());
+
+    entity.setEmail(findEmail);
+    entity.setUniversity(findUniversity);
+    entity.setInitialProfession(findProfession);
+    entity.setDateOfBirth(LocalDateTime.parse(dto.getDateOfBirth()));
+    entity.setEducation(findSpecialization);
+    entity.setRole(findRole);
+
     super.decorateEntity(entity, dto);
   }
 }
