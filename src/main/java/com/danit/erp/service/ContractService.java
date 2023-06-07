@@ -53,7 +53,7 @@ public class ContractService implements BaseService<ContractResponse> {
   }
 
   public ContractResponse create(ContractRequest contractRequest) {
-    //TODO  - логіку перенести в dtoMapper
+
    Contract obj =contractRequestMapper.convertToEntity(contractRequest);
 
     Contract contract =

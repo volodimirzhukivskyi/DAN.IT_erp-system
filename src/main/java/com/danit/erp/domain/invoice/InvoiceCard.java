@@ -2,9 +2,11 @@ package com.danit.erp.domain.invoice;
 
 import com.danit.erp.domain.BaseEntity;
 import com.danit.erp.domain.contract.Contract;
+import com.danit.erp.domain.dictionary.PaymentMethod;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
@@ -31,6 +33,7 @@ public class InvoiceCard extends BaseEntity {
   private Double amountDue;
   private LocalDateTime paymentDate;
   private Double amountPaid;
-
+  @ManyToOne
+  private PaymentMethod paymentMethod;
 
 }
