@@ -1,4 +1,4 @@
-package com.danit.erp.domain.dictionary;
+package com.danit.erp.domain.dictionary.roles;
 
 import com.danit.erp.domain.BaseEntity;
 import jakarta.persistence.Entity;
@@ -10,13 +10,14 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "coordinators")
+@Table(name = "roles")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Coordinator extends BaseEntity {
-  private String fullName;
+public class Role extends BaseEntity {
+  private String role;
   private boolean deleted;
 }
+

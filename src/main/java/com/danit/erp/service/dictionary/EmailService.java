@@ -36,20 +36,21 @@ public class EmailService implements BaseService<Email> {
 
   @Override
   public Email create(Email obj) {
-//TODO  перенести логіку в dto mapper
+//TODO  Більш красивіше прописати метод
     PersonalCard findPersonalCard =
       personalCardRepository.findByIdCode(obj.getIdCode()).orElse(null);
-
-    if (findPersonalCard != null && findPersonalCard.getEmail() == null) {
-      findPersonalCard.setEmail(obj);
-      personalCardRepository.save(findPersonalCard);
-    } else {
+    Email findEmail = emailListRepository.findByIdCode(obj.getIdCode()).orElse(null);
+    if (findEmail == null) {
       Email email = Email.builder().email(obj.getEmail()).idCode(obj.getIdCode()).build();
-      return emailListRepository.save(email);
-
+      emailListRepository.save(email);
+      if (findPersonalCard != null && findPersonalCard.getEmail() == null) {
+        findPersonalCard.setEmail(email);
+      }
+      return email;
+    } else {
+      throw new Error("email з таким id уже є!");
 
     }
-    return null;
   }
 
   @Override

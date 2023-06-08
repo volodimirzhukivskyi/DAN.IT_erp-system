@@ -1,7 +1,6 @@
-package com.danit.erp.repository.dictionary;
+package com.danit.erp.repository.dictionary.status;
 
-import com.danit.erp.domain.dictionary.ContractStatus;
-import com.danit.erp.domain.dictionary.Group;
+import com.danit.erp.domain.dictionary.status.ContractStatus;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

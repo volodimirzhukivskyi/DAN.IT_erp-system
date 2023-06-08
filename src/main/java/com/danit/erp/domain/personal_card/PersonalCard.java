@@ -4,7 +4,7 @@ import com.danit.erp.domain.BaseEntity;
 import com.danit.erp.domain.dictionary.Education;
 import com.danit.erp.domain.dictionary.Email;
 import com.danit.erp.domain.dictionary.Profession;
-import com.danit.erp.domain.dictionary.Role;
+import com.danit.erp.domain.dictionary.roles.Role;
 import com.danit.erp.domain.dictionary.University;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -12,7 +12,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -53,5 +52,6 @@ public class PersonalCard extends BaseEntity {
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "email_id_code", referencedColumnName = "id_code")
   private Email email;
+
 
 }

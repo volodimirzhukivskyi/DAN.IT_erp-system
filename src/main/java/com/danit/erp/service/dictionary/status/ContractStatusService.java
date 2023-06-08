@@ -1,7 +1,7 @@
-package com.danit.erp.service.dictionary;
+package com.danit.erp.service.dictionary.status;
 
-import com.danit.erp.domain.dictionary.ContractStatus;
-import com.danit.erp.repository.dictionary.ContractStatusRepository;
+import com.danit.erp.domain.dictionary.status.ContractStatus;
+import com.danit.erp.repository.dictionary.status.ContractStatusRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -49,12 +49,12 @@ public class ContractStatusService implements BaseService<ContractStatus> {
 
   @Override
   public void delete(Long userId) {
-    ContractStatus role =
+    ContractStatus contractStatus =
       contractStatusRepository.findById(userId).orElseThrow(() -> new Error());
 
     //TODO зробити помилку
-    role.setDeleted(true);
-    contractStatusRepository.save(role);
+    contractStatus.setDeleted(true);
+    contractStatusRepository.save(contractStatus);
 
   }
 }

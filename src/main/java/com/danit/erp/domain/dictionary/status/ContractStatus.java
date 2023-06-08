@@ -1,4 +1,4 @@
-package com.danit.erp.domain.dictionary;
+package com.danit.erp.domain.dictionary.status;
 
 import com.danit.erp.domain.BaseEntity;
 import jakarta.persistence.Entity;

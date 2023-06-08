@@ -1,6 +1,6 @@
-package com.danit.erp.repository.dictionary;
+package com.danit.erp.repository.dictionary.roles;
 
-import com.danit.erp.domain.dictionary.Role;
+import com.danit.erp.domain.dictionary.roles.Role;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,7 +1,7 @@
-package com.danit.erp.controller.dictionary;
+package com.danit.erp.controller.dictionary.status;
 
-import com.danit.erp.domain.dictionary.Coordinator;
-import com.danit.erp.service.dictionary.CoordinatorService;
+import com.danit.erp.domain.dictionary.status.ContractStatus;
+import com.danit.erp.service.dictionary.status.ContractStatusService;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,34 +17,34 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 @RestController
 @AllArgsConstructor
-@RequestMapping("${api.version}/coordinator")
-public class CoordinatorController {
-  private final CoordinatorService coordinatorService;
+@RequestMapping("${api.version}/contract_status")
+public class ContractStatusController {
+  private final ContractStatusService contractStatusService;
 
   @GetMapping("/")
-  public List<Coordinator> getAll() {
-    return coordinatorService.findAll();
+  public List<ContractStatus> getAll() {
+    return contractStatusService.findAll();
   }
 
   @GetMapping("/{id}")
-  public Coordinator getById(@PathVariable("id") String userId) throws Exception {
-    return coordinatorService.findById(Long.parseLong(userId));
+  public ContractStatus getById(@PathVariable("id") String userId) throws Exception {
+    return contractStatusService.findById(Long.parseLong(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    coordinatorService.delete(Long.parseLong(userId));
+    contractStatusService.delete(Long.parseLong(userId));
   }
 
   @PutMapping("/update")
-  public void update(@RequestBody Coordinator personalCard) {
-    coordinatorService.update(personalCard);
+  public void update(@RequestBody ContractStatus personalCard) {
+    contractStatusService.update(personalCard);
   }
 
 
 
   @PostMapping("/create")
-  public Coordinator create(@RequestBody Coordinator personalCard) {
-    return coordinatorService.create(personalCard);
+  public ContractStatus create(@RequestBody ContractStatus personalCard) {
+    return contractStatusService.create(personalCard);
   }
 }

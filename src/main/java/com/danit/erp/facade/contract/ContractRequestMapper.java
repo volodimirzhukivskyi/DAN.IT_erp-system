@@ -1,21 +1,21 @@
 package com.danit.erp.facade.contract;
 
 import com.danit.erp.domain.contract.Contract;
-import com.danit.erp.domain.dictionary.ContractStatus;
-import com.danit.erp.domain.dictionary.Coordinator;
+import com.danit.erp.domain.dictionary.status.ContractStatus;
+import com.danit.erp.domain.dictionary.roles.Coordinator;
 import com.danit.erp.domain.dictionary.Group;
 import com.danit.erp.domain.dictionary.LegalEntity;
-import com.danit.erp.domain.dictionary.Manager;
+import com.danit.erp.domain.dictionary.roles.Manager;
 import com.danit.erp.domain.dictionary.Program;
 import com.danit.erp.domain.personal_card.PersonalCard;
 import com.danit.erp.dto.contract.ContractRequest;
 import com.danit.erp.facade.GeneralFacade;
 import com.danit.erp.repository.PersonalCardRepository;
-import com.danit.erp.repository.dictionary.ContractStatusRepository;
-import com.danit.erp.repository.dictionary.CoordinatorRepository;
+import com.danit.erp.repository.dictionary.status.ContractStatusRepository;
+import com.danit.erp.repository.dictionary.roles.CoordinatorRepository;
 import com.danit.erp.repository.dictionary.GroupRepository;
 import com.danit.erp.repository.dictionary.LegalEntityRepository;
-import com.danit.erp.repository.dictionary.ManagerRepository;
+import com.danit.erp.repository.dictionary.roles.ManagerRepository;
 import com.danit.erp.repository.dictionary.ProgramRepository;
 import java.util.Optional;
 import org.springframework.stereotype.Service;

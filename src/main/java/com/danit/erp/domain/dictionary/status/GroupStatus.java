@@ -1,4 +1,4 @@
-package com.danit.erp.domain.dictionary;
+package com.danit.erp.domain.dictionary.status;
 
 import com.danit.erp.domain.BaseEntity;
 import jakarta.persistence.Entity;
@@ -10,15 +10,16 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "responsible_managers")
+@Table(name = "groups_status")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Manager extends BaseEntity {
-  private String fullName;
+public class GroupStatus extends BaseEntity {
+  private String status;
   private boolean deleted;
 
 
 }
+

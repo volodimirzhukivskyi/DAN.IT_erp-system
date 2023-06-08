@@ -7,11 +7,13 @@ import lombok.Data;
 
 @Data
 public class InvoiceCardResponse {
+  private Long id;
   private Long invoiceNo;
-  private Contract contract;
-  private LocalDateTime dueDate;
+  private Long contractNo;
+  private String responsibleManager;
+  private String dueDate;
   private Double amountDue;
-  private LocalDateTime paymentDate;
+  private String paymentDate;
   private Double amountPaid;
-  private PaymentMethod paymentMethod;
+  private   String paymentMethod;
 }

@@ -1,11 +1,5 @@
 package com.danit.erp.dto.personal_card;
 
-import com.danit.erp.domain.dictionary.Education;
-import com.danit.erp.domain.dictionary.Email;
-import com.danit.erp.domain.dictionary.Profession;
-import com.danit.erp.domain.dictionary.Role;
-import com.danit.erp.domain.dictionary.University;
-import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data

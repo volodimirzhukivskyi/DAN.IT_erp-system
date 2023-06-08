@@ -1,11 +1,11 @@
 package com.danit.erp.domain.contract;
 
 import com.danit.erp.domain.BaseEntity;
-import com.danit.erp.domain.dictionary.ContractStatus;
-import com.danit.erp.domain.dictionary.Coordinator;
+import com.danit.erp.domain.dictionary.status.ContractStatus;
+import com.danit.erp.domain.dictionary.roles.Coordinator;
 import com.danit.erp.domain.dictionary.Group;
 import com.danit.erp.domain.dictionary.LegalEntity;
-import com.danit.erp.domain.dictionary.Manager;
+import com.danit.erp.domain.dictionary.roles.Manager;
 import com.danit.erp.domain.dictionary.Program;
 import com.danit.erp.domain.personal_card.PersonalCard;
 import jakarta.persistence.CascadeType;
@@ -35,7 +35,7 @@ public class Contract extends BaseEntity {
   private Double contractValue;
   private String docLink;
 
-  @ManyToOne(targetEntity = PersonalCard.class)
+  @ManyToOne(targetEntity = LegalEntity.class)
   private LegalEntity legalEntity;
   @ManyToOne(targetEntity = PersonalCard.class)
   @JoinColumn(name = "id_code")

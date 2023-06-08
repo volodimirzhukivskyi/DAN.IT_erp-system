@@ -1,7 +1,7 @@
-package com.danit.erp.service.dictionary;
+package com.danit.erp.service.dictionary.roles;
 
-import com.danit.erp.domain.dictionary.Manager;
-import com.danit.erp.repository.dictionary.ManagerRepository;
+import com.danit.erp.domain.dictionary.roles.Manager;
+import com.danit.erp.repository.dictionary.roles.ManagerRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

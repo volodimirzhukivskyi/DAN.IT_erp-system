@@ -58,7 +58,8 @@ public class PersonalCardService implements BaseService<PersonalCardResponse> {
     PersonalCard personalCard =
       PersonalCard.builder().name(obj.getName()).secondName(obj.getSecondName())
         .surname(obj.getSurname()).linkToCRM(obj.getLinkToCRM()).passportData(obj.getPassportData())
-        .email(obj.getEmail()).password(obj.getPassword())
+        .email(obj.getEmail())
+        .password(obj.getPassword())
         .idCode(obj.getIdCode())
         .university(obj.getUniversity())
         .role(obj.getRole())
