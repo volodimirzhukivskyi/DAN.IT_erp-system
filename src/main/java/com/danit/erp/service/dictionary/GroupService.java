@@ -1,6 +1,7 @@
 package com.danit.erp.service.dictionary;
 
 import com.danit.erp.domain.dictionary.Group;
+import com.danit.erp.repository.GroupScheduleRepository;
 import com.danit.erp.repository.dictionary.GroupRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class GroupService implements BaseService<Group> {
   private final GroupRepository groupRepository;
+  private final GroupScheduleRepository groupScheduleRepository;
 
   @Override
   public List<Group> findAll() {
@@ -33,7 +35,8 @@ public class GroupService implements BaseService<Group> {
 
   @Override
   public Group create(Group obj) {
-    Group group = Group.builder().groupName(obj.getGroupName()).startDate(obj.getStartDate()).build();
+    Group group =
+      Group.builder().groupName(obj.getGroupName()).startDate(obj.getStartDate()).build();
     return groupRepository.save(group);
   }
 
@@ -42,16 +45,15 @@ public class GroupService implements BaseService<Group> {
     Group findGroup =
       groupRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new Error());
 
-    Group group =
-      Group.builder().id(findGroup.getId()).groupName(obj.getGroupName()).startDate(obj.getStartDate()).build();
+    Group group = Group.builder().id(findGroup.getId()).groupName(obj.getGroupName())
+      .startDate(obj.getStartDate()).build();
     groupRepository.save(group);
   }
 
   @Override
   public void delete(Long userId) {
-    Group group =
-      groupRepository.findById(userId).orElseThrow(() -> new Error());
-
+    Group group = groupRepository.findById(userId).orElseThrow(() -> new Error());
+    groupScheduleRepository.deleteAll(group.getGroupSchedules());
     //TODO зробити помилку
     group.setDeleted(true);
     groupRepository.save(group);

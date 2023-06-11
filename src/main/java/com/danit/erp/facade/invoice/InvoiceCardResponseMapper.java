@@ -24,8 +24,8 @@ public class InvoiceCardResponseMapper extends GeneralFacade<InvoiceCard, Invoic
     dto.setContractNo(entity.getContract().getContractNo());
     dto.setResponsibleManager(entity.getContract().getManager().getFullName());
     dto.setPaymentMethod(entity.getPaymentMethod().getMethod());
-    dto.setDueDate(Helper.convertDate(dueDate));
-    dto.setPaymentDate(Helper.convertDate(paymentDate));
+    dto.setDueDate(Helper.convertDate(dueDate,"dd.MM.yyyy"));
+    dto.setPaymentDate(Helper.convertDate(paymentDate,"dd.MM.yyyy"));
     super.decorateDto(dto, entity);
   }
 

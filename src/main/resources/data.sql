@@ -74,6 +74,21 @@ VALUES
     (false, 'Olivia Thompson'),
     (false, 'Matthew Lee'),
     (false, 'Ava Turner');
+INSERT INTO trainers (deleted, full_name)
+VALUES
+    (false, 'Thompson Davis'),
+    (false, 'Lee Wilson'),
+    (false, 'Ava Thompson'),
+    (false, 'Davis Lee'),
+    (false, 'Olivia Turner');
+INSERT INTO mentors (deleted, full_name)
+VALUES
+    (false, 'John Smith'),
+    (false, 'Emily Johnson'),
+    (false, 'Michael Brown'),
+    (false, 'Olivia Davis'),
+    (false, 'William Wilson');
+
 INSERT INTO groups (deleted, group_name, start_date)
 VALUES
     (false, 'pe-26', '2023-01-01'),
@@ -82,6 +97,12 @@ VALUES
     (false, 'pe-21', '2023-04-20'),
     (false, 'pe-22', '2023-05-05');
 INSERT INTO contracts_status (deleted, status)
+VALUES
+    (false, 'Active'),
+    (false, 'Cancelled'),
+    (false, 'Paused'),
+    (false, 'Completed');
+INSERT INTO groups_status (deleted, status)
 VALUES
     (false, 'Active'),
     (false, 'Cancelled'),

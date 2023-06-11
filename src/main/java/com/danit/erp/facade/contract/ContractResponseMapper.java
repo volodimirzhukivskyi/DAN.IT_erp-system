@@ -28,14 +28,14 @@ public class ContractResponseMapper extends GeneralFacade<Contract, ContractResp
 
     dto.setLegalEntity(entity.getLegalEntity().getRepresentedBy());
     dto.setClientName(clientName);
-    dto.setContractDate(Helper.convertDate(contractDate));
+    dto.setContractDate(Helper.convertDate(contractDate,"dd.MM.yyyy"));
     dto.setProgram(entity.getProgram().getProgram());
     dto.setProgramHours(entity.getProgram().getProgramHours());
     dto.setResponsibleManager(entity.getManager().getFullName());
     dto.setCoordinator(entity.getCoordinator().getFullName());
     dto.setStatus(entity.getContractStatus().getStatus());
     dto.setGroup(entity.getGroup().getGroupName());
-    dto.setStartDate(Helper.convertDate(startGroupDate));
+    dto.setStartDate(Helper.convertDate(startGroupDate,"dd.MM.yyyy"));
     super.decorateDto(dto, entity);
   }
 
