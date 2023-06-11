@@ -31,14 +31,13 @@ public class GroupListRequestMapper extends GeneralFacade<GroupList, GroupListRe
   private final MentorRepository mentorRepository;
   private final TrainerRepository trainerRepository;
   private final CoordinatorRepository coordinatorRepository;
-  private final GroupScheduleRepository groupScheduleRepository;
 
 
   public GroupListRequestMapper(
     GroupListRepository groupListRepository, GroupRepository groupRepository,
     ProgramRepository programRepository, GroupStatusRepository groupStatusRepository,
     MentorRepository mentorRepository, TrainerRepository trainerRepository,
-    CoordinatorRepository coordinatorRepository, GroupScheduleRepository groupScheduleRepository) {
+    CoordinatorRepository coordinatorRepository) {
     super(GroupList.class, GroupListRequest.class);
 
 
@@ -49,7 +48,6 @@ public class GroupListRequestMapper extends GeneralFacade<GroupList, GroupListRe
     this.mentorRepository = mentorRepository;
     this.trainerRepository = trainerRepository;
     this.coordinatorRepository = coordinatorRepository;
-    this.groupScheduleRepository = groupScheduleRepository;
   }
 
   @Override
