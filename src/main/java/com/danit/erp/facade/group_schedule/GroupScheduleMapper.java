@@ -1,6 +1,7 @@
 package com.danit.erp.facade.group_schedule;
 
 import com.danit.erp.domain.dictionary.Group;
+import com.danit.erp.domain.group_schedule.DayOfWeek;
 import com.danit.erp.domain.group_schedule.GroupSchedule;
 import com.danit.erp.dto.group_schedule.GroupScheduleDto;
 import com.danit.erp.facade.GeneralFacade;
@@ -33,6 +34,7 @@ public class GroupScheduleMapper extends GeneralFacade<GroupSchedule, GroupSched
   protected void decorateEntity(GroupSchedule entity, GroupScheduleDto dto) {
     Group findGroup =
       groupRepository.findByGroupName(dto.getGroupName()).orElseThrow(() -> new Error());
+
     entity.setGroup(findGroup);
     entity.setStartTime(Helper.convertInLocalDate(dto.getStartTime()));
     entity.setEndTime(Helper.convertInLocalDate(dto.getEndTime()));

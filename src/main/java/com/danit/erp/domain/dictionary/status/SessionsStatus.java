@@ -1,7 +1,6 @@
-package com.danit.erp.domain.dictionary;
+package com.danit.erp.domain.dictionary.status;
 
 import com.danit.erp.domain.BaseEntity;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -11,15 +10,16 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "email_lists")
+@Table(name = "sessions_status")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Email extends BaseEntity {
-  @Column(name = "id_code",unique = true)
-  private String idCode;
-  private String email;
+public class SessionsStatus extends BaseEntity {
+  private String status;
+  private boolean deleted;
+
 
 }
+

@@ -1,8 +1,8 @@
 package com.danit.erp.service.dictionary;
 
 import com.danit.erp.domain.dictionary.Email;
-import com.danit.erp.domain.personal_card.PersonalCard;
-import com.danit.erp.repository.PersonalCardRepository;
+import com.danit.erp.domain.card.personal_card.PersonalCard;
+import com.danit.erp.repository.card.PersonalCardRepository;
 import com.danit.erp.repository.dictionary.EmailRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;

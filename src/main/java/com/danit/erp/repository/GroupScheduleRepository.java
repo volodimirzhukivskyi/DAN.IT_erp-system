@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GroupScheduleRepository extends JpaRepository<GroupSchedule,Long> {
 
-  Optional<GroupSchedule> findByGroup(Group group);
+  Optional<GroupSchedule> findByDayOfWeek(String group);
 }

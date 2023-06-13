@@ -1,0 +1,12 @@
+package com.danit.erp.repository.dictionary.status;
+
+import com.danit.erp.domain.dictionary.status.SessionsStatus;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SessionsStatusRepository extends JpaRepository<SessionsStatus,Long> {
+  Optional<SessionsStatus> findByStatus(String status);
+  List<SessionsStatus> findByDeletedFalse();
+  Optional<SessionsStatus> findByIdAndDeletedFalse(Long userId);
+}

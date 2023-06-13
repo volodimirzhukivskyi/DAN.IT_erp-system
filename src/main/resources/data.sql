@@ -102,6 +102,11 @@ VALUES
     (false, 'Cancelled'),
     (false, 'Paused'),
     (false, 'Completed');
+INSERT INTO sessions_status (deleted, status)
+VALUES
+    (false, 'Active'),
+    (false, 'Archieved');
+
 INSERT INTO groups_status (deleted, status)
 VALUES
     (false, 'Active'),
