@@ -1,6 +1,7 @@
 package com.danit.erp.service.dictionary.roles;
 
 import com.danit.erp.domain.dictionary.roles.Manager;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.roles.ManagerRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -26,8 +27,7 @@ public class ManagerService implements BaseService<Manager> {
 
   @Override
   public Manager findById(Long userId) {
-    return managerRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new Error());
-    //TODO зробити помилку
+    return managerRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Менеджера"));
   }
 
 
@@ -40,7 +40,7 @@ public class ManagerService implements BaseService<Manager> {
   @Override
   public void update(Manager obj) {
     Manager findManager =
-      managerRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new Error());
+      managerRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Менеджера"));
 
     Manager manager =
       Manager.builder().id(findManager.getId()).fullName(obj.getFullName()).build();
@@ -50,9 +50,8 @@ public class ManagerService implements BaseService<Manager> {
   @Override
   public void delete(Long userId) {
     Manager manager =
-      managerRepository.findById(userId).orElseThrow(() -> new Error());
+      managerRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Менеджера"));
 
-    //TODO зробити помилку
     manager.setDeleted(true);
     managerRepository.save(manager);
 

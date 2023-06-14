@@ -1,7 +1,6 @@
 package com.danit.erp.facade.card.contract;
 
 import com.danit.erp.domain.card.contract.Contract;
-import com.danit.erp.domain.card.personal_card.PersonalCard;
 import com.danit.erp.dto.card.contract.ContractResponse;
 import com.danit.erp.facade.GeneralFacade;
 import com.danit.erp.utils.Helper;
@@ -17,11 +16,8 @@ public class ContractResponseMapper extends GeneralFacade<Contract, ContractResp
   @Override
   protected void decorateDto(ContractResponse dto, Contract entity) {
 
-    PersonalCard clientCard = entity.getPersonalCard();
-    String clientName =
-      String.format("%s %s %s", clientCard.getSecondName(), clientCard.getSurname(),
-        clientCard.getName());
-    //TODO винести в окрему функцію потрібна в різних місцях додатка.
+    String clientName = Helper.getFullName(entity.getPersonalCard());
+
     LocalDateTime contractDate = entity.getContractDate();
     LocalDateTime startGroupDate = entity.getGroup().getStartDate();
 

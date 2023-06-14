@@ -4,6 +4,8 @@ import com.danit.erp.domain.dictionary.Program;
 import com.danit.erp.domain.dictionary.Sessions;
 import com.danit.erp.domain.dictionary.status.SessionsStatus;
 import com.danit.erp.dto.sessions.SessionsRequest;
+import com.danit.erp.exception.find.name.CouldNotFindNameException;
+import com.danit.erp.exception.find.status.CouldNotFindStatusException;
 import com.danit.erp.facade.GeneralFacade;
 import com.danit.erp.repository.dictionary.ProgramRepository;
 import com.danit.erp.repository.dictionary.status.SessionsStatusRepository;
@@ -15,8 +17,8 @@ public class SessionsRequestMapper extends GeneralFacade<Sessions, SessionsReque
   private final ProgramRepository programRepository;
   private final SessionsStatusRepository sessionsStatusRepository;
 
-  public SessionsRequestMapper(ProgramRepository programRepository,
-                               SessionsStatusRepository sessionsStatusRepository) {
+  public SessionsRequestMapper(
+    ProgramRepository programRepository, SessionsStatusRepository sessionsStatusRepository) {
     super(Sessions.class, SessionsRequest.class);
 
 
@@ -32,10 +34,10 @@ public class SessionsRequestMapper extends GeneralFacade<Sessions, SessionsReque
 
   @Override
   protected void decorateEntity(Sessions entity, SessionsRequest dto) {
-    Program byProgram =
-      programRepository.findByProgram(dto.getProgramName()).orElseThrow(()->new Error());
-    SessionsStatus sessionsStatus =
-      sessionsStatusRepository.findByStatus(dto.getSessionsStatus()).orElseThrow(() -> new Error());
+    Program byProgram = programRepository.findByProgram(dto.getProgramName())
+      .orElseThrow(() -> new CouldNotFindNameException("Програми"));
+    SessionsStatus sessionsStatus = sessionsStatusRepository.findByStatus(dto.getSessionsStatus())
+      .orElseThrow(() -> new CouldNotFindStatusException("сесії статусу"));
     entity.setProgram(byProgram);
     entity.setSessionsStatus(sessionsStatus);
 

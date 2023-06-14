@@ -49,23 +49,26 @@ public class PersonalCardRequestMapper extends GeneralFacade<PersonalCard, Perso
   protected void decorateEntity(PersonalCard entity, PersonalCardRequest dto) {
 
     Email findEmail = emailRepository.findByIdCode(dto.getIdCode()).orElse(null);
-    University findUniversity =
-      universityRepository.findByName(dto.getUniversityName()).orElse(null);
-    Profession findProfession =
-      professionRepository.findByName(dto.getInitialProfession()).orElse(null);
-    Education findSpecialization =
-      educationRepository.findBySpecialization(dto.getSpecializationName()).orElse(null);
     if (dto.getEmail() != null && findEmail == null) {
       findEmail = emailRepository.save(new Email(dto.getIdCode(), dto.getEmail()));
     }
+
+
+    University findUniversity =
+      universityRepository.findByName(dto.getUniversityName()).orElse(null);
     if (dto.getUniversityName() != null && findUniversity == null) {
       findUniversity =
         universityRepository.save(University.builder().name(dto.getUniversityName()).build());
     }
+    Profession findProfession =
+      professionRepository.findByName(dto.getInitialProfession()).orElse(null);
     if (dto.getInitialProfession() != null && findProfession == null) {
       findProfession =
         professionRepository.save(Profession.builder().name(dto.getInitialProfession()).build());
     }
+    Education findSpecialization =
+      educationRepository.findBySpecialization(dto.getSpecializationName()).orElse(null);
+
     if (dto.getSpecializationName() != null && findSpecialization == null) {
       findSpecialization =
         educationRepository.save(Education.builder().specialization(dto.getSpecializationName()).build());

@@ -1,6 +1,7 @@
 package com.danit.erp.service.dictionary.roles;
 
 import com.danit.erp.domain.dictionary.roles.Coordinator;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.roles.CoordinatorRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -26,8 +27,8 @@ public class CoordinatorService implements BaseService<Coordinator> {
 
   @Override
   public Coordinator findById(Long userId) {
-    return coordinatorRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new Error());
-    //TODO зробити помилку
+    return coordinatorRepository.findByIdAndDeletedFalse(userId)
+      .orElseThrow(() -> new CouldNotFindException("Координатора"));
   }
 
 
@@ -39,8 +40,8 @@ public class CoordinatorService implements BaseService<Coordinator> {
 
   @Override
   public void update(Coordinator obj) {
-    Coordinator findCoordinator =
-      coordinatorRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new Error());
+    Coordinator findCoordinator = coordinatorRepository.findByIdAndDeletedFalse(obj.getId())
+      .orElseThrow(() -> new CouldNotFindException("Координатора"));
 
     Coordinator coordinator =
       Coordinator.builder().id(findCoordinator.getId()).fullName(obj.getFullName()).build();
@@ -49,10 +50,9 @@ public class CoordinatorService implements BaseService<Coordinator> {
 
   @Override
   public void delete(Long userId) {
-    Coordinator coordinator =
-      coordinatorRepository.findById(userId).orElseThrow(() -> new Error());
+    Coordinator coordinator = coordinatorRepository.findById(userId)
+      .orElseThrow(() -> new CouldNotFindException("Координатора"));
 
-    //TODO зробити помилку
     coordinator.setDeleted(true);
     coordinatorRepository.save(coordinator);
 

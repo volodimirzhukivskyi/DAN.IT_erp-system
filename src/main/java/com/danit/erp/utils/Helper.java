@@ -1,5 +1,6 @@
 package com.danit.erp.utils;
 
+import com.danit.erp.domain.card.personal_card.PersonalCard;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -16,5 +17,9 @@ public class Helper {
     int hours = Integer.parseInt(split[0]);
     int minutes = Integer.parseInt(split[1]);
     return LocalDateTime.now().withHour(hours).withMinute(minutes);
+  }
+  public static String getFullName (PersonalCard clientCard){
+    return  String.format("%s %s %s", clientCard.getSecondName(), clientCard.getSurname(),
+      clientCard.getName());
   }
 }

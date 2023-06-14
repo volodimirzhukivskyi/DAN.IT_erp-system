@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 @Service
 
 public class GroupListRequestMapper extends GeneralFacade<GroupList, GroupListRequest> {
-  private final GroupListRepository groupListRepository;
+
   private final GroupRepository groupRepository;
   private final ProgramRepository programRepository;
   private final GroupStatusRepository groupStatusRepository;
@@ -32,14 +32,13 @@ public class GroupListRequestMapper extends GeneralFacade<GroupList, GroupListRe
 
 
   public GroupListRequestMapper(
-    GroupListRepository groupListRepository, GroupRepository groupRepository,
+     GroupRepository groupRepository,
     ProgramRepository programRepository, GroupStatusRepository groupStatusRepository,
     MentorRepository mentorRepository, TrainerRepository trainerRepository,
     CoordinatorRepository coordinatorRepository) {
     super(GroupList.class, GroupListRequest.class);
 
 
-    this.groupListRepository = groupListRepository;
     this.groupRepository = groupRepository;
     this.programRepository = programRepository;
     this.groupStatusRepository = groupStatusRepository;
@@ -65,7 +64,7 @@ public class GroupListRequestMapper extends GeneralFacade<GroupList, GroupListRe
         + "такої програми "));
     GroupStatus status =
       groupStatusRepository.findByStatus(dto.getGroupStatus()).orElseThrow(() -> new Error("не має "
-        + "такого статутусу "));
+        + "такого статусу "));
     Coordinator coordinator =
       coordinatorRepository.findByFullName(dto.getCoordinatorName()).orElseThrow(() -> new Error("не має "
         + "такого координатора "));

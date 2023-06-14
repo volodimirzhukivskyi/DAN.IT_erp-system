@@ -1,6 +1,7 @@
 package com.danit.erp.service.dictionary.roles;
 
 import com.danit.erp.domain.dictionary.roles.Role;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.roles.RoleRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -26,8 +27,7 @@ public class RoleService implements BaseService<Role> {
 
   @Override
   public Role findById(Long userId) {
-    return roleRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new Error());
-    //TODO зробити помилку
+    return roleRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Ролі"));
   }
 
 
@@ -40,7 +40,7 @@ public class RoleService implements BaseService<Role> {
   @Override
   public void update(Role obj) {
     Role findUniversity =
-      roleRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new Error());
+      roleRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Ролі"));
 
     Role role =
       Role.builder().id(findUniversity.getId()).role(obj.getRole()).build();
@@ -50,9 +50,8 @@ public class RoleService implements BaseService<Role> {
   @Override
   public void delete(Long userId) {
     Role role =
-      roleRepository.findById(userId).orElseThrow(() -> new Error());
+      roleRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Ролі"));
 
-    //TODO зробити помилку
     role.setDeleted(true);
     roleRepository.save(role);
 

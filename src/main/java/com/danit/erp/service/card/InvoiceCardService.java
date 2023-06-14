@@ -3,6 +3,7 @@ package com.danit.erp.service.card;
 import com.danit.erp.domain.card.invoice.InvoiceCard;
 import com.danit.erp.dto.card.invoice.InvoiceCardRequest;
 import com.danit.erp.dto.card.invoice.InvoiceCardResponse;
+import com.danit.erp.exception.find.id.CouldNotFindInvoiceException;
 import com.danit.erp.facade.card.invoice.InvoiceCardRequestMapper;
 import com.danit.erp.facade.card.invoice.InvoiceCardResponseMapper;
 import com.danit.erp.repository.card.InvoiceCardRepository;
@@ -37,10 +38,9 @@ public class InvoiceCardService implements BaseService<InvoiceCardResponse> {
 
   @Override
   public InvoiceCardResponse findById(Long userId) {
-    InvoiceCard invoiceCard = invoiceCardRepository.findById(userId).orElseThrow(() -> new Error());
+    InvoiceCard invoiceCard = invoiceCardRepository.findById(userId).orElseThrow(CouldNotFindInvoiceException::new);
     return invoiceCardResponseMapper.convertToDto(invoiceCard);
 
-    //TODO зробити помилку або глянути чи вона взагалі потрібна
   }
 
   @Override
@@ -54,7 +54,6 @@ public class InvoiceCardService implements BaseService<InvoiceCardResponse> {
   }
 
   public InvoiceCardResponse create(InvoiceCardRequest invoiceCardRequest) {
-    //TODO  - логіку перенести в dtoMapper
     InvoiceCard obj = invoiceCardRequestMapper.convertToEntity(invoiceCardRequest);
 
     InvoiceCard invoiceCard =
@@ -70,7 +69,7 @@ public class InvoiceCardService implements BaseService<InvoiceCardResponse> {
 
     InvoiceCard obj = invoiceCardRequestMapper.convertToEntity(invoiceCardRequest);
     InvoiceCard findInvoiceCard =
-      invoiceCardRepository.findById(obj.getId()).orElseThrow(() -> new Error());
+      invoiceCardRepository.findById(obj.getId()).orElseThrow(CouldNotFindInvoiceException::new);
 
     InvoiceCard invoiceCard =
       InvoiceCard.builder().id(findInvoiceCard.getId()).contract(obj.getContract()).invoiceNo(obj.getInvoiceNo())
@@ -81,8 +80,7 @@ public class InvoiceCardService implements BaseService<InvoiceCardResponse> {
 
   @Override
   public void delete(Long userId) {
-    InvoiceCard invoiceCard = invoiceCardRepository.findById(userId).orElseThrow(() -> new Error());
-    //TODO зробити помилку
+    InvoiceCard invoiceCard = invoiceCardRepository.findById(userId).orElseThrow(CouldNotFindInvoiceException::new);
 
     invoiceCardRepository.delete(invoiceCard);
   }

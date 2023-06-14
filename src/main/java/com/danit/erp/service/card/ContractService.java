@@ -3,6 +3,7 @@ package com.danit.erp.service.card;
 import com.danit.erp.domain.card.contract.Contract;
 import com.danit.erp.dto.card.contract.ContractRequest;
 import com.danit.erp.dto.card.contract.ContractResponse;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.facade.card.contract.ContractRequestMapper;
 import com.danit.erp.facade.card.contract.ContractResponseMapper;
 import com.danit.erp.repository.card.ContractRepository;
@@ -37,10 +38,11 @@ public class ContractService implements BaseService<ContractResponse> {
 
   @Override
   public ContractResponse findById(Long userId) {
-    Contract contract = contractRepository.findById(userId).orElseThrow(() -> new Error());
+    Contract contract =
+      contractRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Контракту"));
     return contractResponseMapper.convertToDto(contract);
 
-    //TODO зробити помилку або глянути чи вона взагалі потрібна
+
   }
 
   @Override
@@ -75,7 +77,7 @@ public class ContractService implements BaseService<ContractResponse> {
   public void update(ContractRequest contractRequest) {
 
     Contract obj = contractRequestMapper.convertToEntity(contractRequest);
-    Contract findContract = contractRepository.findById(obj.getId()).orElseThrow(() -> new Error());
+    Contract findContract = contractRepository.findById(obj.getId()).orElseThrow(() -> new CouldNotFindException("Контракту"));
 
     Contract contract = Contract.builder().id(findContract.getId()).contractNo(obj.getContractNo())
       .contractDate(obj.getContractDate()).personalCard(obj.getPersonalCard())
@@ -87,8 +89,7 @@ public class ContractService implements BaseService<ContractResponse> {
 
   @Override
   public void delete(Long userId) {
-    Contract contract = contractRepository.findById(userId).orElseThrow(() -> new Error());
-    //TODO зробити помилку
+    Contract contract = contractRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Контракту"));
 
     contractRepository.delete(contract);
   }

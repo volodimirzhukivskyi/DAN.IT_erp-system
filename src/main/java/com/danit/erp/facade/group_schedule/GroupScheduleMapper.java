@@ -4,6 +4,7 @@ import com.danit.erp.domain.dictionary.Group;
 import com.danit.erp.domain.group_schedule.DayOfWeek;
 import com.danit.erp.domain.group_schedule.GroupSchedule;
 import com.danit.erp.dto.group_schedule.GroupScheduleDto;
+import com.danit.erp.exception.find.name.CouldNotFindNameException;
 import com.danit.erp.facade.GeneralFacade;
 import com.danit.erp.repository.dictionary.GroupRepository;
 import com.danit.erp.utils.Helper;
@@ -33,7 +34,7 @@ public class GroupScheduleMapper extends GeneralFacade<GroupSchedule, GroupSched
   @Override
   protected void decorateEntity(GroupSchedule entity, GroupScheduleDto dto) {
     Group findGroup =
-      groupRepository.findByGroupName(dto.getGroupName()).orElseThrow(() -> new Error());
+      groupRepository.findByGroupName(dto.getGroupName()).orElseThrow(() -> new CouldNotFindNameException("Групи"));
 
     entity.setGroup(findGroup);
     entity.setStartTime(Helper.convertInLocalDate(dto.getStartTime()));

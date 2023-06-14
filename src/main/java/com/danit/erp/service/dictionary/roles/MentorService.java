@@ -1,6 +1,7 @@
 package com.danit.erp.service.dictionary.roles;
 
 import com.danit.erp.domain.dictionary.roles.Mentor;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.roles.MentorRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -26,8 +27,7 @@ public class MentorService implements BaseService<Mentor> {
 
   @Override
   public Mentor findById(Long userId) {
-    return mentorRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new Error());
-    //TODO зробити помилку
+    return mentorRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Ментора"));
   }
 
 
@@ -40,7 +40,7 @@ public class MentorService implements BaseService<Mentor> {
   @Override
   public void update(Mentor obj) {
     Mentor findMentor =
-      mentorRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new Error());
+      mentorRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Ментора"));
 
     Mentor mentor =
       Mentor.builder().id(findMentor.getId()).fullName(obj.getFullName()).build();
@@ -50,9 +50,8 @@ public class MentorService implements BaseService<Mentor> {
   @Override
   public void delete(Long userId) {
     Mentor mentor =
-      mentorRepository.findById(userId).orElseThrow(() -> new Error());
+      mentorRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Ментора"));
 
-    //TODO зробити помилку
     mentor.setDeleted(true);
     mentorRepository.save(mentor);
 

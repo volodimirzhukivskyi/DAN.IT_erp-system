@@ -1,6 +1,7 @@
 package com.danit.erp.service.dictionary.status;
 
 import com.danit.erp.domain.dictionary.status.ContractStatus;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.status.ContractStatusRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -26,8 +27,7 @@ public class ContractStatusService implements BaseService<ContractStatus> {
 
   @Override
   public ContractStatus findById(Long userId) {
-    return contractStatusRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new Error());
-    //TODO зробити помилку
+    return contractStatusRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Контракт статус"));
   }
 
 
@@ -40,7 +40,7 @@ public class ContractStatusService implements BaseService<ContractStatus> {
   @Override
   public void update(ContractStatus obj) {
     ContractStatus findContractStatus =
-      contractStatusRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new Error());
+      contractStatusRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Контракт статус"));
 
     ContractStatus contractStatus =
       ContractStatus.builder().id(findContractStatus.getId()).status(obj.getStatus()).build();
@@ -50,9 +50,8 @@ public class ContractStatusService implements BaseService<ContractStatus> {
   @Override
   public void delete(Long userId) {
     ContractStatus contractStatus =
-      contractStatusRepository.findById(userId).orElseThrow(() -> new Error());
+      contractStatusRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Контракт статус"));
 
-    //TODO зробити помилку
     contractStatus.setDeleted(true);
     contractStatusRepository.save(contractStatus);
 

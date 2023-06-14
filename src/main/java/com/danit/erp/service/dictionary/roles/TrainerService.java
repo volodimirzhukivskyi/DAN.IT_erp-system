@@ -1,6 +1,7 @@
 package com.danit.erp.service.dictionary.roles;
 
 import com.danit.erp.domain.dictionary.roles.Trainer;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.roles.TrainerRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -26,8 +27,7 @@ public class TrainerService implements BaseService<Trainer> {
 
   @Override
   public Trainer findById(Long userId) {
-    return trainerRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new Error());
-    //TODO зробити помилку
+    return trainerRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Тренера"));
   }
 
 
@@ -40,7 +40,7 @@ public class TrainerService implements BaseService<Trainer> {
   @Override
   public void update(Trainer obj) {
     Trainer findTrainer =
-      trainerRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new Error());
+      trainerRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Тренера"));
 
     Trainer trainer =
       Trainer.builder().id(findTrainer.getId()).fullName(obj.getFullName()).build();
@@ -50,9 +50,8 @@ public class TrainerService implements BaseService<Trainer> {
   @Override
   public void delete(Long userId) {
     Trainer trainer =
-      trainerRepository.findById(userId).orElseThrow(() -> new Error());
+      trainerRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Тренера"));
 
-    //TODO зробити помилку
     trainer.setDeleted(true);
     trainerRepository.save(trainer);
 
