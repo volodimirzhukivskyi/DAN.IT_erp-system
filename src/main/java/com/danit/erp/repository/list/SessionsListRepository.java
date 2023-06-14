@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SessionsListRepository extends JpaRepository<SessionsList, Long> {
- Optional<SessionsList> findAllByGroupList_Group(Group group);
+  Optional<SessionsList> findAllByGroupList_Group(Group group);
 }

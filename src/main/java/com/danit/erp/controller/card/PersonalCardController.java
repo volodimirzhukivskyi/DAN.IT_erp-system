@@ -1,9 +1,9 @@
 package com.danit.erp.controller.card;
 
+import com.danit.erp.dto.card.personal_card.PagePersonalCardResponse;
 import com.danit.erp.dto.card.personal_card.PersonalCardRequest;
 import com.danit.erp.dto.card.personal_card.PersonalCardResponse;
 import com.danit.erp.service.card.PersonalCardService;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin("*")
@@ -23,8 +24,8 @@ public class PersonalCardController {
   private final PersonalCardService personalCardService;
 
   @GetMapping("/")
-  public List<PersonalCardResponse> getAll() {
-    return personalCardService.findAll();
+  public PagePersonalCardResponse getAll(@RequestParam int pageNumber, @RequestParam int pageSize) {
+    return personalCardService.getAllPage(pageSize, pageNumber);
   }
 
   @GetMapping("/{id}")
@@ -39,9 +40,8 @@ public class PersonalCardController {
 
   @PutMapping("/update")
   public void update(@RequestBody PersonalCardRequest personalCard) {
-     personalCardService.update(personalCard);
-    }
-
+    personalCardService.update(personalCard);
+  }
 
 
   @PostMapping("/create")

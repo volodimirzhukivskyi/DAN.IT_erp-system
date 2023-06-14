@@ -6,6 +6,9 @@ import com.danit.erp.repository.dictionary.status.ContractStatusRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,13 +24,15 @@ public class ContractStatusService implements BaseService<ContractStatus> {
   }
 
   @Override
-  public List<ContractStatus> getAllPageable(int size, int pageNumber) {
-    return null;
+  public Page<ContractStatus> getAllPageable(int size, int pageNumber) {
+    Pageable pageable = PageRequest.of(pageNumber, size);
+    return contractStatusRepository.findByDeletedFalse(pageable);
   }
 
   @Override
   public ContractStatus findById(Long userId) {
-    return contractStatusRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Контракт статус"));
+    return contractStatusRepository.findByIdAndDeletedFalse(userId)
+      .orElseThrow(() -> new CouldNotFindException("Контракт статус"));
   }
 
 
@@ -40,7 +45,8 @@ public class ContractStatusService implements BaseService<ContractStatus> {
   @Override
   public void update(ContractStatus obj) {
     ContractStatus findContractStatus =
-      contractStatusRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Контракт статус"));
+      contractStatusRepository.findByIdAndDeletedFalse(obj.getId())
+        .orElseThrow(() -> new CouldNotFindException("Контракт статус"));
 
     ContractStatus contractStatus =
       ContractStatus.builder().id(findContractStatus.getId()).status(obj.getStatus()).build();
@@ -49,8 +55,8 @@ public class ContractStatusService implements BaseService<ContractStatus> {
 
   @Override
   public void delete(Long userId) {
-    ContractStatus contractStatus =
-      contractStatusRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Контракт статус"));
+    ContractStatus contractStatus = contractStatusRepository.findById(userId)
+      .orElseThrow(() -> new CouldNotFindException("Контракт статус"));
 
     contractStatus.setDeleted(true);
     contractStatusRepository.save(contractStatus);

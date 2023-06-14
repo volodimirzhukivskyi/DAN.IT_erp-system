@@ -1,9 +1,11 @@
 package com.danit.erp.service.card;
 
 import com.danit.erp.domain.card.personal_card.PersonalCard;
+import com.danit.erp.dto.card.personal_card.PagePersonalCardResponse;
 import com.danit.erp.dto.card.personal_card.PersonalCardRequest;
 import com.danit.erp.dto.card.personal_card.PersonalCardResponse;
 import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.facade.card.personal_card.PagePersonalCardResponseMapper;
 import com.danit.erp.facade.card.personal_card.PersonalCardRequestMapper;
 import com.danit.erp.facade.card.personal_card.PersonalCardResponseMapper;
 import com.danit.erp.repository.card.PersonalCardRepository;
@@ -11,6 +13,9 @@ import com.danit.erp.service.BaseService;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +27,7 @@ public class PersonalCardService implements BaseService<PersonalCardResponse> {
 
   private final PersonalCardResponseMapper personalCardResponseMapper;
   private final PersonalCardRequestMapper personalCardRequestMapper;
+  private final PagePersonalCardResponseMapper pagePersonalCardResponseMapper;
 
   @Override
   public List<PersonalCardResponse> findAll() {
@@ -31,9 +37,11 @@ public class PersonalCardService implements BaseService<PersonalCardResponse> {
 
   }
 
-  @Override
-  public List<PersonalCardResponse> getAllPageable(int size, int pageNumber) {
-    return null;
+
+  public PagePersonalCardResponse getAllPage(int size, int pageNumber) {
+    Pageable pageable = PageRequest.of(pageNumber, size);
+    Page<PersonalCard> all = personalCardRepository.findAll(pageable);
+    return pagePersonalCardResponseMapper.convertToDto(all);
   }
 
   @Override
@@ -71,8 +79,8 @@ public class PersonalCardService implements BaseService<PersonalCardResponse> {
   public void update(PersonalCardRequest objDto) {
     PersonalCard obj = personalCardRequestMapper.convertToEntity(objDto);
 
-    PersonalCard findCart =
-      personalCardRepository.findById(obj.getId()).orElseThrow(() ->  new CouldNotFindException("Персональної картки"));
+    PersonalCard findCart = personalCardRepository.findById(obj.getId())
+      .orElseThrow(() -> new CouldNotFindException("Персональної картки"));
 
     PersonalCard personalCard = PersonalCard.builder().id(findCart.getId()).name(obj.getName())
       .secondName(obj.getSecondName()).surname(obj.getSurname()).linkToCRM(obj.getLinkToCRM())
@@ -85,8 +93,8 @@ public class PersonalCardService implements BaseService<PersonalCardResponse> {
 
   @Override
   public void delete(Long userId) {
-    PersonalCard personalCard =
-      personalCardRepository.findById(userId).orElseThrow(() ->  new CouldNotFindException("Персональної картки"));
+    PersonalCard personalCard = personalCardRepository.findById(userId)
+      .orElseThrow(() -> new CouldNotFindException("Персональної картки"));
 
 
     personalCardRepository.delete(personalCard);

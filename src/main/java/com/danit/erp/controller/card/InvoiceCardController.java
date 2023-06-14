@@ -3,8 +3,8 @@ package com.danit.erp.controller.card;
 
 import com.danit.erp.dto.card.invoice.InvoiceCardRequest;
 import com.danit.erp.dto.card.invoice.InvoiceCardResponse;
+import com.danit.erp.dto.card.invoice.PageInvoiceCardResponse;
 import com.danit.erp.service.card.InvoiceCardService;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin("*")
@@ -24,8 +25,8 @@ public class InvoiceCardController {
   private final InvoiceCardService invoiceCardService;
 
   @GetMapping("/")
-  public List<InvoiceCardResponse> getAll() {
-    return invoiceCardService.findAll();
+  public PageInvoiceCardResponse getAll(@RequestParam int pageNumber, @RequestParam int pageSize) {
+    return invoiceCardService.getAllPage(pageSize, pageNumber);
   }
 
   @GetMapping("/{id}")
@@ -40,9 +41,8 @@ public class InvoiceCardController {
 
   @PutMapping("/update")
   public void update(@RequestBody InvoiceCardRequest invoiceCardRequest) {
-     invoiceCardService.update(invoiceCardRequest);
-    }
-
+    invoiceCardService.update(invoiceCardRequest);
+  }
 
 
   @PostMapping("/create")

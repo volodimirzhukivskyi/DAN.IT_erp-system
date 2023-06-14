@@ -1,10 +1,10 @@
 package com.danit.erp.controller.list;
 
 
+import com.danit.erp.dto.list.sessions_list.PageSessionsListResponse;
 import com.danit.erp.dto.list.sessions_list.SessionsListRequest;
 import com.danit.erp.dto.list.sessions_list.SessionsListResponse;
 import com.danit.erp.service.list.SessionsListService;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin("*")
@@ -24,8 +25,8 @@ public class SessionsListController {
   private final SessionsListService sessionsListService;
 
   @GetMapping("/")
-  public List<SessionsListResponse> getAll() {
-    return sessionsListService.findAll();
+  public PageSessionsListResponse getAll(@RequestParam int pageNumber, @RequestParam int pageSize) {
+    return sessionsListService.getAllPage(pageSize, pageNumber);
   }
 
   @GetMapping("/{id}")
@@ -40,9 +41,8 @@ public class SessionsListController {
 
   @PutMapping("/update")
   public void update(@RequestBody SessionsListRequest sessionsListRequest) {
-     sessionsListService.update(sessionsListRequest);
-    }
-
+    sessionsListService.update(sessionsListRequest);
+  }
 
 
   @PostMapping("/create")

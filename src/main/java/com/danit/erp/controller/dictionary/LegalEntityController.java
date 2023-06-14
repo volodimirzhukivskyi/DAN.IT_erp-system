@@ -2,8 +2,8 @@ package com.danit.erp.controller.dictionary;
 
 import com.danit.erp.domain.dictionary.LegalEntity;
 import com.danit.erp.service.dictionary.LegalEntityService;
-import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin("*")
@@ -22,8 +23,8 @@ public class LegalEntityController {
   private final LegalEntityService legalEntityService;
 
   @GetMapping("/")
-  public List<LegalEntity> getAll() {
-    return legalEntityService.findAll();
+  public Page<LegalEntity> getAll(@RequestParam int pageNumber, @RequestParam int pageSize) {
+    return legalEntityService.getAllPageable(pageSize, pageNumber);
   }
 
   @GetMapping("/{id}")
@@ -40,7 +41,6 @@ public class LegalEntityController {
   public void update(@RequestBody LegalEntity personalCard) {
     legalEntityService.update(personalCard);
   }
-
 
 
   @PostMapping("/create")

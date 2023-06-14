@@ -6,6 +6,9 @@ import com.danit.erp.repository.dictionary.EducationRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,15 +23,19 @@ public class EducationService implements BaseService<Education> {
     return educationRepository.findByDeletedFalse();
   }
 
+
+
   @Override
-  public List<Education> getAllPageable(int size, int pageNumber) {
-    return null;
+  public Page<Education> getAllPageable(int size, int pageNumber) {
+    Pageable pageable = PageRequest.of(pageNumber, size);
+    return educationRepository.findByDeletedFalse(pageable);
   }
 
   @Override
   public Education findById(Long userId) {
-    return educationRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Спеціалізації"));
-    //TODO зробити помилку
+    return educationRepository.findByIdAndDeletedFalse(userId)
+      .orElseThrow(() -> new CouldNotFindException("Спеціалізації"));
+
   }
 
 
@@ -40,8 +47,8 @@ public class EducationService implements BaseService<Education> {
 
   @Override
   public void update(Education obj) {
-    Education findEducation =
-      educationRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Спеціалізації"));
+    Education findEducation = educationRepository.findByIdAndDeletedFalse(obj.getId())
+      .orElseThrow(() -> new CouldNotFindException("Спеціалізації"));
 
     Education education =
       Education.builder().id(findEducation.getId()).specialization(obj.getSpecialization()).build();
@@ -50,10 +57,9 @@ public class EducationService implements BaseService<Education> {
 
   @Override
   public void delete(Long userId) {
-    Education education =
-      educationRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Спеціалізації"));
+    Education education = educationRepository.findById(userId)
+      .orElseThrow(() -> new CouldNotFindException("Спеціалізації"));
 
-    //TODO зробити помилку
     education.setDeleted(true);
     educationRepository.save(education);
 

@@ -2,6 +2,7 @@ package com.danit.erp.service;
 
 
 import java.util.List;
+import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface BaseService<T> {
@@ -9,7 +10,9 @@ public interface BaseService<T> {
   List<T> findAll();
 
   @Transactional(readOnly = true)
-  List<T> getAllPageable(int size, int pageNumber);
+  default Page<T> getAllPageable(int size, int pageNumber) {
+    return null;
+  }
 
   @Transactional(readOnly = true)
   T findById(Long userId);

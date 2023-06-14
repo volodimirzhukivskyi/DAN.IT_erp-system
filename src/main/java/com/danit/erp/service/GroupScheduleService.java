@@ -27,15 +27,15 @@ public class GroupScheduleService implements BaseService<GroupScheduleDto> {
 
   }
 
-  @Override
-  public List<GroupScheduleDto> getAllPageable(int size, int pageNumber) {
-    return null;
-  }
+//  @Override
+//  public List<GroupScheduleDto> getAllPageable(int size, int pageNumber) {
+//    return null;
+//  }
 
   @Override
   public GroupScheduleDto findById(Long userId) {
-    GroupSchedule findGroupSchedule =
-      groupScheduleRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Розклад"));
+    GroupSchedule findGroupSchedule = groupScheduleRepository.findById(userId)
+      .orElseThrow(() -> new CouldNotFindException("Розклад"));
     return groupScheduleMapper.convertToDto(findGroupSchedule);
   }
 
@@ -58,8 +58,8 @@ public class GroupScheduleService implements BaseService<GroupScheduleDto> {
 
   @Override
   public void delete(Long userId) {
-    GroupSchedule groupSchedule =
-      groupScheduleRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Розклад"));
+    GroupSchedule groupSchedule = groupScheduleRepository.findById(userId)
+      .orElseThrow(() -> new CouldNotFindException("Розклад"));
 
     groupScheduleRepository.delete(groupSchedule);
   }

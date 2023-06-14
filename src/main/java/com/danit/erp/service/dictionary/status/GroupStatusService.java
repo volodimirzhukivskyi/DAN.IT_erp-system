@@ -6,6 +6,9 @@ import com.danit.erp.repository.dictionary.status.GroupStatusRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,13 +24,15 @@ public class GroupStatusService implements BaseService<GroupStatus> {
   }
 
   @Override
-  public List<GroupStatus> getAllPageable(int size, int pageNumber) {
-    return null;
+  public Page<GroupStatus> getAllPageable(int size, int pageNumber) {
+    Pageable pageable = PageRequest.of(pageNumber, size);
+    return groupStatusRepository.findByDeletedFalse(pageable);
   }
 
   @Override
   public GroupStatus findById(Long userId) {
-    return groupStatusRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Статусу  групи"));
+    return groupStatusRepository.findByIdAndDeletedFalse(userId)
+      .orElseThrow(() -> new CouldNotFindException("Статусу  групи"));
   }
 
 
@@ -39,8 +44,8 @@ public class GroupStatusService implements BaseService<GroupStatus> {
 
   @Override
   public void update(GroupStatus obj) {
-    GroupStatus findGroupStatus =
-      groupStatusRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Статусу  групи"));
+    GroupStatus findGroupStatus = groupStatusRepository.findByIdAndDeletedFalse(obj.getId())
+      .orElseThrow(() -> new CouldNotFindException("Статусу  групи"));
 
     GroupStatus groupStatus =
       GroupStatus.builder().id(findGroupStatus.getId()).status(obj.getStatus()).build();
@@ -49,8 +54,8 @@ public class GroupStatusService implements BaseService<GroupStatus> {
 
   @Override
   public void delete(Long userId) {
-    GroupStatus findGroupStatus =
-      groupStatusRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Статусу  групи"));
+    GroupStatus findGroupStatus = groupStatusRepository.findById(userId)
+      .orElseThrow(() -> new CouldNotFindException("Статусу  групи"));
 
     findGroupStatus.setDeleted(true);
     groupStatusRepository.save(findGroupStatus);

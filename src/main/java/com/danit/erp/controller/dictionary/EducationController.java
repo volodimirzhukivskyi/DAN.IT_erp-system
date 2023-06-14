@@ -2,8 +2,8 @@ package com.danit.erp.controller.dictionary;
 
 import com.danit.erp.domain.dictionary.Education;
 import com.danit.erp.service.dictionary.EducationService;
-import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin("*")
@@ -22,8 +23,8 @@ public class EducationController {
   private final EducationService educationService;
 
   @GetMapping("/")
-  public List<Education> getAll() {
-    return educationService.findAll();
+  public Page<Education> getAll(@RequestParam int pageNumber, @RequestParam int pageSize) {
+    return educationService.getAllPageable(pageSize, pageNumber);
   }
 
   @GetMapping("/{id}")
@@ -40,7 +41,6 @@ public class EducationController {
   public void update(@RequestBody Education personalCard) {
     educationService.update(personalCard);
   }
-
 
 
   @PostMapping("/create")

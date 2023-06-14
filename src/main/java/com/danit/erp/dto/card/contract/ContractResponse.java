@@ -1,7 +1,7 @@
 package com.danit.erp.dto.card.contract;
 
-import java.time.LocalDateTime;
 import lombok.Data;
+
 @Data
 public class ContractResponse {
   private Long id;

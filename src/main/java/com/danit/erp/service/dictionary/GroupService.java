@@ -7,6 +7,9 @@ import com.danit.erp.repository.dictionary.GroupRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,13 +26,15 @@ public class GroupService implements BaseService<Group> {
   }
 
   @Override
-  public List<Group> getAllPageable(int size, int pageNumber) {
-    return null;
+  public Page<Group> getAllPageable(int size, int pageNumber) {
+    Pageable pageable = PageRequest.of(pageNumber, size);
+    return groupRepository.findByDeletedFalse(pageable);
   }
 
   @Override
   public Group findById(Long userId) {
-    return groupRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Групи"));
+    return groupRepository.findByIdAndDeletedFalse(userId)
+      .orElseThrow(() -> new CouldNotFindException("Групи"));
   }
 
 
@@ -42,8 +47,8 @@ public class GroupService implements BaseService<Group> {
 
   @Override
   public void update(Group obj) {
-    Group findGroup =
-      groupRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Групи"));
+    Group findGroup = groupRepository.findByIdAndDeletedFalse(obj.getId())
+      .orElseThrow(() -> new CouldNotFindException("Групи"));
 
     Group group = Group.builder().id(findGroup.getId()).groupName(obj.getGroupName())
       .startDate(obj.getStartDate()).build();
@@ -52,7 +57,8 @@ public class GroupService implements BaseService<Group> {
 
   @Override
   public void delete(Long userId) {
-    Group group = groupRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Групи"));
+    Group group =
+      groupRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Групи"));
     groupScheduleRepository.deleteAll(group.getGroupSchedules());
     group.setDeleted(true);
     groupRepository.save(group);

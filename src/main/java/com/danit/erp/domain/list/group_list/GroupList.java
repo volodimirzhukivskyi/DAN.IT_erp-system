@@ -1,18 +1,13 @@
 package com.danit.erp.domain.list.group_list;
 
 import com.danit.erp.domain.BaseEntity;
-import com.danit.erp.domain.dictionary.Education;
 import com.danit.erp.domain.dictionary.Group;
 import com.danit.erp.domain.dictionary.Program;
 import com.danit.erp.domain.dictionary.roles.Coordinator;
 import com.danit.erp.domain.dictionary.roles.Mentor;
-import com.danit.erp.domain.dictionary.roles.Role;
 import com.danit.erp.domain.dictionary.roles.Trainer;
 import com.danit.erp.domain.dictionary.status.GroupStatus;
-import com.danit.erp.domain.group_schedule.GroupSchedule;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;

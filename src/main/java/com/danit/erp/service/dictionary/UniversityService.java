@@ -6,6 +6,9 @@ import com.danit.erp.repository.dictionary.UniversityRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,13 +24,15 @@ public class UniversityService implements BaseService<University> {
   }
 
   @Override
-  public List<University> getAllPageable(int size, int pageNumber) {
-    return null;
+  public Page<University> getAllPageable(int size, int pageNumber) {
+    Pageable pageable = PageRequest.of(pageNumber, size);
+    return universityRepository.findByDeletedFalse(pageable);
   }
 
   @Override
   public University findById(Long userId) {
-    return universityRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Юніверситети"));
+    return universityRepository.findByIdAndDeletedFalse(userId)
+      .orElseThrow(() -> new CouldNotFindException("Юніверситети"));
   }
 
 
@@ -39,8 +44,8 @@ public class UniversityService implements BaseService<University> {
 
   @Override
   public void update(University obj) {
-    University findUniversity =
-      universityRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Юніверситети"));
+    University findUniversity = universityRepository.findByIdAndDeletedFalse(obj.getId())
+      .orElseThrow(() -> new CouldNotFindException("Юніверситети"));
 
     University university =
       University.builder().id(findUniversity.getId()).name(obj.getName()).build();
@@ -49,8 +54,8 @@ public class UniversityService implements BaseService<University> {
 
   @Override
   public void delete(Long userId) {
-    University university =
-      universityRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Юніверситети"));
+    University university = universityRepository.findById(userId)
+      .orElseThrow(() -> new CouldNotFindException("Юніверситети"));
 
     university.setDeleted(true);
     universityRepository.save(university);

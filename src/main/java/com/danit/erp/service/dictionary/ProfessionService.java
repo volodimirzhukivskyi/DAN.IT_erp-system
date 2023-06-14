@@ -6,6 +6,9 @@ import com.danit.erp.repository.dictionary.ProfessionRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,13 +24,15 @@ public class ProfessionService implements BaseService<Profession> {
   }
 
   @Override
-  public List<Profession> getAllPageable(int size, int pageNumber) {
-    return null;
+  public Page<Profession> getAllPageable(int size, int pageNumber) {
+    Pageable pageable = PageRequest.of(pageNumber, size);
+    return professionRepository.findByDeletedFalse(pageable);
   }
 
   @Override
   public Profession findById(Long userId) {
-    return professionRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Професії"));
+    return professionRepository.findByIdAndDeletedFalse(userId)
+      .orElseThrow(() -> new CouldNotFindException("Професії"));
   }
 
 
@@ -39,8 +44,8 @@ public class ProfessionService implements BaseService<Profession> {
 
   @Override
   public void update(Profession obj) {
-    Profession findProfession =
-      professionRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Професії"));
+    Profession findProfession = professionRepository.findByIdAndDeletedFalse(obj.getId())
+      .orElseThrow(() -> new CouldNotFindException("Професії"));
 
     Profession profession =
       Profession.builder().id(findProfession.getId()).name(obj.getName()).build();
@@ -49,8 +54,8 @@ public class ProfessionService implements BaseService<Profession> {
 
   @Override
   public void delete(Long userId) {
-    Profession profession =
-      professionRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Професії"));
+    Profession profession = professionRepository.findById(userId)
+      .orElseThrow(() -> new CouldNotFindException("Професії"));
 
     profession.setDeleted(true);
     professionRepository.save(profession);

@@ -9,7 +9,6 @@ import com.danit.erp.domain.dictionary.status.GroupStatus;
 import com.danit.erp.domain.list.group_list.GroupList;
 import com.danit.erp.dto.list.group_list.GroupListRequest;
 import com.danit.erp.facade.GeneralFacade;
-import com.danit.erp.repository.list.GroupListRepository;
 import com.danit.erp.repository.dictionary.GroupRepository;
 import com.danit.erp.repository.dictionary.ProgramRepository;
 import com.danit.erp.repository.dictionary.roles.CoordinatorRepository;
@@ -32,10 +31,9 @@ public class GroupListRequestMapper extends GeneralFacade<GroupList, GroupListRe
 
 
   public GroupListRequestMapper(
-     GroupRepository groupRepository,
-    ProgramRepository programRepository, GroupStatusRepository groupStatusRepository,
-    MentorRepository mentorRepository, TrainerRepository trainerRepository,
-    CoordinatorRepository coordinatorRepository) {
+    GroupRepository groupRepository, ProgramRepository programRepository,
+    GroupStatusRepository groupStatusRepository, MentorRepository mentorRepository,
+    TrainerRepository trainerRepository, CoordinatorRepository coordinatorRepository) {
     super(GroupList.class, GroupListRequest.class);
 
 
@@ -55,27 +53,21 @@ public class GroupListRequestMapper extends GeneralFacade<GroupList, GroupListRe
 
   @Override
   protected void decorateEntity(GroupList entity, GroupListRequest dto) {
-    Group byGroupName =
-      groupRepository.findByGroupName(dto.getGroupName()).orElseThrow(() -> new Error("не має "
-        + "групи з такою назвою"));
+    Group byGroupName = groupRepository.findByGroupName(dto.getGroupName())
+      .orElseThrow(() -> new Error("не має " + "групи з такою назвою"));
 
-    Program program =
-      programRepository.findByProgram(dto.getProgramName()).orElseThrow(() -> new Error("не має "
-        + "такої програми "));
-    GroupStatus status =
-      groupStatusRepository.findByStatus(dto.getGroupStatus()).orElseThrow(() -> new Error("не має "
-        + "такого статусу "));
-    Coordinator coordinator =
-      coordinatorRepository.findByFullName(dto.getCoordinatorName()).orElseThrow(() -> new Error("не має "
-        + "такого координатора "));
+    Program program = programRepository.findByProgram(dto.getProgramName())
+      .orElseThrow(() -> new Error("не має " + "такої програми "));
+    GroupStatus status = groupStatusRepository.findByStatus(dto.getGroupStatus())
+      .orElseThrow(() -> new Error("не має " + "такого статусу "));
+    Coordinator coordinator = coordinatorRepository.findByFullName(dto.getCoordinatorName())
+      .orElseThrow(() -> new Error("не має " + "такого координатора "));
 
-    Trainer trainer =
-      trainerRepository.findByFullName(dto.getTrainerName()).orElseThrow(() -> new Error("не має "
-        + "такого тренера "));
+    Trainer trainer = trainerRepository.findByFullName(dto.getTrainerName())
+      .orElseThrow(() -> new Error("не має " + "такого тренера "));
 
-    Mentor mentor =
-      mentorRepository.findByFullName(dto.getMentorName()).orElseThrow(() -> new Error("не має "
-        + "такого mentor "));
+    Mentor mentor = mentorRepository.findByFullName(dto.getMentorName())
+      .orElseThrow(() -> new Error("не має " + "такого mentor "));
 
     entity.setGroup(byGroupName);
     entity.setProgram(program);

@@ -4,8 +4,8 @@ import com.danit.erp.domain.BaseEntity;
 import com.danit.erp.domain.dictionary.Education;
 import com.danit.erp.domain.dictionary.Email;
 import com.danit.erp.domain.dictionary.Profession;
-import com.danit.erp.domain.dictionary.roles.Role;
 import com.danit.erp.domain.dictionary.University;
+import com.danit.erp.domain.dictionary.roles.Role;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,11 +40,11 @@ public class PersonalCard extends BaseEntity {
   private String passportData;
   @Column(name = "link_to_crm")
   private String linkToCRM;
-  @ManyToOne(targetEntity = Profession.class,cascade=CascadeType.ALL)
+  @ManyToOne(targetEntity = Profession.class, cascade = CascadeType.ALL)
   private Profession initialProfession;
-  @ManyToOne(targetEntity = University.class,cascade=CascadeType.ALL)
+  @ManyToOne(targetEntity = University.class, cascade = CascadeType.ALL)
   private University university;
-  @ManyToOne(targetEntity = Role.class,cascade=CascadeType.PERSIST)
+  @ManyToOne(targetEntity = Role.class, cascade = CascadeType.PERSIST)
   private Role role;
   @ManyToOne(targetEntity = Education.class)
   private Education education;

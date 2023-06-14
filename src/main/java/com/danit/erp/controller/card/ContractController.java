@@ -3,8 +3,8 @@ package com.danit.erp.controller.card;
 
 import com.danit.erp.dto.card.contract.ContractRequest;
 import com.danit.erp.dto.card.contract.ContractResponse;
+import com.danit.erp.dto.card.contract.PageContractResponse;
 import com.danit.erp.service.card.ContractService;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin("*")
@@ -24,8 +25,8 @@ public class ContractController {
   private final ContractService contractService;
 
   @GetMapping("/")
-  public List<ContractResponse> getAll() {
-    return contractService.findAll();
+  public PageContractResponse getAll(@RequestParam int pageNumber, @RequestParam int pageSize) {
+    return contractService.getAllPage(pageSize, pageNumber);
   }
 
   @GetMapping("/{id}")
@@ -40,9 +41,8 @@ public class ContractController {
 
   @PutMapping("/update")
   public void update(@RequestBody ContractRequest contractRequest) {
-     contractService.update(contractRequest);
-    }
-
+    contractService.update(contractRequest);
+  }
 
 
   @PostMapping("/create")

@@ -39,9 +39,8 @@ public class GroupScheduleController {
 
   @PutMapping("/update")
   public void update(@RequestBody GroupScheduleDto groupScheduleDto) {
-     groupScheduleService.update(groupScheduleDto);
-    }
-
+    groupScheduleService.update(groupScheduleDto);
+  }
 
 
   @PostMapping("/create")

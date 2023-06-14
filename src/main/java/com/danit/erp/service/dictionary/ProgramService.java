@@ -6,6 +6,9 @@ import com.danit.erp.repository.dictionary.ProgramRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,29 +24,32 @@ public class ProgramService implements BaseService<Program> {
   }
 
   @Override
-  public List<Program> getAllPageable(int size, int pageNumber) {
-    return null;
+  public Page<Program> getAllPageable(int size, int pageNumber) {
+    Pageable pageable = PageRequest.of(pageNumber, size);
+    return programRepository.findByDeletedFalse(pageable);
   }
 
   @Override
   public Program findById(Long userId) {
-    return programRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Прогами"));
+    return programRepository.findByIdAndDeletedFalse(userId)
+      .orElseThrow(() -> new CouldNotFindException("Прогами"));
   }
 
 
   @Override
   public Program create(Program obj) {
-    Program program = Program.builder().program(obj.getProgram()).programHours(obj.getProgramHours()).build();
+    Program program =
+      Program.builder().program(obj.getProgram()).programHours(obj.getProgramHours()).build();
     return programRepository.save(program);
   }
 
   @Override
   public void update(Program obj) {
-    Program findProgram =
-      programRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Прогами"));
+    Program findProgram = programRepository.findByIdAndDeletedFalse(obj.getId())
+      .orElseThrow(() -> new CouldNotFindException("Прогами"));
 
-    Program program =
-      Program.builder().id(findProgram.getId()).program(obj.getProgram()).programHours(obj.getProgramHours()).build();
+    Program program = Program.builder().id(findProgram.getId()).program(obj.getProgram())
+      .programHours(obj.getProgramHours()).build();
     programRepository.save(program);
   }
 

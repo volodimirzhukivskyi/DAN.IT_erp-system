@@ -1,9 +1,9 @@
 package com.danit.erp.controller.dictionary;
 
+import com.danit.erp.dto.sessions.PageSessionsResponse;
 import com.danit.erp.dto.sessions.SessionsRequest;
 import com.danit.erp.dto.sessions.SessionsResponse;
 import com.danit.erp.service.dictionary.SessionsService;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin("*")
@@ -23,8 +24,9 @@ public class SessionsController {
   private final SessionsService sessionsService;
 
   @GetMapping("/")
-  public List<SessionsResponse> getAllTweets() {
-    return sessionsService.findAll();
+  public PageSessionsResponse getAllTweets(
+    @RequestParam int pageNumber, @RequestParam int pageSize) {
+    return sessionsService.getAllPage(pageSize, pageNumber);
   }
 
   @GetMapping("/{id}")
@@ -41,7 +43,6 @@ public class SessionsController {
   public void update(@RequestBody SessionsRequest sessionsRequest) {
     sessionsService.update(sessionsRequest);
   }
-
 
 
   @PostMapping("/create")

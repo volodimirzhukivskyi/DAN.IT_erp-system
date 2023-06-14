@@ -2,8 +2,8 @@ package com.danit.erp.controller.dictionary;
 
 import com.danit.erp.domain.dictionary.Email;
 import com.danit.erp.service.dictionary.EmailService;
-import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin("*")
@@ -22,8 +23,8 @@ public class EmailController {
   private final EmailService emailListService;
 
   @GetMapping("/")
-  public List<Email> getAll() {
-    return emailListService.findAll();
+  public Page<Email> getAll(@RequestParam int pageNumber, @RequestParam int pageSize) {
+    return emailListService.getAllPageable(pageSize, pageNumber);
   }
 
   @GetMapping("/{id}")
@@ -40,7 +41,6 @@ public class EmailController {
   public void update(@RequestBody Email personalCard) {
     emailListService.update(personalCard);
   }
-
 
 
   @PostMapping("/create")

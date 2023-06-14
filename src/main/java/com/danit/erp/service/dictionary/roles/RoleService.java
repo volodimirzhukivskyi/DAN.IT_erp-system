@@ -6,6 +6,9 @@ import com.danit.erp.repository.dictionary.roles.RoleRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,13 +24,16 @@ public class RoleService implements BaseService<Role> {
   }
 
   @Override
-  public List<Role> getAllPageable(int size, int pageNumber) {
-    return null;
+  public Page<Role> getAllPageable(int size, int pageNumber) {
+    Pageable pageable = PageRequest.of(pageNumber, size);
+    return roleRepository.findByDeletedFalse(pageable);
+
   }
 
   @Override
   public Role findById(Long userId) {
-    return roleRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Ролі"));
+    return roleRepository.findByIdAndDeletedFalse(userId)
+      .orElseThrow(() -> new CouldNotFindException("Ролі"));
   }
 
 
@@ -39,11 +45,10 @@ public class RoleService implements BaseService<Role> {
 
   @Override
   public void update(Role obj) {
-    Role findUniversity =
-      roleRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Ролі"));
+    Role findUniversity = roleRepository.findByIdAndDeletedFalse(obj.getId())
+      .orElseThrow(() -> new CouldNotFindException("Ролі"));
 
-    Role role =
-      Role.builder().id(findUniversity.getId()).role(obj.getRole()).build();
+    Role role = Role.builder().id(findUniversity.getId()).role(obj.getRole()).build();
     roleRepository.save(role);
   }
 

@@ -1,7 +1,6 @@
 package com.danit.erp.domain.dictionary;
 
 import com.danit.erp.domain.BaseEntity;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -18,14 +17,14 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 public class LegalEntity extends BaseEntity {
-private String legalEntityName;
+  private String legalEntityName;
 
-private String  idCode;
-private String  legalAddress;
-private String  IBAN;
-private String bank;
-private String  representedBy;
-private String statuteEntity;
-private boolean deleted;
+  private String idCode;
+  private String legalAddress;
+  private String IBAN;
+  private String bank;
+  private String representedBy;
+  private String statuteEntity;
+  private boolean deleted;
 
 }

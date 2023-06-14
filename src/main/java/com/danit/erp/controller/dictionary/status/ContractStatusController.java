@@ -2,8 +2,8 @@ package com.danit.erp.controller.dictionary.status;
 
 import com.danit.erp.domain.dictionary.status.ContractStatus;
 import com.danit.erp.service.dictionary.status.ContractStatusService;
-import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin("*")
@@ -22,8 +23,8 @@ public class ContractStatusController {
   private final ContractStatusService contractStatusService;
 
   @GetMapping("/")
-  public List<ContractStatus> getAll() {
-    return contractStatusService.findAll();
+  public Page<ContractStatus> getAll(@RequestParam int pageNumber, @RequestParam int pageSize) {
+    return contractStatusService.getAllPageable(pageSize, pageNumber);
   }
 
   @GetMapping("/{id}")
@@ -40,7 +41,6 @@ public class ContractStatusController {
   public void update(@RequestBody ContractStatus personalCard) {
     contractStatusService.update(personalCard);
   }
-
 
 
   @PostMapping("/create")

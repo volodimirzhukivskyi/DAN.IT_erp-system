@@ -1,15 +1,20 @@
 package com.danit.erp.service.dictionary;
 
 import com.danit.erp.domain.dictionary.Sessions;
+import com.danit.erp.dto.sessions.PageSessionsResponse;
 import com.danit.erp.dto.sessions.SessionsRequest;
 import com.danit.erp.dto.sessions.SessionsResponse;
 import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.facade.session.SessionsPageResponseMapper;
 import com.danit.erp.facade.session.SessionsRequestMapper;
 import com.danit.erp.facade.session.SessionsResponseMapper;
 import com.danit.erp.repository.dictionary.SessionsRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +25,7 @@ public class SessionsService implements BaseService<SessionsResponse> {
   private final SessionsRepository sessionsRepository;
   private final SessionsRequestMapper sessionsRequestMapper;
   private final SessionsResponseMapper sessionsResponseMapper;
+  private final SessionsPageResponseMapper sessionsPageResponseMapper;
 
   @Override
   public List<SessionsResponse> findAll() {
@@ -27,13 +33,20 @@ public class SessionsService implements BaseService<SessionsResponse> {
   }
 
   @Override
-  public List<SessionsResponse> getAllPageable(int size, int pageNumber) {
+  public Page<SessionsResponse> getAllPageable(int size, int pageNumber) {
     return null;
+  }
+
+  public PageSessionsResponse getAllPage(int size, int pageNumber) {
+    Pageable pageable = PageRequest.of(pageNumber, size);
+    Page<Sessions> byDeletedFalse = sessionsRepository.findByDeletedFalse(pageable);
+    return sessionsPageResponseMapper.convertToDto(byDeletedFalse);
   }
 
   @Override
   public SessionsResponse findById(Long userId) {
-    Sessions sessions = sessionsRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Сесії"));
+    Sessions sessions =
+      sessionsRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Сесії"));
     return sessionsResponseMapper.convertToDto(sessions);
   }
 
@@ -56,8 +69,8 @@ public class SessionsService implements BaseService<SessionsResponse> {
 
   public void update(SessionsRequest obj) {
     Sessions sessions = sessionsRequestMapper.convertToEntity(obj);
-    Sessions findSessions =
-      sessionsRepository.findByProgram(sessions.getProgram()).orElseThrow(() -> new CouldNotFindException("Сесії"));
+    Sessions findSessions = sessionsRepository.findByProgram(sessions.getProgram())
+      .orElseThrow(() -> new CouldNotFindException("Сесії"));
 
     Sessions session =
       Sessions.builder().id(findSessions.getId()).sessionsStatus(sessions.getSessionsStatus())
@@ -68,7 +81,8 @@ public class SessionsService implements BaseService<SessionsResponse> {
 
   @Override
   public void delete(Long userId) {
-    Sessions session = sessionsRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Сесії"));
+    Sessions session =
+      sessionsRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Сесії"));
     session.setDeleted(true);
     sessionsRepository.delete(session);
   }

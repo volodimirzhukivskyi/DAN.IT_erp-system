@@ -10,10 +10,10 @@ import com.danit.erp.exception.find.CouldNotFindGroupsException;
 import com.danit.erp.exception.find.CouldNotFindSessionsException;
 import com.danit.erp.exception.find.name.CouldNotFindNameException;
 import com.danit.erp.facade.GeneralFacade;
-import com.danit.erp.repository.list.GroupListRepository;
 import com.danit.erp.repository.dictionary.GroupRepository;
 import com.danit.erp.repository.dictionary.ProgramRepository;
 import com.danit.erp.repository.dictionary.SessionsRepository;
+import com.danit.erp.repository.list.GroupListRepository;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
@@ -45,12 +45,12 @@ public class SessionsListRequestMapper extends GeneralFacade<SessionsList, Sessi
 
   @Override
   protected void decorateEntity(SessionsList entity, SessionsListRequest dto) {
-    Program program =
-      programRepository.findByProgram(dto.getProgram()).orElseThrow(() -> new CouldNotFindNameException("Програми"));
+    Program program = programRepository.findByProgram(dto.getProgram())
+      .orElseThrow(() -> new CouldNotFindNameException("Програми"));
     Sessions sessions =
       sessionsRepository.findByProgram(program).orElseThrow(CouldNotFindSessionsException::new);
-    Group group =
-      groupRepository.findByGroupName(dto.getGroup()).orElseThrow(() -> new CouldNotFindNameException("Групи"));
+    Group group = groupRepository.findByGroupName(dto.getGroup())
+      .orElseThrow(() -> new CouldNotFindNameException("Групи"));
     GroupList groupList =
       groupListRepository.findByGroup(group).orElseThrow(CouldNotFindGroupsException::new);
 

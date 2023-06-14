@@ -6,6 +6,9 @@ import com.danit.erp.repository.dictionary.roles.MentorRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,13 +24,15 @@ public class MentorService implements BaseService<Mentor> {
   }
 
   @Override
-  public List<Mentor> getAllPageable(int size, int pageNumber) {
-    return null;
+  public Page<Mentor> getAllPageable(int size, int pageNumber) {
+    Pageable pageable = PageRequest.of(pageNumber, size);
+    return mentorRepository.findByDeletedFalse(pageable);
   }
 
   @Override
   public Mentor findById(Long userId) {
-    return mentorRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Ментора"));
+    return mentorRepository.findByIdAndDeletedFalse(userId)
+      .orElseThrow(() -> new CouldNotFindException("Ментора"));
   }
 
 
@@ -39,11 +44,10 @@ public class MentorService implements BaseService<Mentor> {
 
   @Override
   public void update(Mentor obj) {
-    Mentor findMentor =
-      mentorRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Ментора"));
+    Mentor findMentor = mentorRepository.findByIdAndDeletedFalse(obj.getId())
+      .orElseThrow(() -> new CouldNotFindException("Ментора"));
 
-    Mentor mentor =
-      Mentor.builder().id(findMentor.getId()).fullName(obj.getFullName()).build();
+    Mentor mentor = Mentor.builder().id(findMentor.getId()).fullName(obj.getFullName()).build();
     mentorRepository.save(mentor);
   }
 

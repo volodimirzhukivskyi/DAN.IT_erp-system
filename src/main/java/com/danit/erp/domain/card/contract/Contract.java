@@ -1,13 +1,13 @@
 package com.danit.erp.domain.card.contract;
 
 import com.danit.erp.domain.BaseEntity;
-import com.danit.erp.domain.dictionary.status.ContractStatus;
-import com.danit.erp.domain.dictionary.roles.Coordinator;
+import com.danit.erp.domain.card.personal_card.PersonalCard;
 import com.danit.erp.domain.dictionary.Group;
 import com.danit.erp.domain.dictionary.LegalEntity;
-import com.danit.erp.domain.dictionary.roles.Manager;
 import com.danit.erp.domain.dictionary.Program;
-import com.danit.erp.domain.card.personal_card.PersonalCard;
+import com.danit.erp.domain.dictionary.roles.Coordinator;
+import com.danit.erp.domain.dictionary.roles.Manager;
+import com.danit.erp.domain.dictionary.status.ContractStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,7 +29,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 public class Contract extends BaseEntity {
-  @Column(name = "contract_no",unique = true)
+  @Column(name = "contract_no", unique = true)
   private Long contractNo;
   private LocalDateTime contractDate;
   private Double contractValue;
