@@ -3,6 +3,7 @@ package com.danit.erp.service.list;
 import com.danit.erp.domain.list.group_list.GroupList;
 import com.danit.erp.dto.list.group_list.GroupListRequest;
 import com.danit.erp.dto.list.group_list.GroupListResponse;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.facade.list.group_list.GroupListRequestMapper;
 import com.danit.erp.facade.list.group_list.GroupListResponseMapper;
 import com.danit.erp.repository.list.GroupListRepository;
@@ -33,10 +34,9 @@ public class GroupListService implements BaseService<GroupListResponse> {
 
   @Override
   public GroupListResponse findById(Long userId) {
-    GroupList groupList = groupListRepository.findById(userId).orElseThrow(() -> new Error());
+    GroupList groupList = groupListRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Список груп"));
    return groupListResponseMapper.convertToDto(groupList);
 
-    //TODO зробити помилку
   }
 
 
@@ -58,7 +58,7 @@ public class GroupListService implements BaseService<GroupListResponse> {
   public void update(GroupListRequest obj) {
     GroupList concertGroupList = groupListRequestMapper.convertToEntity(obj);
     GroupList findGroupList =
-      groupListRepository.findByGroup(concertGroupList.getGroup()).orElseThrow(() -> new Error());
+      groupListRepository.findByGroup(concertGroupList.getGroup()).orElseThrow(() -> new CouldNotFindException("Список груп"));
 
     GroupList groupStatus =
       GroupList.builder().id(findGroupList.getId()).group(concertGroupList.getGroup())
@@ -70,9 +70,8 @@ public class GroupListService implements BaseService<GroupListResponse> {
 
   @Override
   public void delete(Long userId) {
-    GroupList findGroupStatus = groupListRepository.findById(userId).orElseThrow(() -> new Error());
+    GroupList findGroupStatus = groupListRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Список груп"));
 
-    //TODO зробити помилку
     groupListRepository.save(findGroupStatus);
 
   }

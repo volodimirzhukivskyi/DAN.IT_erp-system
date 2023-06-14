@@ -1,6 +1,7 @@
 package com.danit.erp.service.dictionary;
 
 import com.danit.erp.domain.dictionary.Profession;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.ProfessionRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -26,8 +27,7 @@ public class ProfessionService implements BaseService<Profession> {
 
   @Override
   public Profession findById(Long userId) {
-    return professionRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new Error());
-    //TODO зробити помилку
+    return professionRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Професії"));
   }
 
 
@@ -40,7 +40,7 @@ public class ProfessionService implements BaseService<Profession> {
   @Override
   public void update(Profession obj) {
     Profession findProfession =
-      professionRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new Error());
+      professionRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Професії"));
 
     Profession profession =
       Profession.builder().id(findProfession.getId()).name(obj.getName()).build();
@@ -50,9 +50,8 @@ public class ProfessionService implements BaseService<Profession> {
   @Override
   public void delete(Long userId) {
     Profession profession =
-      professionRepository.findById(userId).orElseThrow(() -> new Error());
+      professionRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Професії"));
 
-    //TODO зробити помилку
     profession.setDeleted(true);
     professionRepository.save(profession);
 

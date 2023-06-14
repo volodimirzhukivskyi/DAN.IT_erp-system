@@ -9,7 +9,7 @@ public class ContractResponse {
   private String contractDate;
   private Double contractValue;
   private String docLink;
-  //TODO використати функцію для створення
+
   private String legalEntity;
   private String status;
   private String clientName;

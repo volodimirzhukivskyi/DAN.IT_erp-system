@@ -1,18 +1,18 @@
 package com.danit.erp.facade.card.personal_card;
 
+import com.danit.erp.domain.card.personal_card.PersonalCard;
 import com.danit.erp.domain.dictionary.Education;
 import com.danit.erp.domain.dictionary.Email;
 import com.danit.erp.domain.dictionary.Profession;
-import com.danit.erp.domain.dictionary.roles.Role;
 import com.danit.erp.domain.dictionary.University;
-import com.danit.erp.domain.card.personal_card.PersonalCard;
+import com.danit.erp.domain.dictionary.roles.Role;
 import com.danit.erp.dto.card.personal_card.PersonalCardRequest;
 import com.danit.erp.facade.GeneralFacade;
 import com.danit.erp.repository.dictionary.EducationRepository;
 import com.danit.erp.repository.dictionary.EmailRepository;
 import com.danit.erp.repository.dictionary.ProfessionRepository;
-import com.danit.erp.repository.dictionary.roles.RoleRepository;
 import com.danit.erp.repository.dictionary.UniversityRepository;
+import com.danit.erp.repository.dictionary.roles.RoleRepository;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
@@ -52,8 +52,6 @@ public class PersonalCardRequestMapper extends GeneralFacade<PersonalCard, Perso
     if (dto.getEmail() != null && findEmail == null) {
       findEmail = emailRepository.save(new Email(dto.getIdCode(), dto.getEmail()));
     }
-
-
     University findUniversity =
       universityRepository.findByName(dto.getUniversityName()).orElse(null);
     if (dto.getUniversityName() != null && findUniversity == null) {
@@ -70,10 +68,13 @@ public class PersonalCardRequestMapper extends GeneralFacade<PersonalCard, Perso
       educationRepository.findBySpecialization(dto.getSpecializationName()).orElse(null);
 
     if (dto.getSpecializationName() != null && findSpecialization == null) {
-      findSpecialization =
-        educationRepository.save(Education.builder().specialization(dto.getSpecializationName()).build());
+      findSpecialization = educationRepository.save(
+        Education.builder().specialization(dto.getSpecializationName()).build());
     }
-    Role findRole = roleRepository.findByRole(dto.getRoleName()).orElseThrow(() -> new Error());
+    Role findRole = roleRepository.findByRole(dto.getRoleName()).orElse(null);
+    if (dto.getRoleName() != null && findRole == null) {
+      findRole = roleRepository.save(Role.builder().role(dto.getRoleName()).build());
+    }
 
     entity.setEmail(findEmail);
     entity.setUniversity(findUniversity);

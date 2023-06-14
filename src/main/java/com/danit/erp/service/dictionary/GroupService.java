@@ -1,6 +1,7 @@
 package com.danit.erp.service.dictionary;
 
 import com.danit.erp.domain.dictionary.Group;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.repository.GroupScheduleRepository;
 import com.danit.erp.repository.dictionary.GroupRepository;
 import com.danit.erp.service.BaseService;
@@ -28,8 +29,7 @@ public class GroupService implements BaseService<Group> {
 
   @Override
   public Group findById(Long userId) {
-    return groupRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new Error());
-    //TODO зробити помилку
+    return groupRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Групи"));
   }
 
 
@@ -43,7 +43,7 @@ public class GroupService implements BaseService<Group> {
   @Override
   public void update(Group obj) {
     Group findGroup =
-      groupRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new Error());
+      groupRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Групи"));
 
     Group group = Group.builder().id(findGroup.getId()).groupName(obj.getGroupName())
       .startDate(obj.getStartDate()).build();
@@ -52,9 +52,8 @@ public class GroupService implements BaseService<Group> {
 
   @Override
   public void delete(Long userId) {
-    Group group = groupRepository.findById(userId).orElseThrow(() -> new Error());
+    Group group = groupRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Групи"));
     groupScheduleRepository.deleteAll(group.getGroupSchedules());
-    //TODO зробити помилку
     group.setDeleted(true);
     groupRepository.save(group);
 

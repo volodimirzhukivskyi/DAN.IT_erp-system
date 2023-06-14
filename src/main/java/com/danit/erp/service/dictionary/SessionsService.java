@@ -3,6 +3,7 @@ package com.danit.erp.service.dictionary;
 import com.danit.erp.domain.dictionary.Sessions;
 import com.danit.erp.dto.sessions.SessionsRequest;
 import com.danit.erp.dto.sessions.SessionsResponse;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.facade.session.SessionsRequestMapper;
 import com.danit.erp.facade.session.SessionsResponseMapper;
 import com.danit.erp.repository.dictionary.SessionsRepository;
@@ -32,9 +33,8 @@ public class SessionsService implements BaseService<SessionsResponse> {
 
   @Override
   public SessionsResponse findById(Long userId) {
-    Sessions sessions = sessionsRepository.findById(userId).orElseThrow(() -> new Error());
+    Sessions sessions = sessionsRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Сесії"));
     return sessionsResponseMapper.convertToDto(sessions);
-    //TODO зробити помилку
   }
 
   @Override
@@ -57,7 +57,7 @@ public class SessionsService implements BaseService<SessionsResponse> {
   public void update(SessionsRequest obj) {
     Sessions sessions = sessionsRequestMapper.convertToEntity(obj);
     Sessions findSessions =
-      sessionsRepository.findByProgram(sessions.getProgram()).orElseThrow(() -> new Error());
+      sessionsRepository.findByProgram(sessions.getProgram()).orElseThrow(() -> new CouldNotFindException("Сесії"));
 
     Sessions session =
       Sessions.builder().id(findSessions.getId()).sessionsStatus(sessions.getSessionsStatus())
@@ -68,9 +68,8 @@ public class SessionsService implements BaseService<SessionsResponse> {
 
   @Override
   public void delete(Long userId) {
-    Sessions session = sessionsRepository.findById(userId).orElseThrow(() -> new Error());
+    Sessions session = sessionsRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Сесії"));
     session.setDeleted(true);
-    //TODO зробити помилку
     sessionsRepository.delete(session);
   }
 }

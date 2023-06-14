@@ -1,6 +1,7 @@
 package com.danit.erp.service.dictionary;
 
 import com.danit.erp.domain.dictionary.LegalEntity;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.LegalEntityRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -26,7 +27,7 @@ public class LegalEntityService implements BaseService<LegalEntity> {
 
   @Override
   public LegalEntity findById(Long userId) {
-    return legalEntityRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new Error());
+    return legalEntityRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Юридичної особи"));
     //TODO зробити помилку
   }
 
@@ -47,7 +48,7 @@ public class LegalEntityService implements BaseService<LegalEntity> {
   @Override
   public void update(LegalEntity obj) {
     LegalEntity legalEntity =
-      legalEntityRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new Error());
+      legalEntityRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Юридичної особи"));
 
     LegalEntity legalEntityUpdate =
       LegalEntity.builder().id(legalEntity.getId()) .statuteEntity(obj.getStatuteEntity())
@@ -63,7 +64,7 @@ public class LegalEntityService implements BaseService<LegalEntity> {
   @Override
   public void delete(Long userId) {
     LegalEntity legalEntity =
-      legalEntityRepository.findById(userId).orElseThrow(() -> new Error());
+      legalEntityRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Юридичної особи"));
 
     //TODO зробити помилку
     legalEntity.setDeleted(true);

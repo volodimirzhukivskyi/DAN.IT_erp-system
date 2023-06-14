@@ -1,6 +1,7 @@
 package com.danit.erp.service.dictionary;
 
 import com.danit.erp.domain.dictionary.University;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.UniversityRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -26,8 +27,7 @@ public class UniversityService implements BaseService<University> {
 
   @Override
   public University findById(Long userId) {
-    return universityRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new Error());
-    //TODO зробити помилку
+    return universityRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Юніверситети"));
   }
 
 
@@ -40,7 +40,7 @@ public class UniversityService implements BaseService<University> {
   @Override
   public void update(University obj) {
     University findUniversity =
-      universityRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new Error());
+      universityRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Юніверситети"));
 
     University university =
       University.builder().id(findUniversity.getId()).name(obj.getName()).build();
@@ -50,9 +50,8 @@ public class UniversityService implements BaseService<University> {
   @Override
   public void delete(Long userId) {
     University university =
-      universityRepository.findById(userId).orElseThrow(() -> new Error());
+      universityRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Юніверситети"));
 
-    //TODO зробити помилку
     university.setDeleted(true);
     universityRepository.save(university);
 

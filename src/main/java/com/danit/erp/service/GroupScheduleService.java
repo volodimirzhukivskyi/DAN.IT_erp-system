@@ -2,6 +2,7 @@ package com.danit.erp.service;
 
 import com.danit.erp.domain.group_schedule.GroupSchedule;
 import com.danit.erp.dto.group_schedule.GroupScheduleDto;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.facade.group_schedule.GroupScheduleMapper;
 import com.danit.erp.repository.GroupScheduleRepository;
 import java.util.List;
@@ -34,9 +35,8 @@ public class GroupScheduleService implements BaseService<GroupScheduleDto> {
   @Override
   public GroupScheduleDto findById(Long userId) {
     GroupSchedule findGroupSchedule =
-      groupScheduleRepository.findById(userId).orElseThrow(() -> new Error());
+      groupScheduleRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Розклад"));
     return groupScheduleMapper.convertToDto(findGroupSchedule);
-    //TODO зробити помилку або глянути чи вона взагалі потрібна
   }
 
   @Override
@@ -59,8 +59,7 @@ public class GroupScheduleService implements BaseService<GroupScheduleDto> {
   @Override
   public void delete(Long userId) {
     GroupSchedule groupSchedule =
-      groupScheduleRepository.findById(userId).orElseThrow(() -> new Error());
-    //TODO зробити помилку
+      groupScheduleRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Розклад"));
 
     groupScheduleRepository.delete(groupSchedule);
   }

@@ -2,6 +2,7 @@ package com.danit.erp.service.dictionary;
 
 import com.danit.erp.domain.dictionary.Email;
 import com.danit.erp.domain.card.personal_card.PersonalCard;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.repository.card.PersonalCardRepository;
 import com.danit.erp.repository.dictionary.EmailRepository;
 import com.danit.erp.service.BaseService;
@@ -29,14 +30,13 @@ public class EmailService implements BaseService<Email> {
 
   @Override
   public Email findById(Long userId) {
-    return emailListRepository.findById(userId).orElseThrow(() -> new Error());
+    return emailListRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Електронна пошта"));
     //TODO зробити помилку
   }
 
 
   @Override
   public Email create(Email obj) {
-//TODO  Більш красивіше прописати метод
     PersonalCard findPersonalCard =
       personalCardRepository.findByIdCode(obj.getIdCode()).orElse(null);
     Email findEmail = emailListRepository.findByIdCode(obj.getIdCode()).orElse(null);
@@ -55,7 +55,7 @@ public class EmailService implements BaseService<Email> {
 
   @Override
   public void update(Email obj) {
-    Email findEmail = emailListRepository.findById(obj.getId()).orElseThrow(() -> new Error());
+    Email findEmail = emailListRepository.findById(obj.getId()).orElseThrow(() -> new CouldNotFindException("Електронна пошта"));
 
     Email email =
       Email.builder().id(findEmail.getId()).email(obj.getEmail()).idCode(obj.getIdCode()).build();
@@ -64,9 +64,8 @@ public class EmailService implements BaseService<Email> {
 
   @Override
   public void delete(Long userId) {
-    Email email = emailListRepository.findById(userId).orElseThrow(() -> new Error());
+    Email email = emailListRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Електронна пошта"));
 
-    //TODO зробити помилку
     emailListRepository.delete(email);
   }
 }

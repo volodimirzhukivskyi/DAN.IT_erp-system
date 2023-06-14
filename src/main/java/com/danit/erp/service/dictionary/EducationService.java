@@ -1,6 +1,7 @@
 package com.danit.erp.service.dictionary;
 
 import com.danit.erp.domain.dictionary.Education;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.EducationRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -26,7 +27,7 @@ public class EducationService implements BaseService<Education> {
 
   @Override
   public Education findById(Long userId) {
-    return educationRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new Error());
+    return educationRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Спеціалізації"));
     //TODO зробити помилку
   }
 
@@ -40,7 +41,7 @@ public class EducationService implements BaseService<Education> {
   @Override
   public void update(Education obj) {
     Education findEducation =
-      educationRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new Error());
+      educationRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Спеціалізації"));
 
     Education education =
       Education.builder().id(findEducation.getId()).specialization(obj.getSpecialization()).build();
@@ -50,7 +51,7 @@ public class EducationService implements BaseService<Education> {
   @Override
   public void delete(Long userId) {
     Education education =
-      educationRepository.findById(userId).orElseThrow(() -> new Error());
+      educationRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Спеціалізації"));
 
     //TODO зробити помилку
     education.setDeleted(true);

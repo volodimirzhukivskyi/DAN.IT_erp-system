@@ -1,6 +1,7 @@
 package com.danit.erp.service.dictionary;
 
 import com.danit.erp.domain.dictionary.Program;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.ProgramRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -26,8 +27,7 @@ public class ProgramService implements BaseService<Program> {
 
   @Override
   public Program findById(Long userId) {
-    return programRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new Error());
-    //TODO зробити помилку
+    return programRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Прогами"));
   }
 
 
@@ -40,7 +40,7 @@ public class ProgramService implements BaseService<Program> {
   @Override
   public void update(Program obj) {
     Program findProgram =
-      programRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new Error());
+      programRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Прогами"));
 
     Program program =
       Program.builder().id(findProgram.getId()).program(obj.getProgram()).programHours(obj.getProgramHours()).build();
@@ -50,9 +50,8 @@ public class ProgramService implements BaseService<Program> {
   @Override
   public void delete(Long userId) {
     Program program =
-      programRepository.findById(userId).orElseThrow(() -> new Error());
+      programRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Прогами"));
 
-    //TODO зробити помилку
     program.setDeleted(true);
     programRepository.save(program);
 

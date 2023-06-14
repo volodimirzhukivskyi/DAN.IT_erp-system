@@ -3,6 +3,7 @@ package com.danit.erp.service.list;
 import com.danit.erp.domain.list.sessions_list.SessionsList;
 import com.danit.erp.dto.list.sessions_list.SessionsListRequest;
 import com.danit.erp.dto.list.sessions_list.SessionsListResponse;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.facade.list.sessions_list.SessionsListRequestMapper;
 import com.danit.erp.facade.list.sessions_list.SessionsListResponseMapper;
 import com.danit.erp.repository.list.SessionsListRepository;
@@ -36,9 +37,8 @@ public class SessionsListService implements BaseService<SessionsListResponse> {
   @Override
   public SessionsListResponse findById(Long userId) {
     SessionsList sessionsList =
-      sessionsListRepository.findById(userId).orElseThrow(() -> new Error());
+      sessionsListRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Список сесій"));
     return sessionsListResponseMapper.convertToDto(sessionsList);
-    //TODO зробити помилку або глянути чи вона взагалі потрібна
   }
 
   @Override
@@ -63,7 +63,7 @@ public class SessionsListService implements BaseService<SessionsListResponse> {
 
     SessionsList obj = sessionsListRequestMapper.convertToEntity(SessionsListRequest);
     SessionsList findSessionsList =
-      sessionsListRepository.findById(obj.getId()).orElseThrow(() -> new Error());
+      sessionsListRepository.findById(obj.getId()).orElseThrow(() -> new CouldNotFindException("Список сесій"));
 
     SessionsList sessionsList = SessionsList.builder().id(findSessionsList.getId())
       .groupList(findSessionsList.getGroupList()).session(findSessionsList.getSession())
@@ -76,8 +76,7 @@ public class SessionsListService implements BaseService<SessionsListResponse> {
   @Override
   public void delete(Long userId) {
     SessionsList sessionsList =
-      sessionsListRepository.findById(userId).orElseThrow(() -> new Error());
-    //TODO зробити помилку
+      sessionsListRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Список сесій"));
 
     sessionsListRepository.delete(sessionsList);
   }

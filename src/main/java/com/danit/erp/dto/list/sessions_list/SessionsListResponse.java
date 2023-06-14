@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class SessionsListResponse {
+  private Long id;
   private String sessionsTopic;
   private String program;
   private String group;

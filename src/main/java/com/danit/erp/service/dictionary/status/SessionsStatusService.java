@@ -1,6 +1,7 @@
 package com.danit.erp.service.dictionary.status;
 
 import com.danit.erp.domain.dictionary.status.SessionsStatus;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.status.SessionsStatusRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -26,8 +27,7 @@ public class SessionsStatusService implements BaseService<SessionsStatus> {
 
   @Override
   public SessionsStatus findById(Long userId) {
-    return sessionsStatusRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new Error());
-    //TODO зробити помилку
+    return sessionsStatusRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Статусу  сесії"));
   }
 
 
@@ -40,7 +40,7 @@ public class SessionsStatusService implements BaseService<SessionsStatus> {
   @Override
   public void update(SessionsStatus obj) {
     SessionsStatus findSessionsStatus =
-      sessionsStatusRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new Error());
+      sessionsStatusRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Статусу  сесії"));
 
     SessionsStatus groupStatus =
       SessionsStatus.builder().id(findSessionsStatus.getId()).status(obj.getStatus()).build();
@@ -50,9 +50,8 @@ public class SessionsStatusService implements BaseService<SessionsStatus> {
   @Override
   public void delete(Long userId) {
     SessionsStatus findSessionsStatus =
-      sessionsStatusRepository.findById(userId).orElseThrow(() -> new Error());
+      sessionsStatusRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Статусу  сесії"));
 
-    //TODO зробити помилку
     findSessionsStatus.setDeleted(true);
     sessionsStatusRepository.save(findSessionsStatus);
 

@@ -1,6 +1,7 @@
 package com.danit.erp.service.dictionary.status;
 
 import com.danit.erp.domain.dictionary.status.GroupStatus;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.status.GroupStatusRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -26,8 +27,7 @@ public class GroupStatusService implements BaseService<GroupStatus> {
 
   @Override
   public GroupStatus findById(Long userId) {
-    return groupStatusRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new Error());
-    //TODO зробити помилку
+    return groupStatusRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Статусу  групи"));
   }
 
 
@@ -40,7 +40,7 @@ public class GroupStatusService implements BaseService<GroupStatus> {
   @Override
   public void update(GroupStatus obj) {
     GroupStatus findGroupStatus =
-      groupStatusRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new Error());
+      groupStatusRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Статусу  групи"));
 
     GroupStatus groupStatus =
       GroupStatus.builder().id(findGroupStatus.getId()).status(obj.getStatus()).build();
@@ -50,9 +50,8 @@ public class GroupStatusService implements BaseService<GroupStatus> {
   @Override
   public void delete(Long userId) {
     GroupStatus findGroupStatus =
-      groupStatusRepository.findById(userId).orElseThrow(() -> new Error());
+      groupStatusRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Статусу  групи"));
 
-    //TODO зробити помилку
     findGroupStatus.setDeleted(true);
     groupStatusRepository.save(findGroupStatus);
 

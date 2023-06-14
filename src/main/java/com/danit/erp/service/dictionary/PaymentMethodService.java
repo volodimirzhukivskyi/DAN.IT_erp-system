@@ -1,6 +1,7 @@
 package com.danit.erp.service.dictionary;
 
 import com.danit.erp.domain.dictionary.PaymentMethod;
+import com.danit.erp.exception.find.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.PaymentMethodRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -26,8 +27,7 @@ public class PaymentMethodService implements BaseService<PaymentMethod> {
 
   @Override
   public PaymentMethod findById(Long userId) {
-    return paymentMethodRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new Error());
-    //TODO зробити помилку
+    return paymentMethodRepository.findByIdAndDeletedFalse(userId).orElseThrow(() -> new CouldNotFindException("Метода оплати"));
   }
 
 
@@ -40,7 +40,7 @@ public class PaymentMethodService implements BaseService<PaymentMethod> {
   @Override
   public void update(PaymentMethod obj) {
     PaymentMethod findPaymentMethod =
-      paymentMethodRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new Error());
+      paymentMethodRepository.findByIdAndDeletedFalse(obj.getId()).orElseThrow(() -> new CouldNotFindException("Метода оплати"));
 
     PaymentMethod paymentMethod =
       PaymentMethod.builder().id(findPaymentMethod.getId()).method(obj.getMethod()).build();
@@ -50,9 +50,8 @@ public class PaymentMethodService implements BaseService<PaymentMethod> {
   @Override
   public void delete(Long userId) {
     PaymentMethod findPaymentMethod =
-      paymentMethodRepository.findById(userId).orElseThrow(() -> new Error());
+      paymentMethodRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Метода оплати"));
 
-    //TODO зробити помилку
     findPaymentMethod.setDeleted(true);
     paymentMethodRepository.save(findPaymentMethod);
 
