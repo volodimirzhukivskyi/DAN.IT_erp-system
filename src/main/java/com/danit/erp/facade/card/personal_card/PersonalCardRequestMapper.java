@@ -71,7 +71,7 @@ public class PersonalCardRequestMapper extends GeneralFacade<PersonalCard, Perso
       findSpecialization = educationRepository.save(
         Education.builder().specialization(dto.getSpecializationName()).build());
     }
-    Role findRole = roleRepository.findByRole(dto.getRoleName()).orElse(null);
+    Role findRole = roleRepository.findByRole("Client").orElse(null);
     if (dto.getRoleName() != null && findRole == null) {
       findRole = roleRepository.save(Role.builder().role(dto.getRoleName()).build());
     }

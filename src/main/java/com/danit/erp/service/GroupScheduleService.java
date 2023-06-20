@@ -27,10 +27,6 @@ public class GroupScheduleService implements BaseService<GroupScheduleDto> {
 
   }
 
-//  @Override
-//  public List<GroupScheduleDto> getAllPageable(int size, int pageNumber) {
-//    return null;
-//  }
 
   @Override
   public GroupScheduleDto findById(Long userId) {

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class PersonalCardRequest {
-  private Long id;
+
   private String password;
   private String surname;
   private String name;
