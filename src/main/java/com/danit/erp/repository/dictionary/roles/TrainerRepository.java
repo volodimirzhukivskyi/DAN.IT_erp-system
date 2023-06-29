@@ -9,13 +9,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TrainerRepository extends JpaRepository<Trainer, Long> {
+public interface TrainerRepository extends JpaRepository<Trainer, Integer> {
   Optional<Trainer> findByFullName(String fullName);
   Page<Trainer> findByDeletedFalse(Pageable pageable);
 
   List<Trainer> findByDeletedFalse();
 
-  Optional<Trainer> findByIdAndDeletedFalse(Long userId);
+  Optional<Trainer> findByIdAndDeletedFalse(Integer userId);
 
 
 }

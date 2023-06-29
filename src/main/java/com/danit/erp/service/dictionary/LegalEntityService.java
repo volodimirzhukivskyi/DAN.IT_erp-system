@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class LegalEntityService implements BaseService<LegalEntity> {
+public class LegalEntityService implements BaseService<LegalEntity,Integer> {
   private final LegalEntityRepository legalEntityRepository;
 
   @Override
@@ -31,7 +31,7 @@ public class LegalEntityService implements BaseService<LegalEntity> {
   }
 
   @Override
-  public LegalEntity findById(Long userId) {
+  public LegalEntity findById(Integer userId) {
     return legalEntityRepository.findByIdAndDeletedFalse(userId)
       .orElseThrow(() -> new CouldNotFindException("Юридичної особи"));
   }
@@ -60,7 +60,7 @@ public class LegalEntityService implements BaseService<LegalEntity> {
   }
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Integer userId) {
     LegalEntity legalEntity = legalEntityRepository.findById(userId)
       .orElseThrow(() -> new CouldNotFindException("Юридичної особи"));
 

@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class RoleService implements BaseService<Role> {
+public class RoleService implements BaseService<Role,Short> {
   private final RoleRepository roleRepository;
 
   @Override
@@ -31,7 +31,7 @@ public class RoleService implements BaseService<Role> {
   }
 
   @Override
-  public Role findById(Long userId) {
+  public Role findById(Short userId) {
     return roleRepository.findByIdAndDeletedFalse(userId)
       .orElseThrow(() -> new CouldNotFindException("Ролі"));
   }
@@ -53,7 +53,7 @@ public class RoleService implements BaseService<Role> {
   }
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Short userId) {
     Role role =
       roleRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Ролі"));
 

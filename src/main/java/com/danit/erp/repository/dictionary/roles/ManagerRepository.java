@@ -9,11 +9,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ManagerRepository extends JpaRepository<Manager, Long> {
+public interface ManagerRepository extends JpaRepository<Manager, Integer> {
   Optional<Manager> findByFullName(String fullName);
   Page<Manager> findByDeletedFalse(Pageable pageable);
   List<Manager> findByDeletedFalse();
-  Optional<Manager> findByIdAndDeletedFalse(Long userId);
+  Optional<Manager> findByIdAndDeletedFalse(Integer userId);
 
 
 }

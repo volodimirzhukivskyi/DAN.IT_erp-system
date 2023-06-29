@@ -9,12 +9,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MentorRepository extends JpaRepository<Mentor, Long> {
+public interface MentorRepository extends JpaRepository<Mentor, Integer> {
   Optional<Mentor> findByFullName(String fullName);
   Page<Mentor> findByDeletedFalse(Pageable pageable);
   List<Mentor> findByDeletedFalse();
 
-  Optional<Mentor> findByIdAndDeletedFalse(Long userId);
+  Optional<Mentor> findByIdAndDeletedFalse(Integer userId);
 
 
 }

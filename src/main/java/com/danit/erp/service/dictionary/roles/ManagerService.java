@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ManagerService implements BaseService<Manager> {
+public class ManagerService implements BaseService<Manager,Integer> {
   private final ManagerRepository managerRepository;
 
   @Override
@@ -30,7 +30,7 @@ public class ManagerService implements BaseService<Manager> {
   }
 
   @Override
-  public Manager findById(Long userId) {
+  public Manager findById(Integer userId) {
     return managerRepository.findByIdAndDeletedFalse(userId)
       .orElseThrow(() -> new CouldNotFindException("Менеджера"));
   }
@@ -52,7 +52,7 @@ public class ManagerService implements BaseService<Manager> {
   }
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Integer userId) {
     Manager manager =
       managerRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Менеджера"));
 

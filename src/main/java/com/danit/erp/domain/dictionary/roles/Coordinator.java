@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Coordinator extends BaseEntity {
+public class Coordinator extends BaseEntity<Integer> {
   private String fullName;
   private boolean deleted;
 }

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class GroupScheduleService implements BaseService<GroupScheduleDto> {
+public class GroupScheduleService implements BaseService<GroupScheduleDto,Integer> {
   private final GroupScheduleRepository groupScheduleRepository;
   private final GroupScheduleMapper groupScheduleMapper;
 
@@ -29,7 +29,7 @@ public class GroupScheduleService implements BaseService<GroupScheduleDto> {
 
 
   @Override
-  public GroupScheduleDto findById(Long userId) {
+  public GroupScheduleDto findById(Integer userId) {
     GroupSchedule findGroupSchedule = groupScheduleRepository.findById(userId)
       .orElseThrow(() -> new CouldNotFindException("Розклад"));
     return groupScheduleMapper.convertToDto(findGroupSchedule);
@@ -53,7 +53,7 @@ public class GroupScheduleService implements BaseService<GroupScheduleDto> {
 
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Integer userId) {
     GroupSchedule groupSchedule = groupScheduleRepository.findById(userId)
       .orElseThrow(() -> new CouldNotFindException("Розклад"));
 

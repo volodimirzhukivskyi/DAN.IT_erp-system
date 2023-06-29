@@ -8,17 +8,19 @@ import jakarta.persistence.MappedSuperclass;
 import java.io.Serializable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-@MappedSuperclass
 @Getter
+@Setter
+@MappedSuperclass
 @NoArgsConstructor
 @SuperBuilder
-public abstract class BaseEntity implements Serializable {
+public abstract class BaseEntity<T> implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", unique = true, nullable = false, updatable = false)
-  private Long id;
+  private T id;
 
 }

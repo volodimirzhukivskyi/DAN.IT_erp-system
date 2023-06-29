@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class EmailService implements BaseService<Email> {
+public class EmailService implements BaseService<Email,Long> {
   private final EmailRepository emailListRepository;
   private final PersonalCardRepository personalCardRepository;
 

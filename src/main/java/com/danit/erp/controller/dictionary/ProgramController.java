@@ -29,12 +29,12 @@ public class ProgramController {
 
   @GetMapping("/{id}")
   public Program getById(@PathVariable("id") String userId) throws Exception {
-    return programService.findById(Long.parseLong(userId));
+    return programService.findById(Short.parseShort(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    programService.delete(Long.parseLong(userId));
+    programService.delete(Short.parseShort(userId));
   }
 
   @PutMapping("/update")

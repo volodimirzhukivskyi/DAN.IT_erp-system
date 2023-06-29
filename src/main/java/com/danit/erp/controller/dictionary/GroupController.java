@@ -29,12 +29,12 @@ public class GroupController {
 
   @GetMapping("/{id}")
   public Group getById(@PathVariable("id") String userId) throws Exception {
-    return groupService.findById(Long.parseLong(userId));
+    return groupService.findById(Integer.parseInt(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    groupService.delete(Long.parseLong(userId));
+    groupService.delete(Integer.parseInt(userId));
   }
 
   @PutMapping("/update")

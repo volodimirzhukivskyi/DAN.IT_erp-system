@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class SessionsService implements BaseService<SessionsResponse> {
+public class SessionsService implements BaseService<SessionsResponse,Long> {
   private final SessionsRepository sessionsRepository;
   private final SessionsRequestMapper sessionsRequestMapper;
   private final SessionsResponseMapper sessionsResponseMapper;

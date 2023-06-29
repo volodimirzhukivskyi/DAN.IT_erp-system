@@ -29,12 +29,12 @@ public class ManagerController {
 
   @GetMapping("/{id}")
   public Manager getById(@PathVariable("id") String userId) throws Exception {
-    return managerService.findById(Long.parseLong(userId));
+    return managerService.findById(Integer.parseInt(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    managerService.delete(Long.parseLong(userId));
+    managerService.delete(Integer.parseInt(userId));
   }
 
   @PutMapping("/update")

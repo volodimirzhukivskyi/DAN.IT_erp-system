@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Profession extends BaseEntity {
+public class Profession extends BaseEntity<Short> {
   private String name;
   private boolean deleted;
 }

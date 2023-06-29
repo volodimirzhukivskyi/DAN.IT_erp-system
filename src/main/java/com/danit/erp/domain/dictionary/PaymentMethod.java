@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class PaymentMethod extends BaseEntity {
+public class PaymentMethod extends BaseEntity<Byte> {
   private String method;
   private boolean deleted;
 

@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class GroupListService implements BaseService<GroupListResponse> {
+public class GroupListService implements BaseService<GroupListResponse,Integer> {
   private final GroupListRepository groupListRepository;
   private final GroupListRequestMapper groupListRequestMapper;
   private final GroupListResponseMapper groupListResponseMapper;
@@ -40,7 +40,7 @@ public class GroupListService implements BaseService<GroupListResponse> {
   }
 
   @Override
-  public GroupListResponse findById(Long userId) {
+  public GroupListResponse findById(Integer userId) {
     GroupList groupList = groupListRepository.findById(userId)
       .orElseThrow(() -> new CouldNotFindException("Список груп"));
     return groupListResponseMapper.convertToDto(groupList);
@@ -78,7 +78,7 @@ public class GroupListService implements BaseService<GroupListResponse> {
   }
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Integer userId) {
     GroupList findGroupStatus = groupListRepository.findById(userId)
       .orElseThrow(() -> new CouldNotFindException("Список груп"));
 

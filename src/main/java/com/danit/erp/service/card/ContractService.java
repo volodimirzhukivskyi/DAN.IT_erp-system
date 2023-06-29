@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ContractService implements BaseService<ContractResponse> {
+public class ContractService implements BaseService<ContractResponse,Long> {
   private final ContractRepository contractRepository;
 
   private final ContractRequestMapper contractRequestMapper;

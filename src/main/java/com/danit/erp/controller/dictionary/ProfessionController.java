@@ -29,12 +29,12 @@ public class ProfessionController {
 
   @GetMapping("/{id}")
   public Profession getById(@PathVariable("id") String userId) throws Exception {
-    return professionService.findById(Long.parseLong(userId));
+    return professionService.findById(Short.parseShort(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    professionService.delete(Long.parseLong(userId));
+    professionService.delete(Short.parseShort(userId));
   }
 
   @PutMapping("/update")

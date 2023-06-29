@@ -9,11 +9,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProgramRepository extends JpaRepository<Program, Long> {
+public interface ProgramRepository extends JpaRepository<Program, Short> {
   Optional<Program> findByProgram(String nameProgram);
   Page<Program> findByDeletedFalse(Pageable pageable);
   List<Program> findByDeletedFalse();
-  Optional<Program> findByIdAndDeletedFalse(Long userId);
+  Optional<Program> findByIdAndDeletedFalse(Short userId);
 
 
 }

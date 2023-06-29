@@ -25,32 +25,6 @@ api:
   version: /api/v0
 
 ---
-#spring:
-#  config:
-#    activate:
-#      on-profile: test
-#    import: optional:secrets.properties[.properties]
-#  sql:
-#    init:
-#      mode: always
-#
-#  datasource:
-#    url: ${LOCAL_DB_URL}
-#    username: ${LOCAL_DB_USER}
-#    password: ${LOCAL_DB_PASSWORD}
-#    driver-class-name: ${LOCAL_DRIVER_CLASS_NAME}
-#  jpa:
-#    defer-datasource-initialization: true
-#    properties:
-#      hibernate:
-#                format_sql: true
-#      dialect: ${LOCAL_JPA_DIALECT}
-#      generate_statistics: false
-#    generate-ddl: true
-#    hibernate:
-#      ddl-auto: update
-#    show-sql: false
----
 spring:
   config:
     activate:
@@ -66,7 +40,7 @@ spring:
     driver_class_name: ${DEV_DRIVER_CLASS_NAME}
   jpa:
     database: mysql
-    defer_datasource_initialization: false
+    defer_datasource_initialization: true
     properties:
       hibernate:
         dialect: ${DEV_JPA_DIALECT}
@@ -74,7 +48,18 @@ spring:
       generate_statistics: false
     show_sql: false
     hibernate:
-      ddl_auto: update
+      ddl-auto: update
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: danittest2@gmail.com
+    password: aumlfjunalzwdrss
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 ---
 spring:
   config:
@@ -96,6 +81,17 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: danittest2@gmail.com
+    password: aumlfjunalzwdrss
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 #/*
 # TODO ddl-auto  глянкти можливі варіанти
 #  TODO анотація Component

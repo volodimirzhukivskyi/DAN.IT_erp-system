@@ -29,12 +29,12 @@ public class ContractStatusController {
 
   @GetMapping("/{id}")
   public ContractStatus getById(@PathVariable("id") String userId) throws Exception {
-    return contractStatusService.findById(Long.parseLong(userId));
+    return contractStatusService.findById(Byte.parseByte(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    contractStatusService.delete(Long.parseLong(userId));
+    contractStatusService.delete(Byte.parseByte(userId));
   }
 
   @PutMapping("/update")

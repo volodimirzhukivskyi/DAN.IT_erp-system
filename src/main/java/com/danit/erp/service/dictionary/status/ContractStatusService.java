@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ContractStatusService implements BaseService<ContractStatus> {
+public class ContractStatusService implements BaseService<ContractStatus,Byte> {
   private final ContractStatusRepository contractStatusRepository;
 
   @Override
@@ -30,7 +30,7 @@ public class ContractStatusService implements BaseService<ContractStatus> {
   }
 
   @Override
-  public ContractStatus findById(Long userId) {
+  public ContractStatus findById(Byte userId) {
     return contractStatusRepository.findByIdAndDeletedFalse(userId)
       .orElseThrow(() -> new CouldNotFindException("Контракт статус"));
   }
@@ -54,7 +54,7 @@ public class ContractStatusService implements BaseService<ContractStatus> {
   }
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Byte userId) {
     ContractStatus contractStatus = contractStatusRepository.findById(userId)
       .orElseThrow(() -> new CouldNotFindException("Контракт статус"));
 

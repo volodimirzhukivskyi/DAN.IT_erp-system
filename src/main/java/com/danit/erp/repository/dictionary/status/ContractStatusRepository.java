@@ -7,9 +7,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ContractStatusRepository extends JpaRepository<ContractStatus,Long> {
+public interface ContractStatusRepository extends JpaRepository<ContractStatus,Byte> {
   Optional<ContractStatus> findByStatus(String status);
   Page<ContractStatus> findByDeletedFalse(Pageable pageable);
   List<ContractStatus> findByDeletedFalse();
-  Optional<ContractStatus> findByIdAndDeletedFalse(Long userId);
+  Optional<ContractStatus> findByIdAndDeletedFalse(Byte userId);
 }

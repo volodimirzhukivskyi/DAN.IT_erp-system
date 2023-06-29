@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class InvoiceCardService implements BaseService<InvoiceCardResponse> {
+public class InvoiceCardService implements BaseService<InvoiceCardResponse,Long> {
   private final InvoiceCardRepository invoiceCardRepository;
 
   private final InvoiceCardRequestMapper invoiceCardRequestMapper;

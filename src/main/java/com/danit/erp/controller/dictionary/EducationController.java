@@ -29,12 +29,12 @@ public class EducationController {
 
   @GetMapping("/{id}")
   public Education getById(@PathVariable("id") String userId) throws Exception {
-    return educationService.findById(Long.parseLong(userId));
+    return educationService.findById(Short.parseShort(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    educationService.delete(Long.parseLong(userId));
+    educationService.delete(Short.parseShort(userId));
   }
 
   @PutMapping("/update")

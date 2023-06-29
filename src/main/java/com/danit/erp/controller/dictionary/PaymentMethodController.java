@@ -29,12 +29,12 @@ public class PaymentMethodController {
 
   @GetMapping("/{id}")
   public PaymentMethod getById(@PathVariable("id") String userId) throws Exception {
-    return paymentMethodService.findById(Long.parseLong(userId));
+    return paymentMethodService.findById(Byte.parseByte(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    paymentMethodService.delete(Long.parseLong(userId));
+    paymentMethodService.delete(Byte.parseByte(userId));
   }
 
   @PutMapping("/update")

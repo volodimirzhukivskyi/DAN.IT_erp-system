@@ -23,7 +23,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class GroupSchedule extends BaseEntity {
+public class GroupSchedule extends BaseEntity<Integer> {
 
 
   @ManyToOne

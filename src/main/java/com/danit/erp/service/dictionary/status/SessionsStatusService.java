@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class SessionsStatusService implements BaseService<SessionsStatus> {
+public class SessionsStatusService implements BaseService<SessionsStatus,Byte> {
   private final SessionsStatusRepository sessionsStatusRepository;
 
   @Override
@@ -30,7 +30,7 @@ public class SessionsStatusService implements BaseService<SessionsStatus> {
   }
 
   @Override
-  public SessionsStatus findById(Long userId) {
+  public SessionsStatus findById(Byte userId) {
     return sessionsStatusRepository.findByIdAndDeletedFalse(userId)
       .orElseThrow(() -> new CouldNotFindException("Статусу  сесії"));
   }
@@ -54,7 +54,7 @@ public class SessionsStatusService implements BaseService<SessionsStatus> {
   }
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Byte userId) {
     SessionsStatus findSessionsStatus = sessionsStatusRepository.findById(userId)
       .orElseThrow(() -> new CouldNotFindException("Статусу  сесії"));
 

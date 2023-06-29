@@ -9,13 +9,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LegalEntityRepository extends JpaRepository<LegalEntity, Long> {
+public interface LegalEntityRepository extends JpaRepository<LegalEntity, Integer> {
   Optional<LegalEntity> findByIdCode(String userId);
 
   Page<LegalEntity> findByDeletedFalse(Pageable pageable);
 
   List<LegalEntity> findByDeletedFalse();
 
-  Optional<LegalEntity> findByIdAndDeletedFalse(Long userId);
+  Optional<LegalEntity> findByIdAndDeletedFalse(Integer userId);
 
 }

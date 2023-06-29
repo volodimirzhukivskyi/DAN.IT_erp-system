@@ -15,15 +15,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class JwtService {
+
   private static final String SECRET_KEY =
-    "4ad5bee3c292a5f9b2365585e332fdd3648cf91e45946c957fcf96006bcb410b";
+    "de0753b0c76cb52a812e520f7b39c8dbd6f3ac463ee414d71f3e613afbaed48a";
 
   public String extractUsername(String token) {
     return extractClaim(token, Claims::getSubject);
   }
-public String generateToken(UserDetails userDetails){
-    return  generateToken(new HashMap<>(),userDetails);
-}
+
+  public String generateToken(UserDetails userDetails) {
+    return generateToken(new HashMap<>(), userDetails);
+  }
+
   public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
     return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
       .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -35,9 +38,10 @@ public String generateToken(UserDetails userDetails){
     final Claims claims = extractAllClaims(token);
     return claimsResolver.apply(claims);
   }
- public boolean isTokenValid(String token, UserDetails userDetails){
-    final String username =  extractUsername(token);
- return (username.equals(userDetails.getUsername()))&&!isTokenExpired(token);
+
+  public boolean isTokenValid(String token, UserDetails userDetails) {
+    final String username = extractUsername(token);
+    return (username.equals(userDetails.getUsername())) && ! isTokenExpired(token);
   }
 
   private boolean isTokenExpired(String token) {
@@ -46,7 +50,7 @@ public String generateToken(UserDetails userDetails){
 
   private Date extractExpiration(String token) {
 
-    return extractClaim(token,Claims::getExpiration) ;
+    return extractClaim(token, Claims::getExpiration);
   }
 
   private Claims extractAllClaims(String token) {

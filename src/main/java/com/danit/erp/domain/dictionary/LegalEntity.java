@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class LegalEntity extends BaseEntity {
+public class LegalEntity extends BaseEntity<Integer> {
   private String legalEntityName;
 
   private String idCode;

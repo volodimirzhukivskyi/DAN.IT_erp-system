@@ -4,22 +4,13 @@ import static org.springframework.security.config.Customizer.withDefaults;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -44,8 +35,6 @@ public class SecurityConfiguration {
 //  }
 
 
-
-
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     //TODO  -ролі налаштовуються тут в http builder
@@ -63,13 +52,14 @@ public class SecurityConfiguration {
      * */
     http.csrf(AbstractHttpConfigurer::disable).cors(withDefaults()).securityMatcher("/api/**")
       .authorizeHttpRequests(
-        (authz) -> authz.requestMatchers("/api/v0/auth/**").permitAll().anyRequest().authenticated())
-      .sessionManagement(
-        (session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        (authz) -> authz.requestMatchers("/api/v0/auth/**").permitAll().anyRequest()
+          .authenticated()).sessionManagement(
+            (session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       .authenticationProvider(authenticationProvider)
       .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 //      .formLogin(
-//        form -> form.loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/welcome")
+//        form -> form.loginPage("/login").loginProcessingUrl("/login").d
+//        efaultSuccessUrl("/welcome")
 ////          .failureUrl("/error")    TODO реалізація ендпоінта помилки і 1 коментар
 ////          .failureHandler(authenticationFailureHandler())
 //          .permitAll())
@@ -99,80 +89,4 @@ public class SecurityConfiguration {
 //  }
 
 
-
-
 }
-
-/*
-!!! 1 коментар
-* authenticationFailureHandler() в представленном коде представляет собой метод, который возвращает экземпляр объекта, реализующего интерфейс AuthenticationFailureHandler. Этот интерфейс используется для обработки события неудачной аутентификации пользователя.
-
-AuthenticationFailureHandler позволяет вам определить пользовательскую логику обработки неудачной аутентификации, например, для записи журнала, отправки уведомлений или перенаправления пользователя на определенную страницу.
-
-Вам нужно реализовать интерфейс AuthenticationFailureHandler и определить метод onAuthenticationFailure(), который будет вызываться при неудачной попытке аутентификации. В этом методе вы можете выполнять необходимые действия в зависимости от вашей бизнес-логики и требований приложения.
-
-Вот пример простой реализации AuthenticationFailureHandler:
-
-java
-Copy code
-public class CustomAuthenticationFailureHandler implements AuthenticationFailureHandler {
-
-    @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-            AuthenticationException exception) throws IOException, ServletException {
-        // Ваша логика обработки неудачной аутентификации
-        // Например, запись в журнал, отправка уведомлений, перенаправление на страницу с ошибкой и т.д.
-
-        response.sendRedirect("/login.html?error=true");
-    }
-}
-В этом примере при неудачной аутентификации мы перенаправляем пользователя на страницу /login.html?error=true.
-
-Вы можете создать собственную реализацию AuthenticationFailureHandler, а затем использовать ее в вашей конфигурации Spring Security, как в предоставленном коде:
-
-java
-Copy code
-.and()
-.failureHandler(authenticationFailureHandler())
-Здесь authenticationFailureHandler() представляет вашу реализацию AuthenticationFailureHandler, которую вы определили в вашем приложении.
-
-Обратите внимание, что это только пример, и вы можете настроить AuthenticationFailureHandler в соответствии с вашими потребностями и требованиями проекта.
-*
-*
-*
-!!!! 2 коментар
-`.deleteCookies("JSESSIONID")` в представленном коде указывает, что при выполнении выхода из системы (логауте) должны быть удалены cookies с именем "JSESSIONID".
-
-"JSESSIONID" - это стандартное имя для cookies, используемого для отслеживания сеанса пользователя в Java-веб-приложениях. Удаление этого cookie обычно используется для завершения сеанса пользователя при выполнении выхода из системы.
-
-Чтобы реализовать соответствующий хендлер для успешного выполнения выхода, вы можете создать собственную реализацию `LogoutSuccessHandler`, которая будет выполнять необходимые действия после успешного выполнения выхода пользователя из системы.
-
-Вот пример простой реализации `LogoutSuccessHandler`:
-
-```java
-public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
-
-    @Override
-    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
-            Authentication authentication) throws IOException, ServletException {
-        // Ваша логика после успешного выполнения выхода из системы
-        // Например, перенаправление на страницу успешного выхода, очистка сеансов и т.д.
-
-        response.sendRedirect("/logout-success.html");
-    }
-}
-```
-
-В этом примере после успешного выполнения выхода из системы мы перенаправляем пользователя на страницу `/logout-success.html`.
-
-Вы можете создать свою реализацию `LogoutSuccessHandler`, а затем использовать ее в вашей конфигурации Spring Security, как в предоставленном коде:
-
-```java
-.and()
-.logoutSuccessHandler(logoutSuccessHandler());
-```
-
-Здесь `logoutSuccessHandler()` представляет вашу реализацию `LogoutSuccessHandler`, которую вы определили в вашем приложении.
-
-Обратите внимание, что это только пример, и вы можете настроить `LogoutSuccessHandler` в соответствии с вашими потребностями и требованиями проекта.
-* */

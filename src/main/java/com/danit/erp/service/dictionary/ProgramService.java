@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ProgramService implements BaseService<Program> {
+public class ProgramService implements BaseService<Program,Short> {
   private final ProgramRepository programRepository;
 
   @Override
@@ -30,7 +30,7 @@ public class ProgramService implements BaseService<Program> {
   }
 
   @Override
-  public Program findById(Long userId) {
+  public Program findById(Short userId) {
     return programRepository.findByIdAndDeletedFalse(userId)
       .orElseThrow(() -> new CouldNotFindException("Прогами"));
   }
@@ -54,7 +54,7 @@ public class ProgramService implements BaseService<Program> {
   }
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Short userId) {
     Program program =
       programRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Прогами"));
 

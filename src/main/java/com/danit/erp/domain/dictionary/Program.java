@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Program extends BaseEntity {
+public class Program extends BaseEntity<Short> {
   private String program;
   private Integer programHours;
   private boolean deleted;

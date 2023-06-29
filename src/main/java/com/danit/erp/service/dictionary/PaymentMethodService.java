@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class PaymentMethodService implements BaseService<PaymentMethod> {
+public class PaymentMethodService implements BaseService<PaymentMethod,Byte> {
   private final PaymentMethodRepository paymentMethodRepository;
 
   @Override
@@ -30,7 +30,7 @@ public class PaymentMethodService implements BaseService<PaymentMethod> {
   }
 
   @Override
-  public PaymentMethod findById(Long userId) {
+  public PaymentMethod findById(Byte userId) {
     return paymentMethodRepository.findByIdAndDeletedFalse(userId)
       .orElseThrow(() -> new CouldNotFindException("Метода оплати"));
   }
@@ -53,7 +53,7 @@ public class PaymentMethodService implements BaseService<PaymentMethod> {
   }
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Byte userId) {
     PaymentMethod findPaymentMethod = paymentMethodRepository.findById(userId)
       .orElseThrow(() -> new CouldNotFindException("Метода оплати"));
 

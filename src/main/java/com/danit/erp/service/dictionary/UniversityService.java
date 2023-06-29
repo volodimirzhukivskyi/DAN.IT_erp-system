@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UniversityService implements BaseService<University> {
+public class UniversityService implements BaseService<University,Integer> {
   private final UniversityRepository universityRepository;
 
   @Override
@@ -30,7 +30,7 @@ public class UniversityService implements BaseService<University> {
   }
 
   @Override
-  public University findById(Long userId) {
+  public University findById(Integer userId) {
     return universityRepository.findByIdAndDeletedFalse(userId)
       .orElseThrow(() -> new CouldNotFindException("Юніверситети"));
   }
@@ -53,7 +53,7 @@ public class UniversityService implements BaseService<University> {
   }
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Integer userId) {
     University university = universityRepository.findById(userId)
       .orElseThrow(() -> new CouldNotFindException("Юніверситети"));
 

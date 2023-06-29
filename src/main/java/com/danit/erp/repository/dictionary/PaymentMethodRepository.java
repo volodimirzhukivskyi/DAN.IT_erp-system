@@ -9,9 +9,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PaymentMethodRepository extends JpaRepository<PaymentMethod,Long> {
+public interface PaymentMethodRepository extends JpaRepository<PaymentMethod, Byte> {
   Optional<PaymentMethod> findByMethod(String status);
+
   Page<PaymentMethod> findByDeletedFalse(Pageable pageable);
+
   List<PaymentMethod> findByDeletedFalse();
-  Optional<PaymentMethod> findByIdAndDeletedFalse(Long userId);
+
+  Optional<PaymentMethod> findByIdAndDeletedFalse(Byte userId);
 }

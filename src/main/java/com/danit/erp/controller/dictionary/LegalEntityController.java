@@ -29,12 +29,12 @@ public class LegalEntityController {
 
   @GetMapping("/{id}")
   public LegalEntity getById(@PathVariable("id") String userId) throws Exception {
-    return legalEntityService.findById(Long.parseLong(userId));
+    return legalEntityService.findById(Integer.parseInt(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    legalEntityService.delete(Long.parseLong(userId));
+    legalEntityService.delete(Integer.parseInt(userId));
   }
 
   @PutMapping("/update")

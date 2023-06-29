@@ -15,14 +15,13 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "groups")
+@Table(name = "groups_dictionary")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-
-public class Group extends BaseEntity {
+public class Group extends BaseEntity<Integer> {
   private String groupName;
   private LocalDateTime startDate;
   private boolean deleted;

@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GroupListRepository extends JpaRepository<GroupList,Long> {
+public interface GroupListRepository extends JpaRepository<GroupList,Integer> {
   Optional<GroupList> findByGroup(Group group);
 }

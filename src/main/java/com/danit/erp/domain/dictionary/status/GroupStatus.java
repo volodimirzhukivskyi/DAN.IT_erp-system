@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class GroupStatus extends BaseEntity {
+public class GroupStatus extends BaseEntity<Byte> {
   private String status;
   private boolean deleted;
 

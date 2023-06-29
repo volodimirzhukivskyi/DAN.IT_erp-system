@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class PersonalCardService implements BaseService<PersonalCardResponse> {
+public class PersonalCardService implements BaseService<PersonalCardResponse,Long> {
   private final PersonalCardRepository personalCardRepository;
 
   private final PersonalCardResponseMapper personalCardResponseMapper;

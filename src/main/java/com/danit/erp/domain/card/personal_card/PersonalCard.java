@@ -32,7 +32,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class PersonalCard extends BaseEntity implements UserDetails {
+public class PersonalCard extends BaseEntity<Long> implements UserDetails {
   @Column(nullable = false)
   private String password;
   private String surname;

@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CoordinatorService implements BaseService<Coordinator> {
+public class CoordinatorService implements BaseService<Coordinator,Integer> {
   private final CoordinatorRepository coordinatorRepository;
 
   @Override
@@ -30,7 +30,7 @@ public class CoordinatorService implements BaseService<Coordinator> {
   }
 
   @Override
-  public Coordinator findById(Long userId) {
+  public Coordinator findById(Integer userId) {
     return coordinatorRepository.findByIdAndDeletedFalse(userId)
       .orElseThrow(() -> new CouldNotFindException("Координатора"));
   }
@@ -53,7 +53,7 @@ public class CoordinatorService implements BaseService<Coordinator> {
   }
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Integer userId) {
     Coordinator coordinator = coordinatorRepository.findById(userId)
       .orElseThrow(() -> new CouldNotFindException("Координатора"));
 
