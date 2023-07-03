@@ -4,7 +4,7 @@ import com.danit.erp.domain.list.group_list.GroupList;
 import com.danit.erp.dto.list.group_list.GroupListRequest;
 import com.danit.erp.dto.list.group_list.GroupListResponse;
 import com.danit.erp.dto.list.group_list.PageGroupListResponse;
-import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.exception.id.CouldNotFindException;
 import com.danit.erp.facade.list.group_list.GroupListRequestMapper;
 import com.danit.erp.facade.list.group_list.GroupListResponseMapper;
 import com.danit.erp.facade.list.group_list.PageGroupListResponseMapper;

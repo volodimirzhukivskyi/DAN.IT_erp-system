@@ -1,7 +1,7 @@
 package com.danit.erp.service.dictionary;
 
 import com.danit.erp.domain.dictionary.LegalEntity;
-import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.exception.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.LegalEntityRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;

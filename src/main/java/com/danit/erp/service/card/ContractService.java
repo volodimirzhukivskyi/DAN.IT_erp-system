@@ -4,7 +4,7 @@ import com.danit.erp.domain.card.contract.Contract;
 import com.danit.erp.dto.card.contract.ContractRequest;
 import com.danit.erp.dto.card.contract.ContractResponse;
 import com.danit.erp.dto.card.contract.PageContractResponse;
-import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.exception.id.CouldNotFindException;
 import com.danit.erp.facade.card.contract.ContractRequestMapper;
 import com.danit.erp.facade.card.contract.ContractResponseMapper;
 import com.danit.erp.facade.card.contract.PageContractResponseMapper;

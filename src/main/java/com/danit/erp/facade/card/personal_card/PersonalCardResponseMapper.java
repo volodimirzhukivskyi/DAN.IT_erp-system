@@ -24,7 +24,7 @@ public class PersonalCardResponseMapper extends GeneralFacade<PersonalCard, Pers
     dto.setInitialProfession(saveInitialProfession);
     dto.setDateOfBirth(Helper.convertDate(dateBirthday, "dd.MM.yyyy"));
     dto.setEmail(entity.getEmail().getEmail());
-    dto.setRole(entity.getRole().getRole());
+    dto.setRole(entity.getName());
     dto.setEducationSpecialization(entity.getEducation().getSpecialization());
     super.decorateDto(dto, entity);
   }

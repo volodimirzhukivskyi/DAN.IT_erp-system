@@ -11,7 +11,6 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -35,7 +34,7 @@ public class RegistrationCompleteEventListener
     //3. Save the verification token for the user
 //    personalCardService.saveUserVerificationToken(personalCard, verificationToken);
     //4 Build the verification url to be sent to the user
-    String url = event.getApplicationUrl()+"/register/verifyEmail?token="+verificationToken;
+    String url = event.getApplicationUrl() + "/register/verifyEmail?token=" + verificationToken;
     //5. Send the email.
     try {
       sendVerificationEmail(url);
@@ -63,7 +62,7 @@ public class RegistrationCompleteEventListener
     mailSender.send(message);
   }
 
-  public void sendPasswordResetVerificationEmail(String url,PersonalCard personalCard)
+  public void sendPasswordResetVerificationEmail(String url, PersonalCard personalCard)
     throws MessagingException, UnsupportedEncodingException {
     String subject = "Password Reset Request Verification";
     String senderName = "User Registration Portal Service";

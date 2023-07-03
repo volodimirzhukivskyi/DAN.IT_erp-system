@@ -4,7 +4,7 @@ import com.danit.erp.domain.card.personal_card.PersonalCard;
 import com.danit.erp.dto.card.personal_card.PagePersonalCardResponse;
 import com.danit.erp.dto.card.personal_card.PersonalCardRequest;
 import com.danit.erp.dto.card.personal_card.PersonalCardResponse;
-import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.exception.id.CouldNotFindException;
 import com.danit.erp.facade.card.personal_card.PagePersonalCardResponseMapper;
 import com.danit.erp.facade.card.personal_card.PersonalCardRequestMapper;
 import com.danit.erp.facade.card.personal_card.PersonalCardResponseMapper;

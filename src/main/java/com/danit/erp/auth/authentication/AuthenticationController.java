@@ -1,10 +1,11 @@
 package com.danit.erp.auth.authentication;
 
 import com.danit.erp.auth.reset_password.PasswordResetRequest;
-import com.danit.erp.domain.card.personal_card.PersonalCard;
 import com.danit.erp.dto.card.personal_card.PersonalCardRequest;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,13 @@ public class AuthenticationController {
     @RequestBody AuthenticationRequest request) {
     return ResponseEntity.ok(service.authenticate(request));
   }
-
+  @PostMapping("/refresh-token")
+  public void refreshToken(
+    HttpServletRequest request,
+    HttpServletResponse response
+  ) throws IOException {
+    service.refreshToken(request, response);
+  }
   @PostMapping("/password-reset-request")
   public String resetPasswordRequest(
     @RequestBody PasswordResetRequest passwordRestRequest, final HttpServletRequest request)
@@ -44,6 +51,7 @@ public class AuthenticationController {
 
 
   }
+
 
 
   @PostMapping("/reset-password")

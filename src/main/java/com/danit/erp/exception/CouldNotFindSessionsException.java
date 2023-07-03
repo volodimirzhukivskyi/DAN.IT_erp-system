@@ -1,6 +1,5 @@
-package com.danit.erp.exception.find;
+package com.danit.erp.exception;
 
-import com.danit.erp.exception.AbstractException;
 import org.springframework.http.HttpStatus;
 
 public class CouldNotFindSessionsException extends AbstractException {

@@ -1,7 +1,7 @@
 package com.danit.erp.service.dictionary.status;
 
 import com.danit.erp.domain.dictionary.status.ContractStatus;
-import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.exception.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.status.ContractStatusRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;

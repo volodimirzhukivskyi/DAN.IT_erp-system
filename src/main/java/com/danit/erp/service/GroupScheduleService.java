@@ -2,7 +2,7 @@ package com.danit.erp.service;
 
 import com.danit.erp.domain.group_schedule.GroupSchedule;
 import com.danit.erp.dto.group_schedule.GroupScheduleDto;
-import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.exception.id.CouldNotFindException;
 import com.danit.erp.facade.group_schedule.GroupScheduleMapper;
 import com.danit.erp.repository.GroupScheduleRepository;
 import java.util.List;

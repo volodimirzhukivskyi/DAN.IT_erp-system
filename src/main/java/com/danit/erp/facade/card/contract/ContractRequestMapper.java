@@ -9,10 +9,9 @@ import com.danit.erp.domain.dictionary.roles.Coordinator;
 import com.danit.erp.domain.dictionary.roles.Manager;
 import com.danit.erp.domain.dictionary.status.ContractStatus;
 import com.danit.erp.dto.card.contract.ContractRequest;
-import com.danit.erp.exception.find.name.CouldNotFindNameException;
-import com.danit.erp.exception.find.number.CouldNotFindLegalException;
-import com.danit.erp.exception.find.number.CouldNotFindNumberException;
-import com.danit.erp.exception.find.status.CouldNotFindStatusException;
+import com.danit.erp.exception.name.CouldNotFindNameException;
+import com.danit.erp.exception.number.CouldNotFindLegalException;
+import com.danit.erp.exception.status.CouldNotFindStatusException;
 import com.danit.erp.facade.GeneralFacade;
 import com.danit.erp.repository.card.PersonalCardRepository;
 import com.danit.erp.repository.dictionary.GroupRepository;
@@ -65,7 +64,7 @@ public class ContractRequestMapper extends GeneralFacade<Contract, ContractReque
     Optional<PersonalCard> personalCard =
       personalCardRepository.findByIdCode(dto.getPersonalCardCode());
     PersonalCard savePersonalCard =
-      personalCard.orElseThrow(() -> new CouldNotFindNumberException("Персональної картки"));
+      personalCard.orElseThrow(() -> new Error("Персональної картки"));
     Optional<Program> program = programRepository.findByProgram(dto.getProgramName());
     Program saveProgram = program.orElseThrow(() -> new CouldNotFindNameException("Програми"));
     Optional<ContractStatus> findContractStatus =

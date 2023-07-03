@@ -5,12 +5,16 @@ import com.danit.erp.domain.dictionary.Education;
 import com.danit.erp.domain.dictionary.Email;
 import com.danit.erp.domain.dictionary.Profession;
 import com.danit.erp.domain.dictionary.University;
-import com.danit.erp.domain.dictionary.roles.Role;
+import com.danit.erp.domain.role.RoleEnum;
+import com.danit.erp.domain.token.Token;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
@@ -22,7 +26,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
@@ -49,8 +52,10 @@ public class PersonalCard extends BaseEntity<Long> implements UserDetails {
   private Profession initialProfession;
   @ManyToOne(targetEntity = University.class, cascade = CascadeType.ALL)
   private University university;
-  @ManyToOne(targetEntity = Role.class)
-  private Role role;
+  @Enumerated(EnumType.STRING)
+  private RoleEnum role;
+  @OneToMany(mappedBy = "personalCard")
+  private List<Token> tokens;
   @ManyToOne(targetEntity = Education.class)
   private Education education;
 
@@ -61,7 +66,7 @@ public class PersonalCard extends BaseEntity<Long> implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return List.of(new SimpleGrantedAuthority(role.getRole()));
+    return role.getAuthorities();
   }
 
   @Override

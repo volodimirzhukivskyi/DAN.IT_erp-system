@@ -5,7 +5,7 @@ import com.danit.erp.domain.dictionary.Education;
 import com.danit.erp.domain.dictionary.Email;
 import com.danit.erp.domain.dictionary.Profession;
 import com.danit.erp.domain.dictionary.University;
-import com.danit.erp.domain.dictionary.roles.Role;
+import com.danit.erp.domain.role.RoleEnum;
 import com.danit.erp.dto.card.personal_card.PersonalCardRequest;
 import com.danit.erp.facade.GeneralFacade;
 import com.danit.erp.repository.dictionary.EducationRepository;
@@ -71,17 +71,17 @@ public class PersonalCardRequestMapper extends GeneralFacade<PersonalCard, Perso
       findSpecialization = educationRepository.save(
         Education.builder().specialization(dto.getSpecializationName()).build());
     }
-    Role findRole = roleRepository.findByRole("Client").orElse(null);
-    if (dto.getRoleName() != null && findRole == null) {
-      findRole = roleRepository.save(Role.builder().role(dto.getRoleName()).build());
-    }
+//    Role findRole = roleRepository.findByRole("Client").orElse(null);
+//    if (dto.getRoleName() != null && findRole == null) {
+//      findRole = roleRepository.save(Role.builder().role(dto.getRoleName()).build());
+//    }
 
     entity.setEmail(findEmail);
     entity.setUniversity(findUniversity);
     entity.setInitialProfession(findProfession);
     entity.setDateOfBirth(LocalDateTime.parse(dto.getDateOfBirth()));
     entity.setEducation(findSpecialization);
-    entity.setRole(findRole);
+    entity.setRole(RoleEnum.valueOf(dto.getRoleName()));
 
     super.decorateEntity(entity, dto);
   }

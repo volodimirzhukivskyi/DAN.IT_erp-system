@@ -1,6 +1,6 @@
 package com.danit.erp.config;
 
-import com.danit.erp.service.JwtService;
+import com.danit.erp.repository.token.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +21,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
   private final JwtService jwtService;
   private final UserDetailsService userDetailsService;
+  private final TokenRepository tokenRepository;
 
   @Override
   protected void doFilterInternal(
@@ -38,7 +39,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     userEmail = jwtService.extractUsername(jwt);
     if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
       UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-      if (jwtService.isTokenValid(jwt, userDetails)) {
+      var isTokenValid = tokenRepository.findByToken(jwt)
+        .map(t->!t.isExpired()&&!t.isRevoked())
+        .orElse(false);
+      if (jwtService.isTokenValid(jwt, userDetails)&&isTokenValid) {
         UsernamePasswordAuthenticationToken authenticationToken =
           new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

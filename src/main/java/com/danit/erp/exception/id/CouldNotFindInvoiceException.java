@@ -1,4 +1,4 @@
-package com.danit.erp.exception.find.id;
+package com.danit.erp.exception.id;
 
 import com.danit.erp.exception.AbstractException;
 import org.springframework.http.HttpStatus;
