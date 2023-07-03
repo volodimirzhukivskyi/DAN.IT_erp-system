@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class University extends BaseEntity {
+public class University extends BaseEntity<Integer> {
   private String name;
   private boolean deleted;
 }

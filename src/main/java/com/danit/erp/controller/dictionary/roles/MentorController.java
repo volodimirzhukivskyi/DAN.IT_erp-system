@@ -29,12 +29,12 @@ public class MentorController {
 
   @GetMapping("/{id}")
   public Mentor getById(@PathVariable("id") String userId) throws Exception {
-    return mentorService.findById(Long.parseLong(userId));
+    return mentorService.findById(Integer.parseInt(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    mentorService.delete(Long.parseLong(userId));
+    mentorService.delete(Integer.parseInt(userId));
   }
 
   @PutMapping("/update")

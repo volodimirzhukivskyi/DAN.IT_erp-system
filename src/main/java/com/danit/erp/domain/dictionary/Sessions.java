@@ -18,7 +18,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Sessions extends BaseEntity {
+public class Sessions extends BaseEntity<Long> {
   private String sessionsTopic;
   @ManyToOne
   private SessionsStatus sessionsStatus;

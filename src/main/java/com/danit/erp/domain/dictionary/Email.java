@@ -17,7 +17,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Email extends BaseEntity {
+public class Email extends BaseEntity<Long> {
   @Column(name = "id_code",unique = true)
   private String idCode;
   private String email;

@@ -1,7 +1,7 @@
 package com.danit.erp.service.dictionary;
 
 import com.danit.erp.domain.dictionary.Program;
-import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.exception.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.ProgramRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ProgramService implements BaseService<Program> {
+public class ProgramService implements BaseService<Program,Short> {
   private final ProgramRepository programRepository;
 
   @Override
@@ -30,7 +30,7 @@ public class ProgramService implements BaseService<Program> {
   }
 
   @Override
-  public Program findById(Long userId) {
+  public Program findById(Short userId) {
     return programRepository.findByIdAndDeletedFalse(userId)
       .orElseThrow(() -> new CouldNotFindException("Прогами"));
   }
@@ -54,7 +54,7 @@ public class ProgramService implements BaseService<Program> {
   }
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Short userId) {
     Program program =
       programRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Прогами"));
 

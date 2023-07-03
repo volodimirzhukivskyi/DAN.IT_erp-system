@@ -6,11 +6,13 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UniversityRepository extends JpaRepository<University, Long> {
+@Repository
+public interface UniversityRepository extends JpaRepository<University, Integer> {
   List<University> findByDeletedFalse();
 
-  Optional<University> findByIdAndDeletedFalse(Long userId);
+  Optional<University> findByIdAndDeletedFalse(Integer userId);
 
   Page<University> findByDeletedFalse(Pageable pageable);
 

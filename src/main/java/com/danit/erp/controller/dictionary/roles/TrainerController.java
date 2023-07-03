@@ -29,12 +29,12 @@ public class TrainerController {
 
   @GetMapping("/{id}")
   public Trainer getById(@PathVariable("id") String userId) throws Exception {
-    return trainerService.findById(Long.parseLong(userId));
+    return trainerService.findById(Integer.parseInt(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    trainerService.delete(Long.parseLong(userId));
+    trainerService.delete(Integer.parseInt(userId));
   }
 
   @PutMapping("/update")

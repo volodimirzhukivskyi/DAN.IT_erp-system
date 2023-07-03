@@ -1,7 +1,7 @@
 package com.danit.erp.service.dictionary.roles;
 
 import com.danit.erp.domain.dictionary.roles.Coordinator;
-import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.exception.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.roles.CoordinatorRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CoordinatorService implements BaseService<Coordinator> {
+public class CoordinatorService implements BaseService<Coordinator,Integer> {
   private final CoordinatorRepository coordinatorRepository;
 
   @Override
@@ -30,7 +30,7 @@ public class CoordinatorService implements BaseService<Coordinator> {
   }
 
   @Override
-  public Coordinator findById(Long userId) {
+  public Coordinator findById(Integer userId) {
     return coordinatorRepository.findByIdAndDeletedFalse(userId)
       .orElseThrow(() -> new CouldNotFindException("Координатора"));
   }
@@ -53,7 +53,7 @@ public class CoordinatorService implements BaseService<Coordinator> {
   }
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Integer userId) {
     Coordinator coordinator = coordinatorRepository.findById(userId)
       .orElseThrow(() -> new CouldNotFindException("Координатора"));
 

@@ -1,7 +1,7 @@
 package com.danit.erp.service.dictionary.roles;
 
 import com.danit.erp.domain.dictionary.roles.Trainer;
-import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.exception.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.roles.TrainerRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class TrainerService implements BaseService<Trainer> {
+public class TrainerService implements BaseService<Trainer,Integer> {
   private final TrainerRepository trainerRepository;
 
   @Override
@@ -30,7 +30,7 @@ public class TrainerService implements BaseService<Trainer> {
   }
 
   @Override
-  public Trainer findById(Long userId) {
+  public Trainer findById(Integer userId) {
     return trainerRepository.findByIdAndDeletedFalse(userId)
       .orElseThrow(() -> new CouldNotFindException("Тренера"));
   }
@@ -52,7 +52,7 @@ public class TrainerService implements BaseService<Trainer> {
   }
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Integer userId) {
     Trainer trainer =
       trainerRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Тренера"));
 

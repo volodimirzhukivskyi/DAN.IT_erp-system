@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 
-public interface BaseService<T> {
+public interface BaseService<T,L> {
   @Transactional(readOnly = true)
   List<T> findAll();
 
@@ -15,12 +15,12 @@ public interface BaseService<T> {
   }
 
   @Transactional(readOnly = true)
-  T findById(Long userId);
+  T findById(L userId);
 
   void update(T obj);
 
   T create(T obj);
 
-  void delete(Long id);
+  void delete(L id);
 }
 

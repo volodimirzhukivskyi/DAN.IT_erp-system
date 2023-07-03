@@ -1,7 +1,7 @@
 package com.danit.erp.service.dictionary;
 
 import com.danit.erp.domain.dictionary.Group;
-import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.exception.id.CouldNotFindException;
 import com.danit.erp.repository.GroupScheduleRepository;
 import com.danit.erp.repository.dictionary.GroupRepository;
 import com.danit.erp.service.BaseService;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class GroupService implements BaseService<Group> {
+public class GroupService implements BaseService<Group,Integer> {
   private final GroupRepository groupRepository;
   private final GroupScheduleRepository groupScheduleRepository;
 
@@ -32,7 +32,7 @@ public class GroupService implements BaseService<Group> {
   }
 
   @Override
-  public Group findById(Long userId) {
+  public Group findById(Integer userId) {
     return groupRepository.findByIdAndDeletedFalse(userId)
       .orElseThrow(() -> new CouldNotFindException("Групи"));
   }
@@ -56,7 +56,7 @@ public class GroupService implements BaseService<Group> {
   }
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Integer userId) {
     Group group =
       groupRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Групи"));
     groupScheduleRepository.deleteAll(group.getGroupSchedules());

@@ -4,7 +4,7 @@ import com.danit.erp.domain.card.invoice.InvoiceCard;
 import com.danit.erp.dto.card.invoice.InvoiceCardRequest;
 import com.danit.erp.dto.card.invoice.InvoiceCardResponse;
 import com.danit.erp.dto.card.invoice.PageInvoiceCardResponse;
-import com.danit.erp.exception.find.id.CouldNotFindInvoiceException;
+import com.danit.erp.exception.id.CouldNotFindInvoiceException;
 import com.danit.erp.facade.card.invoice.InvoiceCardRequestMapper;
 import com.danit.erp.facade.card.invoice.InvoiceCardResponseMapper;
 import com.danit.erp.facade.card.invoice.PageInvoiceCardResponseMapper;
@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class InvoiceCardService implements BaseService<InvoiceCardResponse> {
+public class InvoiceCardService implements BaseService<InvoiceCardResponse,Long> {
   private final InvoiceCardRepository invoiceCardRepository;
 
   private final InvoiceCardRequestMapper invoiceCardRequestMapper;

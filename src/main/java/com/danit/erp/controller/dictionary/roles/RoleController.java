@@ -29,12 +29,12 @@ public class RoleController {
 
   @GetMapping("/{id}")
   public Role getById(@PathVariable("id") String userId) throws Exception {
-    return roleService.findById(Long.parseLong(userId));
+    return roleService.findById(Short.parseShort(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    roleService.delete(Long.parseLong(userId));
+    roleService.delete(Short.parseShort(userId));
   }
 
   @PutMapping("/update")

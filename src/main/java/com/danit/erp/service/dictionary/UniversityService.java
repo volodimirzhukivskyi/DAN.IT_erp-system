@@ -1,7 +1,7 @@
 package com.danit.erp.service.dictionary;
 
 import com.danit.erp.domain.dictionary.University;
-import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.exception.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.UniversityRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UniversityService implements BaseService<University> {
+public class UniversityService implements BaseService<University,Integer> {
   private final UniversityRepository universityRepository;
 
   @Override
@@ -30,7 +30,7 @@ public class UniversityService implements BaseService<University> {
   }
 
   @Override
-  public University findById(Long userId) {
+  public University findById(Integer userId) {
     return universityRepository.findByIdAndDeletedFalse(userId)
       .orElseThrow(() -> new CouldNotFindException("Юніверситети"));
   }
@@ -53,7 +53,7 @@ public class UniversityService implements BaseService<University> {
   }
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Integer userId) {
     University university = universityRepository.findById(userId)
       .orElseThrow(() -> new CouldNotFindException("Юніверситети"));
 

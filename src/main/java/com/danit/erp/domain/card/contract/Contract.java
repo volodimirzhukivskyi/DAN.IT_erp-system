@@ -28,7 +28,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Contract extends BaseEntity {
+public class Contract extends BaseEntity<Long> {
   @Column(name = "contract_no", unique = true)
   private Long contractNo;
   private LocalDateTime contractDate;

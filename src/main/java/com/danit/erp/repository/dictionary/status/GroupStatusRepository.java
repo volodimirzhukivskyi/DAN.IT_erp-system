@@ -7,9 +7,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface GroupStatusRepository extends JpaRepository<GroupStatus,Long> {
+public interface GroupStatusRepository extends JpaRepository<GroupStatus,Byte> {
   Optional<GroupStatus> findByStatus(String status);
   Page<GroupStatus> findByDeletedFalse(Pageable pageable);
   List<GroupStatus> findByDeletedFalse();
-  Optional<GroupStatus> findByIdAndDeletedFalse(Long userId);
+  Optional<GroupStatus> findByIdAndDeletedFalse(Byte userId);
 }

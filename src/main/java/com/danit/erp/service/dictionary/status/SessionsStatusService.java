@@ -1,7 +1,7 @@
 package com.danit.erp.service.dictionary.status;
 
 import com.danit.erp.domain.dictionary.status.SessionsStatus;
-import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.exception.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.status.SessionsStatusRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class SessionsStatusService implements BaseService<SessionsStatus> {
+public class SessionsStatusService implements BaseService<SessionsStatus,Byte> {
   private final SessionsStatusRepository sessionsStatusRepository;
 
   @Override
@@ -30,7 +30,7 @@ public class SessionsStatusService implements BaseService<SessionsStatus> {
   }
 
   @Override
-  public SessionsStatus findById(Long userId) {
+  public SessionsStatus findById(Byte userId) {
     return sessionsStatusRepository.findByIdAndDeletedFalse(userId)
       .orElseThrow(() -> new CouldNotFindException("Статусу  сесії"));
   }
@@ -54,7 +54,7 @@ public class SessionsStatusService implements BaseService<SessionsStatus> {
   }
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Byte userId) {
     SessionsStatus findSessionsStatus = sessionsStatusRepository.findById(userId)
       .orElseThrow(() -> new CouldNotFindException("Статусу  сесії"));
 

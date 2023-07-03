@@ -3,7 +3,7 @@ package com.danit.erp.facade.group_schedule;
 import com.danit.erp.domain.dictionary.Group;
 import com.danit.erp.domain.group_schedule.GroupSchedule;
 import com.danit.erp.dto.group_schedule.GroupScheduleDto;
-import com.danit.erp.exception.find.name.CouldNotFindNameException;
+import com.danit.erp.exception.name.CouldNotFindNameException;
 import com.danit.erp.facade.GeneralFacade;
 import com.danit.erp.repository.dictionary.GroupRepository;
 import com.danit.erp.utils.Helper;

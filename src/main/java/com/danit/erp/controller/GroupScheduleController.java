@@ -29,12 +29,12 @@ public class GroupScheduleController {
 
   @GetMapping("/{id}")
   public GroupScheduleDto getById(@PathVariable("id") String userId) throws Exception {
-    return groupScheduleService.findById(Long.parseLong(userId));
+    return groupScheduleService.findById(Integer.parseInt(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    groupScheduleService.delete(Long.parseLong(userId));
+    groupScheduleService.delete(Integer.parseInt(userId));
   }
 
   @PutMapping("/update")

@@ -20,7 +20,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class SessionsList extends BaseEntity {
+public class SessionsList extends BaseEntity<Long> {
   @ManyToOne
   private Sessions session;
   private LocalDateTime planDate;

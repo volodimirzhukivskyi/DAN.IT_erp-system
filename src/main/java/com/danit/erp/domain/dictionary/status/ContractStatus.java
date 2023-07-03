@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class ContractStatus extends BaseEntity {
+public class ContractStatus extends BaseEntity<Byte> {
   private String status;
   private boolean deleted;
 

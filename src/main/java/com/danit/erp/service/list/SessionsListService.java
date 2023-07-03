@@ -4,7 +4,7 @@ import com.danit.erp.domain.list.sessions_list.SessionsList;
 import com.danit.erp.dto.list.sessions_list.PageSessionsListResponse;
 import com.danit.erp.dto.list.sessions_list.SessionsListRequest;
 import com.danit.erp.dto.list.sessions_list.SessionsListResponse;
-import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.exception.id.CouldNotFindException;
 import com.danit.erp.facade.list.sessions_list.PageSessionsListResponseMapper;
 import com.danit.erp.facade.list.sessions_list.SessionsListRequestMapper;
 import com.danit.erp.facade.list.sessions_list.SessionsListResponseMapper;
@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class SessionsListService implements BaseService<SessionsListResponse> {
+public class SessionsListService implements BaseService<SessionsListResponse,Long> {
   private final SessionsListRepository sessionsListRepository;
 
   private final SessionsListRequestMapper sessionsListRequestMapper;

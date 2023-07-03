@@ -29,12 +29,12 @@ public class GroupStatusController {
 
   @GetMapping("/{id}")
   public GroupStatus getById(@PathVariable("id") String userId) throws Exception {
-    return groupStatusService.findById(Long.parseLong(userId));
+    return groupStatusService.findById(Byte.parseByte(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    groupStatusService.delete(Long.parseLong(userId));
+    groupStatusService.delete(Byte.parseByte(userId));
   }
 
   @PutMapping("/update")

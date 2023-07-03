@@ -29,12 +29,12 @@ public class CoordinatorController {
 
   @GetMapping("/{id}")
   public Coordinator getById(@PathVariable("id") String userId) throws Exception {
-    return coordinatorService.findById(Long.parseLong(userId));
+    return coordinatorService.findById(Integer.parseInt(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    coordinatorService.delete(Long.parseLong(userId));
+    coordinatorService.delete(Integer.parseInt(userId));
   }
 
   @PutMapping("/update")

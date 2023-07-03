@@ -6,14 +6,16 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface LegalEntityRepository extends JpaRepository<LegalEntity, Long> {
+@Repository
+public interface LegalEntityRepository extends JpaRepository<LegalEntity, Integer> {
   Optional<LegalEntity> findByIdCode(String userId);
 
   Page<LegalEntity> findByDeletedFalse(Pageable pageable);
 
   List<LegalEntity> findByDeletedFalse();
 
-  Optional<LegalEntity> findByIdAndDeletedFalse(Long userId);
+  Optional<LegalEntity> findByIdAndDeletedFalse(Integer userId);
 
 }

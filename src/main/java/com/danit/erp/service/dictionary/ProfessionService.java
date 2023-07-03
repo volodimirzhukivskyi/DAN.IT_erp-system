@@ -1,7 +1,7 @@
 package com.danit.erp.service.dictionary;
 
 import com.danit.erp.domain.dictionary.Profession;
-import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.exception.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.ProfessionRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ProfessionService implements BaseService<Profession> {
+public class ProfessionService implements BaseService<Profession,Short> {
   private final ProfessionRepository professionRepository;
 
   @Override
@@ -30,7 +30,7 @@ public class ProfessionService implements BaseService<Profession> {
   }
 
   @Override
-  public Profession findById(Long userId) {
+  public Profession findById(Short userId) {
     return professionRepository.findByIdAndDeletedFalse(userId)
       .orElseThrow(() -> new CouldNotFindException("Професії"));
   }
@@ -53,7 +53,7 @@ public class ProfessionService implements BaseService<Profession> {
   }
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Short userId) {
     Profession profession = professionRepository.findById(userId)
       .orElseThrow(() -> new CouldNotFindException("Професії"));
 

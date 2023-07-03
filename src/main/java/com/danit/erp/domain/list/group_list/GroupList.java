@@ -25,7 +25,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class GroupList extends BaseEntity {
+public class GroupList extends BaseEntity<Integer> {
   private LocalDateTime groupGraduation;
   @OneToOne(targetEntity = Group.class)
   private Group group;

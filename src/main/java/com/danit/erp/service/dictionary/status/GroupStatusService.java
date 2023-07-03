@@ -1,7 +1,7 @@
 package com.danit.erp.service.dictionary.status;
 
 import com.danit.erp.domain.dictionary.status.GroupStatus;
-import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.exception.id.CouldNotFindException;
 import com.danit.erp.repository.dictionary.status.GroupStatusRepository;
 import com.danit.erp.service.BaseService;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class GroupStatusService implements BaseService<GroupStatus> {
+public class GroupStatusService implements BaseService<GroupStatus,Byte> {
   private final GroupStatusRepository groupStatusRepository;
 
   @Override
@@ -30,7 +30,7 @@ public class GroupStatusService implements BaseService<GroupStatus> {
   }
 
   @Override
-  public GroupStatus findById(Long userId) {
+  public GroupStatus findById(Byte userId) {
     return groupStatusRepository.findByIdAndDeletedFalse(userId)
       .orElseThrow(() -> new CouldNotFindException("Статусу  групи"));
   }
@@ -53,7 +53,7 @@ public class GroupStatusService implements BaseService<GroupStatus> {
   }
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Byte userId) {
     GroupStatus findGroupStatus = groupStatusRepository.findById(userId)
       .orElseThrow(() -> new CouldNotFindException("Статусу  групи"));
 

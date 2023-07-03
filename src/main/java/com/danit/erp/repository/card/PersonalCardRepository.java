@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PersonalCardRepository extends JpaRepository<PersonalCard, Long> {
   Optional<PersonalCard> findByIdCode(String idCode);
+
+  Optional<PersonalCard> findByEmail_Email(String email);
 }

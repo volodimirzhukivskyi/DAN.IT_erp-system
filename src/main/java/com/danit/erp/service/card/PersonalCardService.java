@@ -4,7 +4,7 @@ import com.danit.erp.domain.card.personal_card.PersonalCard;
 import com.danit.erp.dto.card.personal_card.PagePersonalCardResponse;
 import com.danit.erp.dto.card.personal_card.PersonalCardRequest;
 import com.danit.erp.dto.card.personal_card.PersonalCardResponse;
-import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.exception.id.CouldNotFindException;
 import com.danit.erp.facade.card.personal_card.PagePersonalCardResponseMapper;
 import com.danit.erp.facade.card.personal_card.PersonalCardRequestMapper;
 import com.danit.erp.facade.card.personal_card.PersonalCardResponseMapper;
@@ -16,18 +16,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class PersonalCardService implements BaseService<PersonalCardResponse> {
+public class PersonalCardService implements BaseService<PersonalCardResponse,Long> {
   private final PersonalCardRepository personalCardRepository;
 
   private final PersonalCardResponseMapper personalCardResponseMapper;
   private final PersonalCardRequestMapper personalCardRequestMapper;
   private final PagePersonalCardResponseMapper pagePersonalCardResponseMapper;
+  private final PasswordEncoder passwordEncoder;
 
   @Override
   public List<PersonalCardResponse> findAll() {
@@ -63,18 +65,24 @@ public class PersonalCardService implements BaseService<PersonalCardResponse> {
     return null;
   }
 
-  public PersonalCardResponse create(PersonalCardRequest objDto) {
+  public PersonalCard createEntity(PersonalCardRequest objDto) {
     PersonalCard obj = personalCardRequestMapper.convertToEntity(objDto);
     PersonalCard personalCard =
       PersonalCard.builder().name(obj.getName()).secondName(obj.getSecondName())
         .surname(obj.getSurname()).linkToCRM(obj.getLinkToCRM()).passportData(obj.getPassportData())
-        .email(obj.getEmail()).password(obj.getPassword()).idCode(obj.getIdCode())
-        .university(obj.getUniversity()).role(obj.getRole()).education(obj.getEducation())
-        .initialProfession(obj.getInitialProfession()).dateOfBirth(obj.getDateOfBirth()).build();
-    PersonalCard saveCard = personalCardRepository.save(personalCard);
+        .email(obj.getEmail()).password(passwordEncoder.encode(obj.getPassword()))
+        .idCode(obj.getIdCode()).university(obj.getUniversity()).role(obj.getRole())
+        .education(obj.getEducation()).initialProfession(obj.getInitialProfession())
+        .dateOfBirth(obj.getDateOfBirth()).build();
+    return personalCardRepository.save(personalCard);
+  }
 
+  public PersonalCardResponse create(PersonalCardRequest objDto) {
+
+    PersonalCard saveCard = this.createEntity(objDto);
     return personalCardResponseMapper.convertToDto(saveCard);
   }
+
 
   public void update(PersonalCardRequest objDto) {
     PersonalCard obj = personalCardRequestMapper.convertToEntity(objDto);

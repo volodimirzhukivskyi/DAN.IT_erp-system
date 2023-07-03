@@ -6,14 +6,16 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface TrainerRepository extends JpaRepository<Trainer, Long> {
+@Repository
+public interface TrainerRepository extends JpaRepository<Trainer, Integer> {
   Optional<Trainer> findByFullName(String fullName);
   Page<Trainer> findByDeletedFalse(Pageable pageable);
 
   List<Trainer> findByDeletedFalse();
 
-  Optional<Trainer> findByIdAndDeletedFalse(Long userId);
+  Optional<Trainer> findByIdAndDeletedFalse(Integer userId);
 
 
 }

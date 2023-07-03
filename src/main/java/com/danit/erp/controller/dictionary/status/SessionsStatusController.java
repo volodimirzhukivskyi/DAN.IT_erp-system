@@ -29,12 +29,12 @@ public class SessionsStatusController {
 
   @GetMapping("/{id}")
   public SessionsStatus getById(@PathVariable("id") String userId) throws Exception {
-    return sessionsStatusService.findById(Long.parseLong(userId));
+    return sessionsStatusService.findById(Byte.parseByte(userId));
   }
 
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable("id") String userId) throws Exception {
-    sessionsStatusService.delete(Long.parseLong(userId));
+    sessionsStatusService.delete(Byte.parseByte(userId));
   }
 
   @PutMapping("/update")

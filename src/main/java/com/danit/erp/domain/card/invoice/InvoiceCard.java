@@ -23,7 +23,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class InvoiceCard extends BaseEntity {
+public class InvoiceCard extends BaseEntity<Long> {
   @Column(name = "invoice_no")
   private Long invoiceNo;
   @OneToOne(targetEntity = Contract.class)

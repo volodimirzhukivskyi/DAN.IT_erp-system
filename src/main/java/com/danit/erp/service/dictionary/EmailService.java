@@ -2,7 +2,7 @@ package com.danit.erp.service.dictionary;
 
 import com.danit.erp.domain.card.personal_card.PersonalCard;
 import com.danit.erp.domain.dictionary.Email;
-import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.exception.id.CouldNotFindException;
 import com.danit.erp.repository.card.PersonalCardRepository;
 import com.danit.erp.repository.dictionary.EmailRepository;
 import com.danit.erp.service.BaseService;
@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class EmailService implements BaseService<Email> {
+public class EmailService implements BaseService<Email,Long> {
   private final EmailRepository emailListRepository;
   private final PersonalCardRepository personalCardRepository;
 

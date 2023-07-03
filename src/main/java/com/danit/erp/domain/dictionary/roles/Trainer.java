@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Trainer extends BaseEntity {
+public class Trainer extends BaseEntity<Integer> {
   private String fullName;
   private boolean deleted;
 }

@@ -4,7 +4,7 @@ import com.danit.erp.domain.list.group_list.GroupList;
 import com.danit.erp.dto.list.group_list.GroupListRequest;
 import com.danit.erp.dto.list.group_list.GroupListResponse;
 import com.danit.erp.dto.list.group_list.PageGroupListResponse;
-import com.danit.erp.exception.find.id.CouldNotFindException;
+import com.danit.erp.exception.id.CouldNotFindException;
 import com.danit.erp.facade.list.group_list.GroupListRequestMapper;
 import com.danit.erp.facade.list.group_list.GroupListResponseMapper;
 import com.danit.erp.facade.list.group_list.PageGroupListResponseMapper;
@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class GroupListService implements BaseService<GroupListResponse> {
+public class GroupListService implements BaseService<GroupListResponse,Integer> {
   private final GroupListRepository groupListRepository;
   private final GroupListRequestMapper groupListRequestMapper;
   private final GroupListResponseMapper groupListResponseMapper;
@@ -40,7 +40,7 @@ public class GroupListService implements BaseService<GroupListResponse> {
   }
 
   @Override
-  public GroupListResponse findById(Long userId) {
+  public GroupListResponse findById(Integer userId) {
     GroupList groupList = groupListRepository.findById(userId)
       .orElseThrow(() -> new CouldNotFindException("Список груп"));
     return groupListResponseMapper.convertToDto(groupList);
@@ -78,7 +78,7 @@ public class GroupListService implements BaseService<GroupListResponse> {
   }
 
   @Override
-  public void delete(Long userId) {
+  public void delete(Integer userId) {
     GroupList findGroupStatus = groupListRepository.findById(userId)
       .orElseThrow(() -> new CouldNotFindException("Список груп"));
 

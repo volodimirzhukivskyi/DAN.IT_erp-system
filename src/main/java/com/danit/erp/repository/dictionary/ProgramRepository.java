@@ -6,12 +6,14 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ProgramRepository extends JpaRepository<Program, Long> {
+@Repository
+public interface ProgramRepository extends JpaRepository<Program, Short> {
   Optional<Program> findByProgram(String nameProgram);
   Page<Program> findByDeletedFalse(Pageable pageable);
   List<Program> findByDeletedFalse();
-  Optional<Program> findByIdAndDeletedFalse(Long userId);
+  Optional<Program> findByIdAndDeletedFalse(Short userId);
 
 
 }

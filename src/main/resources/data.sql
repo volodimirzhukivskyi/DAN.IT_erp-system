@@ -1,9 +1,3 @@
--- INSERT INTO personal_cards ( password, surname, name, second_name, date_of_birth, id_code, passport_data, link_to_crm)
--- VALUES
---     ('password1', 'Surname1', 'Name1', 'SecondName1', '2000-01-01', 'IDCODE1', 'PassportData1', 'LinkToCRM1'),
---     ('password2', 'Surname2', 'Name2', 'SecondName2', '2000-01-02', 'IDCODE2', 'PassportData2', 'LinkToCRM2'),
---     ('password3', 'Surname3', 'Name3', 'SecondName3', '2000-01-03', 'IDCODE3', 'PassportData3', 'LinkToCRM3'),
---     ( 'password10', 'Surname10', 'Name10', 'SecondName10', '2000-01-10', 'IDCODE10', 'PassportData10', 'LinkToCRM10');
 
 INSERT INTO roles (role, deleted)
 VALUES ('Super Admin', false),
@@ -15,17 +9,17 @@ VALUES ('Super Admin', false),
        ('Administrator', false),
        ('Trainer', false),
        ('Mentor', false);
-INSERT INTO universities (id, name, deleted)
-VALUES (1, 'КНУ ім. Т. Шевченка', false),
-       (2, 'НТУ "КПІ"', false),
-       (3, 'ЛНУ ім. І. Франка', false),
-       (4, 'ХНУ ім. В. Н. Каразіна', false),
-       (5, 'ОНУ ім. І. І. Мечникова', false),
-       (6, 'НаУ "КМА"', false),
-       (7, 'ДНУ ім. О. Гончара', false),
-       (8, 'ХмНУ', false),
-       (9, 'ЗНУ', false),
-       (10, 'ІФНТУНГ', false);
+INSERT INTO universities ( name, deleted)
+VALUES ('КНУ ім. Т. Шевченка', false),
+       ('НТУ "КПІ"', false),
+       ('ЛНУ ім. І. Франка', false),
+       ('ХНУ ім. В. Н. Каразіна', false),
+       ('ОНУ ім. І. І. Мечникова', false),
+       ('НаУ "КМА"', false),
+       ('ДНУ ім. О. Гончара', false),
+       ('ХмНУ', false),
+       ('ЗНУ', false),
+       ( 'ІФНТУНГ', false);
 INSERT INTO education_specializations (specialization, deleted)
 VALUES ('Business Administration', false),
        ('Marketing', false),
@@ -33,12 +27,7 @@ VALUES ('Business Administration', false),
        ('Psychology', false),
        ('Graphic Design', false);
 
-INSERT INTO email_lists (email,id_code)
-VALUES ('test@gmail.com', 'IDCDE3'),
-       ('example@gmail.com', 'IDCDE4'),
-       ('user@example.com', 'IDCDE5'),
-       ('info@example.com', 'IDCDE6'),
-       ('contact@gmail.com', 'IDCDE7');
+
 INSERT INTO professions (name, deleted)
 VALUES
     ('Столяр', false),
@@ -89,13 +78,7 @@ VALUES
     (false, 'Olivia Davis'),
     (false, 'William Wilson');
 
-INSERT INTO groups (deleted, group_name, start_date)
-VALUES
-    (false, 'pe-26', '2023-01-01'),
-    (false, 'pe-27', '2023-02-15'),
-    (false, 'pe-28', '2023-03-10'),
-    (false, 'pe-21', '2023-04-20'),
-    (false, 'pe-22', '2023-05-05');
+
 INSERT INTO contracts_status (deleted, status)
 VALUES
     (false, 'Active'),
