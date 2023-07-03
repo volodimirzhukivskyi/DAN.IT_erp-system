@@ -32,7 +32,7 @@ public class SessionsStatusService implements BaseService<SessionsStatus,Byte> {
   @Override
   public SessionsStatus findById(Byte userId) {
     return sessionsStatusRepository.findByIdAndDeletedFalse(userId)
-      .orElseThrow(() -> new CouldNotFindException("Статусу  сесії"));
+      .orElseThrow(() -> new CouldNotFindException("The session status"));
   }
 
 
@@ -46,7 +46,7 @@ public class SessionsStatusService implements BaseService<SessionsStatus,Byte> {
   public void update(SessionsStatus obj) {
     SessionsStatus findSessionsStatus =
       sessionsStatusRepository.findByIdAndDeletedFalse(obj.getId())
-        .orElseThrow(() -> new CouldNotFindException("Статусу  сесії"));
+        .orElseThrow(() -> new CouldNotFindException("The session status"));
 
     SessionsStatus groupStatus =
       SessionsStatus.builder().id(findSessionsStatus.getId()).status(obj.getStatus()).build();
@@ -56,7 +56,7 @@ public class SessionsStatusService implements BaseService<SessionsStatus,Byte> {
   @Override
   public void delete(Byte userId) {
     SessionsStatus findSessionsStatus = sessionsStatusRepository.findById(userId)
-      .orElseThrow(() -> new CouldNotFindException("Статусу  сесії"));
+      .orElseThrow(() -> new CouldNotFindException("The session status"));
 
     findSessionsStatus.setDeleted(true);
     sessionsStatusRepository.save(findSessionsStatus);

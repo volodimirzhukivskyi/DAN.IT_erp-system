@@ -32,7 +32,7 @@ public class MentorService implements BaseService<Mentor,Integer> {
   @Override
   public Mentor findById(Integer userId) {
     return mentorRepository.findByIdAndDeletedFalse(userId)
-      .orElseThrow(() -> new CouldNotFindException("Ментора"));
+      .orElseThrow(() -> new CouldNotFindException("The mentor"));
   }
 
 
@@ -45,7 +45,7 @@ public class MentorService implements BaseService<Mentor,Integer> {
   @Override
   public void update(Mentor obj) {
     Mentor findMentor = mentorRepository.findByIdAndDeletedFalse(obj.getId())
-      .orElseThrow(() -> new CouldNotFindException("Ментора"));
+      .orElseThrow(() -> new CouldNotFindException("The mentor"));
 
     Mentor mentor = Mentor.builder().id(findMentor.getId()).fullName(obj.getFullName()).build();
     mentorRepository.save(mentor);
@@ -54,7 +54,7 @@ public class MentorService implements BaseService<Mentor,Integer> {
   @Override
   public void delete(Integer userId) {
     Mentor mentor =
-      mentorRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Ментора"));
+      mentorRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("The mentor"));
 
     mentor.setDeleted(true);
     mentorRepository.save(mentor);

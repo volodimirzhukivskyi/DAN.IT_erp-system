@@ -32,7 +32,7 @@ public class PaymentMethodService implements BaseService<PaymentMethod,Byte> {
   @Override
   public PaymentMethod findById(Byte userId) {
     return paymentMethodRepository.findByIdAndDeletedFalse(userId)
-      .orElseThrow(() -> new CouldNotFindException("Метода оплати"));
+      .orElseThrow(() -> new CouldNotFindException("The payment method"));
   }
 
 
@@ -45,7 +45,7 @@ public class PaymentMethodService implements BaseService<PaymentMethod,Byte> {
   @Override
   public void update(PaymentMethod obj) {
     PaymentMethod findPaymentMethod = paymentMethodRepository.findByIdAndDeletedFalse(obj.getId())
-      .orElseThrow(() -> new CouldNotFindException("Метода оплати"));
+      .orElseThrow(() -> new CouldNotFindException("The payment method"));
 
     PaymentMethod paymentMethod =
       PaymentMethod.builder().id(findPaymentMethod.getId()).method(obj.getMethod()).build();
@@ -55,7 +55,7 @@ public class PaymentMethodService implements BaseService<PaymentMethod,Byte> {
   @Override
   public void delete(Byte userId) {
     PaymentMethod findPaymentMethod = paymentMethodRepository.findById(userId)
-      .orElseThrow(() -> new CouldNotFindException("Метода оплати"));
+      .orElseThrow(() -> new CouldNotFindException("The payment method"));
 
     findPaymentMethod.setDeleted(true);
     paymentMethodRepository.save(findPaymentMethod);

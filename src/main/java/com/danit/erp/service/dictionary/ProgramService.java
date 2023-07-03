@@ -32,7 +32,7 @@ public class ProgramService implements BaseService<Program,Short> {
   @Override
   public Program findById(Short userId) {
     return programRepository.findByIdAndDeletedFalse(userId)
-      .orElseThrow(() -> new CouldNotFindException("Прогами"));
+      .orElseThrow(() -> new CouldNotFindException("The program"));
   }
 
 
@@ -46,7 +46,7 @@ public class ProgramService implements BaseService<Program,Short> {
   @Override
   public void update(Program obj) {
     Program findProgram = programRepository.findByIdAndDeletedFalse(obj.getId())
-      .orElseThrow(() -> new CouldNotFindException("Прогами"));
+      .orElseThrow(() -> new CouldNotFindException("The program"));
 
     Program program = Program.builder().id(findProgram.getId()).program(obj.getProgram())
       .programHours(obj.getProgramHours()).build();
@@ -56,7 +56,7 @@ public class ProgramService implements BaseService<Program,Short> {
   @Override
   public void delete(Short userId) {
     Program program =
-      programRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Прогами"));
+      programRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("The program"));
 
     program.setDeleted(true);
     programRepository.save(program);

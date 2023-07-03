@@ -46,11 +46,11 @@ public class SessionsListRequestMapper extends GeneralFacade<SessionsList, Sessi
   @Override
   protected void decorateEntity(SessionsList entity, SessionsListRequest dto) {
     Program program = programRepository.findByProgram(dto.getProgram())
-      .orElseThrow(() -> new CouldNotFindNameException("Програми"));
+      .orElseThrow(() -> new CouldNotFindNameException("The program"));
     Sessions sessions =
       sessionsRepository.findByProgram(program).orElseThrow(CouldNotFindSessionsException::new);
     Group group = groupRepository.findByGroupName(dto.getGroup())
-      .orElseThrow(() -> new CouldNotFindNameException("Групи"));
+      .orElseThrow(() -> new CouldNotFindNameException("The group"));
     GroupList groupList =
       groupListRepository.findByGroup(group).orElseThrow(CouldNotFindGroupsException::new);
 

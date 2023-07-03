@@ -31,7 +31,7 @@ public class GroupScheduleService implements BaseService<GroupScheduleDto,Intege
   @Override
   public GroupScheduleDto findById(Integer userId) {
     GroupSchedule findGroupSchedule = groupScheduleRepository.findById(userId)
-      .orElseThrow(() -> new CouldNotFindException("Розклад"));
+      .orElseThrow(() -> new CouldNotFindException("The schedule"));
     return groupScheduleMapper.convertToDto(findGroupSchedule);
   }
 
@@ -55,7 +55,7 @@ public class GroupScheduleService implements BaseService<GroupScheduleDto,Intege
   @Override
   public void delete(Integer userId) {
     GroupSchedule groupSchedule = groupScheduleRepository.findById(userId)
-      .orElseThrow(() -> new CouldNotFindException("Розклад"));
+      .orElseThrow(() -> new CouldNotFindException("The schedule"));
 
     groupScheduleRepository.delete(groupSchedule);
   }

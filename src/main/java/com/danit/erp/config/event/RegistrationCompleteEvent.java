@@ -1,4 +1,4 @@
-package com.danit.erp.auth.event;
+package com.danit.erp.config.event;
 
 import com.danit.erp.domain.card.personal_card.PersonalCard;
 import lombok.Getter;

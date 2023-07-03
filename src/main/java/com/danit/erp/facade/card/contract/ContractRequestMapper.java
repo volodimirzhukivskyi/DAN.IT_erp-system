@@ -9,6 +9,7 @@ import com.danit.erp.domain.dictionary.roles.Coordinator;
 import com.danit.erp.domain.dictionary.roles.Manager;
 import com.danit.erp.domain.dictionary.status.ContractStatus;
 import com.danit.erp.dto.card.contract.ContractRequest;
+import com.danit.erp.exception.id.CouldNotFindException;
 import com.danit.erp.exception.name.CouldNotFindNameException;
 import com.danit.erp.exception.number.CouldNotFindLegalException;
 import com.danit.erp.exception.status.CouldNotFindStatusException;
@@ -63,23 +64,25 @@ public class ContractRequestMapper extends GeneralFacade<Contract, ContractReque
     LegalEntity saveLegalEntity = legalEntity.orElseThrow(CouldNotFindLegalException::new);
     Optional<PersonalCard> personalCard =
       personalCardRepository.findByIdCode(dto.getPersonalCardCode());
+    //TODO кастомна помилка
     PersonalCard savePersonalCard =
-      personalCard.orElseThrow(() -> new Error("Персональної картки"));
+      personalCard.orElseThrow(() -> new CouldNotFindException("The personal card"));
     Optional<Program> program = programRepository.findByProgram(dto.getProgramName());
-    Program saveProgram = program.orElseThrow(() -> new CouldNotFindNameException("Програми"));
+    Program saveProgram = program.orElseThrow(() -> new CouldNotFindNameException("The program"));
     Optional<ContractStatus> findContractStatus =
       contractStatusRepository.findByStatus(dto.getContractStatus());
     ContractStatus saveContractStatus =
-      findContractStatus.orElseThrow(() -> new CouldNotFindStatusException("контракт статусу"));
+      findContractStatus.orElseThrow(() -> new CouldNotFindStatusException("The status contract"));
     Optional<Manager> findManager =
       managerRepository.findByFullName(dto.getResponsibleManagerFullName());
-    Manager saveManager = findManager.orElseThrow(() -> new CouldNotFindNameException("Менеджера"));
+    Manager saveManager = findManager.orElseThrow(() -> new CouldNotFindNameException("The "
+      + "manager"));
     Optional<Coordinator> findCoordinator =
       coordinatorRepository.findByFullName(dto.getCoordinatorFullName());
     Coordinator saveCoordinator =
-      findCoordinator.orElseThrow(() -> new CouldNotFindNameException("Координатора"));
+      findCoordinator.orElseThrow(() -> new CouldNotFindNameException("The coordinator"));
     Optional<Group> findGroup = groupRepository.findByGroupName(dto.getGroupName());
-    Group saveGroup = findGroup.orElseThrow(() -> new CouldNotFindNameException("Групи"));
+    Group saveGroup = findGroup.orElseThrow(() -> new CouldNotFindNameException("The group"));
 
     entity.setLegalEntity(saveLegalEntity);
     entity.setPersonalCard(savePersonalCard);

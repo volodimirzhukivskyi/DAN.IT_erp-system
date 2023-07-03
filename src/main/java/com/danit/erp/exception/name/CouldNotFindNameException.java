@@ -4,7 +4,7 @@ import com.danit.erp.exception.AbstractException;
 import org.springframework.http.HttpStatus;
 
 public class CouldNotFindNameException extends AbstractException {
-  private  static final String MESSAGE = " за таким іменем не існує.";
+  private  static final String MESSAGE = " by that name does not exist.";
   private  static final HttpStatus STATUS = HttpStatus.BAD_REQUEST;
 
   public CouldNotFindNameException() {

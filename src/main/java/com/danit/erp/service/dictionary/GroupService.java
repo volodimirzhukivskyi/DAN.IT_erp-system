@@ -34,7 +34,7 @@ public class GroupService implements BaseService<Group,Integer> {
   @Override
   public Group findById(Integer userId) {
     return groupRepository.findByIdAndDeletedFalse(userId)
-      .orElseThrow(() -> new CouldNotFindException("Групи"));
+      .orElseThrow(() -> new CouldNotFindException("The groups"));
   }
 
 
@@ -48,7 +48,7 @@ public class GroupService implements BaseService<Group,Integer> {
   @Override
   public void update(Group obj) {
     Group findGroup = groupRepository.findByIdAndDeletedFalse(obj.getId())
-      .orElseThrow(() -> new CouldNotFindException("Групи"));
+      .orElseThrow(() -> new CouldNotFindException("The groups"));
 
     Group group = Group.builder().id(findGroup.getId()).groupName(obj.getGroupName())
       .startDate(obj.getStartDate()).build();
@@ -58,7 +58,7 @@ public class GroupService implements BaseService<Group,Integer> {
   @Override
   public void delete(Integer userId) {
     Group group =
-      groupRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Групи"));
+      groupRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("The groups"));
     groupScheduleRepository.deleteAll(group.getGroupSchedules());
     group.setDeleted(true);
     groupRepository.save(group);

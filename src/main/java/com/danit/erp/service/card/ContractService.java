@@ -46,7 +46,7 @@ public class ContractService implements BaseService<ContractResponse,Long> {
   @Override
   public ContractResponse findById(Long userId) {
     Contract contract =
-      contractRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Контракту"));
+      contractRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("The contract"));
     return contractResponseMapper.convertToDto(contract);
 
 
@@ -81,7 +81,7 @@ public class ContractService implements BaseService<ContractResponse,Long> {
 
     Contract obj = contractRequestMapper.convertToEntity(contractRequest);
     Contract findContract = contractRepository.findById(obj.getId())
-      .orElseThrow(() -> new CouldNotFindException("Контракту"));
+      .orElseThrow(() -> new CouldNotFindException("The contract"));
 
     Contract contract = Contract.builder().id(findContract.getId()).contractNo(obj.getContractNo())
       .contractDate(obj.getContractDate()).personalCard(obj.getPersonalCard())
@@ -95,7 +95,7 @@ public class ContractService implements BaseService<ContractResponse,Long> {
   @Override
   public void delete(Long userId) {
     Contract contract =
-      contractRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Контракту"));
+      contractRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("The contract"));
 
     contractRepository.delete(contract);
   }

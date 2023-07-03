@@ -34,7 +34,7 @@ public class EducationService implements BaseService<Education,Short> {
   @Override
   public Education findById(Short userId) {
     return educationRepository.findByIdAndDeletedFalse(userId)
-      .orElseThrow(() -> new CouldNotFindException("Спеціалізації"));
+      .orElseThrow(() -> new CouldNotFindException("The specializations"));
 
   }
 
@@ -48,7 +48,7 @@ public class EducationService implements BaseService<Education,Short> {
   @Override
   public void update(Education obj) {
     Education findEducation = educationRepository.findByIdAndDeletedFalse(obj.getId())
-      .orElseThrow(() -> new CouldNotFindException("Спеціалізації"));
+      .orElseThrow(() -> new CouldNotFindException("The specializations"));
 
     Education education =
       Education.builder().id(findEducation.getId()).specialization(obj.getSpecialization()).build();
@@ -58,7 +58,7 @@ public class EducationService implements BaseService<Education,Short> {
   @Override
   public void delete(Short userId) {
     Education education = educationRepository.findById(userId)
-      .orElseThrow(() -> new CouldNotFindException("Спеціалізації"));
+      .orElseThrow(() -> new CouldNotFindException("The specializations"));
 
     education.setDeleted(true);
     educationRepository.save(education);

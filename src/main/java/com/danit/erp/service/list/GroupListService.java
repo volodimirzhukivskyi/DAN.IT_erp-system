@@ -42,7 +42,7 @@ public class GroupListService implements BaseService<GroupListResponse,Integer> 
   @Override
   public GroupListResponse findById(Integer userId) {
     GroupList groupList = groupListRepository.findById(userId)
-      .orElseThrow(() -> new CouldNotFindException("Список груп"));
+      .orElseThrow(() -> new CouldNotFindException("The list of groups"));
     return groupListResponseMapper.convertToDto(groupList);
 
   }
@@ -67,7 +67,7 @@ public class GroupListService implements BaseService<GroupListResponse,Integer> 
   public void update(GroupListRequest obj) {
     GroupList concertGroupList = groupListRequestMapper.convertToEntity(obj);
     GroupList findGroupList = groupListRepository.findByGroup(concertGroupList.getGroup())
-      .orElseThrow(() -> new CouldNotFindException("Список груп"));
+      .orElseThrow(() -> new CouldNotFindException("The list of groups"));
 
     GroupList groupStatus =
       GroupList.builder().id(findGroupList.getId()).group(concertGroupList.getGroup())
@@ -80,7 +80,7 @@ public class GroupListService implements BaseService<GroupListResponse,Integer> 
   @Override
   public void delete(Integer userId) {
     GroupList findGroupStatus = groupListRepository.findById(userId)
-      .orElseThrow(() -> new CouldNotFindException("Список груп"));
+      .orElseThrow(() -> new CouldNotFindException("The list of groups"));
 
     groupListRepository.save(findGroupStatus);
 

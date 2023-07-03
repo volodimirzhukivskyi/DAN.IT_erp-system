@@ -1,6 +1,6 @@
 package com.danit.erp.auth.authentication;
 
-import com.danit.erp.auth.event.listener.RegistrationCompleteEventListener;
+import com.danit.erp.config.event.listener.RegistrationCompleteEventListener;
 import com.danit.erp.auth.reset_password.PasswordResetRequest;
 import com.danit.erp.auth.reset_password.PasswordResetTokenService;
 import com.danit.erp.config.JwtService;

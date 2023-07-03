@@ -45,7 +45,7 @@ public class SessionsListService implements BaseService<SessionsListResponse,Lon
   @Override
   public SessionsListResponse findById(Long userId) {
     SessionsList sessionsList = sessionsListRepository.findById(userId)
-      .orElseThrow(() -> new CouldNotFindException("Список сесій"));
+      .orElseThrow(() -> new CouldNotFindException("The list of sessions"));
     return sessionsListResponseMapper.convertToDto(sessionsList);
   }
 
@@ -71,7 +71,7 @@ public class SessionsListService implements BaseService<SessionsListResponse,Lon
 
     SessionsList obj = sessionsListRequestMapper.convertToEntity(SessionsListRequest);
     SessionsList findSessionsList = sessionsListRepository.findById(obj.getId())
-      .orElseThrow(() -> new CouldNotFindException("Список сесій"));
+      .orElseThrow(() -> new CouldNotFindException("The list of sessions"));
 
     SessionsList sessionsList =
       SessionsList.builder().id(findSessionsList.getId()).groupList(findSessionsList.getGroupList())
@@ -85,7 +85,7 @@ public class SessionsListService implements BaseService<SessionsListResponse,Lon
   @Override
   public void delete(Long userId) {
     SessionsList sessionsList = sessionsListRepository.findById(userId)
-      .orElseThrow(() -> new CouldNotFindException("Список сесій"));
+      .orElseThrow(() -> new CouldNotFindException("The list of sessions"));
 
     sessionsListRepository.delete(sessionsList);
   }

@@ -32,7 +32,7 @@ public class ProfessionService implements BaseService<Profession,Short> {
   @Override
   public Profession findById(Short userId) {
     return professionRepository.findByIdAndDeletedFalse(userId)
-      .orElseThrow(() -> new CouldNotFindException("Професії"));
+      .orElseThrow(() -> new CouldNotFindException("The professions"));
   }
 
 
@@ -45,7 +45,7 @@ public class ProfessionService implements BaseService<Profession,Short> {
   @Override
   public void update(Profession obj) {
     Profession findProfession = professionRepository.findByIdAndDeletedFalse(obj.getId())
-      .orElseThrow(() -> new CouldNotFindException("Професії"));
+      .orElseThrow(() -> new CouldNotFindException("The professions"));
 
     Profession profession =
       Profession.builder().id(findProfession.getId()).name(obj.getName()).build();
@@ -55,7 +55,7 @@ public class ProfessionService implements BaseService<Profession,Short> {
   @Override
   public void delete(Short userId) {
     Profession profession = professionRepository.findById(userId)
-      .orElseThrow(() -> new CouldNotFindException("Професії"));
+      .orElseThrow(() -> new CouldNotFindException("The professions"));
 
     profession.setDeleted(true);
     professionRepository.save(profession);

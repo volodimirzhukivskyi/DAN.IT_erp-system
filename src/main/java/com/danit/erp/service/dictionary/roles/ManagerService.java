@@ -32,7 +32,7 @@ public class ManagerService implements BaseService<Manager,Integer> {
   @Override
   public Manager findById(Integer userId) {
     return managerRepository.findByIdAndDeletedFalse(userId)
-      .orElseThrow(() -> new CouldNotFindException("Менеджера"));
+      .orElseThrow(() -> new CouldNotFindException("The manager"));
   }
 
 
@@ -45,7 +45,7 @@ public class ManagerService implements BaseService<Manager,Integer> {
   @Override
   public void update(Manager obj) {
     Manager findManager = managerRepository.findByIdAndDeletedFalse(obj.getId())
-      .orElseThrow(() -> new CouldNotFindException("Менеджера"));
+      .orElseThrow(() -> new CouldNotFindException("The manager"));
 
     Manager manager = Manager.builder().id(findManager.getId()).fullName(obj.getFullName()).build();
     managerRepository.save(manager);
@@ -54,7 +54,7 @@ public class ManagerService implements BaseService<Manager,Integer> {
   @Override
   public void delete(Integer userId) {
     Manager manager =
-      managerRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Менеджера"));
+      managerRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("The manager"));
 
     manager.setDeleted(true);
     managerRepository.save(manager);

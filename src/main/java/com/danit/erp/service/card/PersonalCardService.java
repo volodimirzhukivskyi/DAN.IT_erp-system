@@ -49,7 +49,7 @@ public class PersonalCardService implements BaseService<PersonalCardResponse,Lon
   @Override
   public PersonalCardResponse findById(Long userId) {
     PersonalCard findCart = personalCardRepository.findById(userId)
-      .orElseThrow(() -> new CouldNotFindException("Персональної картки"));
+      .orElseThrow(() -> new CouldNotFindException("The personal ID card"));
 
     return personalCardResponseMapper.convertToDto(findCart);
 
@@ -88,7 +88,7 @@ public class PersonalCardService implements BaseService<PersonalCardResponse,Lon
     PersonalCard obj = personalCardRequestMapper.convertToEntity(objDto);
 
     PersonalCard findCart = personalCardRepository.findById(obj.getId())
-      .orElseThrow(() -> new CouldNotFindException("Персональної картки"));
+      .orElseThrow(() -> new CouldNotFindException("The personal ID card"));
 
     PersonalCard personalCard = PersonalCard.builder().id(findCart.getId()).name(obj.getName())
       .secondName(obj.getSecondName()).surname(obj.getSurname()).linkToCRM(obj.getLinkToCRM())
@@ -102,7 +102,7 @@ public class PersonalCardService implements BaseService<PersonalCardResponse,Lon
   @Override
   public void delete(Long userId) {
     PersonalCard personalCard = personalCardRepository.findById(userId)
-      .orElseThrow(() -> new CouldNotFindException("Персональної картки"));
+      .orElseThrow(() -> new CouldNotFindException("The personal ID card"));
 
 
     personalCardRepository.delete(personalCard);

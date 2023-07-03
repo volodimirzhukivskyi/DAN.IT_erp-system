@@ -33,7 +33,7 @@ public class LegalEntityService implements BaseService<LegalEntity,Integer> {
   @Override
   public LegalEntity findById(Integer userId) {
     return legalEntityRepository.findByIdAndDeletedFalse(userId)
-      .orElseThrow(() -> new CouldNotFindException("Юридичної особи"));
+      .orElseThrow(() -> new CouldNotFindException("The legal entity"));
   }
 
 
@@ -49,7 +49,7 @@ public class LegalEntityService implements BaseService<LegalEntity,Integer> {
   @Override
   public void update(LegalEntity obj) {
     LegalEntity legalEntity = legalEntityRepository.findByIdAndDeletedFalse(obj.getId())
-      .orElseThrow(() -> new CouldNotFindException("Юридичної особи"));
+      .orElseThrow(() -> new CouldNotFindException("The legal entity"));
 
     LegalEntity legalEntityUpdate =
       LegalEntity.builder().id(legalEntity.getId()).statuteEntity(obj.getStatuteEntity())
@@ -62,7 +62,7 @@ public class LegalEntityService implements BaseService<LegalEntity,Integer> {
   @Override
   public void delete(Integer userId) {
     LegalEntity legalEntity = legalEntityRepository.findById(userId)
-      .orElseThrow(() -> new CouldNotFindException("Юридичної особи"));
+      .orElseThrow(() -> new CouldNotFindException("The legal entity"));
 
     legalEntity.setDeleted(true);
     legalEntityRepository.save(legalEntity);

@@ -12,7 +12,6 @@ import com.danit.erp.repository.dictionary.EducationRepository;
 import com.danit.erp.repository.dictionary.EmailRepository;
 import com.danit.erp.repository.dictionary.ProfessionRepository;
 import com.danit.erp.repository.dictionary.UniversityRepository;
-import com.danit.erp.repository.dictionary.roles.RoleRepository;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
@@ -23,19 +22,17 @@ public class PersonalCardRequestMapper extends GeneralFacade<PersonalCard, Perso
   private final EmailRepository emailRepository;
   private final UniversityRepository universityRepository;
   private final ProfessionRepository professionRepository;
-  private final RoleRepository roleRepository;
   private final EducationRepository educationRepository;
 
   public PersonalCardRequestMapper(
     EmailRepository emailRepository, UniversityRepository universityRepository,
-    ProfessionRepository professionRepository, RoleRepository roleRepository,
+    ProfessionRepository professionRepository,
     EducationRepository educationRepository) {
     super(PersonalCard.class, PersonalCardRequest.class);
 
     this.emailRepository = emailRepository;
     this.universityRepository = universityRepository;
     this.professionRepository = professionRepository;
-    this.roleRepository = roleRepository;
     this.educationRepository = educationRepository;
   }
 
@@ -71,10 +68,6 @@ public class PersonalCardRequestMapper extends GeneralFacade<PersonalCard, Perso
       findSpecialization = educationRepository.save(
         Education.builder().specialization(dto.getSpecializationName()).build());
     }
-//    Role findRole = roleRepository.findByRole("Client").orElse(null);
-//    if (dto.getRoleName() != null && findRole == null) {
-//      findRole = roleRepository.save(Role.builder().role(dto.getRoleName()).build());
-//    }
 
     entity.setEmail(findEmail);
     entity.setUniversity(findUniversity);

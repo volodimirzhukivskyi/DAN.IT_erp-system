@@ -32,7 +32,7 @@ public class ContractStatusService implements BaseService<ContractStatus,Byte> {
   @Override
   public ContractStatus findById(Byte userId) {
     return contractStatusRepository.findByIdAndDeletedFalse(userId)
-      .orElseThrow(() -> new CouldNotFindException("Контракт статус"));
+      .orElseThrow(() -> new CouldNotFindException("The contract status"));
   }
 
 
@@ -46,7 +46,7 @@ public class ContractStatusService implements BaseService<ContractStatus,Byte> {
   public void update(ContractStatus obj) {
     ContractStatus findContractStatus =
       contractStatusRepository.findByIdAndDeletedFalse(obj.getId())
-        .orElseThrow(() -> new CouldNotFindException("Контракт статус"));
+        .orElseThrow(() -> new CouldNotFindException("The contract status"));
 
     ContractStatus contractStatus =
       ContractStatus.builder().id(findContractStatus.getId()).status(obj.getStatus()).build();
@@ -56,7 +56,7 @@ public class ContractStatusService implements BaseService<ContractStatus,Byte> {
   @Override
   public void delete(Byte userId) {
     ContractStatus contractStatus = contractStatusRepository.findById(userId)
-      .orElseThrow(() -> new CouldNotFindException("Контракт статус"));
+      .orElseThrow(() -> new CouldNotFindException("The contract status"));
 
     contractStatus.setDeleted(true);
     contractStatusRepository.save(contractStatus);

@@ -46,7 +46,8 @@ public class SessionsService implements BaseService<SessionsResponse,Long> {
   @Override
   public SessionsResponse findById(Long userId) {
     Sessions sessions =
-      sessionsRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Сесії"));
+      sessionsRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("The "
+        + "session"));
     return sessionsResponseMapper.convertToDto(sessions);
   }
 
@@ -70,7 +71,7 @@ public class SessionsService implements BaseService<SessionsResponse,Long> {
   public void update(SessionsRequest obj) {
     Sessions sessions = sessionsRequestMapper.convertToEntity(obj);
     Sessions findSessions = sessionsRepository.findByProgram(sessions.getProgram())
-      .orElseThrow(() -> new CouldNotFindException("Сесії"));
+      .orElseThrow(() -> new CouldNotFindException("The session"));
 
     Sessions session =
       Sessions.builder().id(findSessions.getId()).sessionsStatus(sessions.getSessionsStatus())
@@ -82,7 +83,7 @@ public class SessionsService implements BaseService<SessionsResponse,Long> {
   @Override
   public void delete(Long userId) {
     Sessions session =
-      sessionsRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Сесії"));
+      sessionsRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("The session"));
     session.setDeleted(true);
     sessionsRepository.delete(session);
   }

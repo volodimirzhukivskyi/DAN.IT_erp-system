@@ -32,7 +32,7 @@ public class CoordinatorService implements BaseService<Coordinator,Integer> {
   @Override
   public Coordinator findById(Integer userId) {
     return coordinatorRepository.findByIdAndDeletedFalse(userId)
-      .orElseThrow(() -> new CouldNotFindException("Координатора"));
+      .orElseThrow(() -> new CouldNotFindException("The coordinator"));
   }
 
 
@@ -45,7 +45,7 @@ public class CoordinatorService implements BaseService<Coordinator,Integer> {
   @Override
   public void update(Coordinator obj) {
     Coordinator findCoordinator = coordinatorRepository.findByIdAndDeletedFalse(obj.getId())
-      .orElseThrow(() -> new CouldNotFindException("Координатора"));
+      .orElseThrow(() -> new CouldNotFindException("The coordinator"));
 
     Coordinator coordinator =
       Coordinator.builder().id(findCoordinator.getId()).fullName(obj.getFullName()).build();
@@ -55,7 +55,7 @@ public class CoordinatorService implements BaseService<Coordinator,Integer> {
   @Override
   public void delete(Integer userId) {
     Coordinator coordinator = coordinatorRepository.findById(userId)
-      .orElseThrow(() -> new CouldNotFindException("Координатора"));
+      .orElseThrow(() -> new CouldNotFindException("The coordinator"));
 
     coordinator.setDeleted(true);
     coordinatorRepository.save(coordinator);

@@ -32,7 +32,7 @@ public class TrainerService implements BaseService<Trainer,Integer> {
   @Override
   public Trainer findById(Integer userId) {
     return trainerRepository.findByIdAndDeletedFalse(userId)
-      .orElseThrow(() -> new CouldNotFindException("Тренера"));
+      .orElseThrow(() -> new CouldNotFindException("The trainer"));
   }
 
 
@@ -45,7 +45,7 @@ public class TrainerService implements BaseService<Trainer,Integer> {
   @Override
   public void update(Trainer obj) {
     Trainer findTrainer = trainerRepository.findByIdAndDeletedFalse(obj.getId())
-      .orElseThrow(() -> new CouldNotFindException("Тренера"));
+      .orElseThrow(() -> new CouldNotFindException("The trainer"));
 
     Trainer trainer = Trainer.builder().id(findTrainer.getId()).fullName(obj.getFullName()).build();
     trainerRepository.save(trainer);
@@ -54,7 +54,7 @@ public class TrainerService implements BaseService<Trainer,Integer> {
   @Override
   public void delete(Integer userId) {
     Trainer trainer =
-      trainerRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("Тренера"));
+      trainerRepository.findById(userId).orElseThrow(() -> new CouldNotFindException("The trainer"));
 
     trainer.setDeleted(true);
     trainerRepository.save(trainer);

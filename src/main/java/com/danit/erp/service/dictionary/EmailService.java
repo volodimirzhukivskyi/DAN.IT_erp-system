@@ -36,7 +36,7 @@ public class EmailService implements BaseService<Email,Long> {
   @Override
   public Email findById(Long userId) {
     return emailListRepository.findById(userId)
-      .orElseThrow(() -> new CouldNotFindException("Електронна пошта"));
+      .orElseThrow(() -> new CouldNotFindException("The email"));
   }
 
 
@@ -53,6 +53,7 @@ public class EmailService implements BaseService<Email,Long> {
       }
       return email;
     } else {
+      //TODO переробити помилку на кастомну
       throw new Error("email з таким id уже є!");
 
     }
@@ -61,7 +62,7 @@ public class EmailService implements BaseService<Email,Long> {
   @Override
   public void update(Email obj) {
     Email findEmail = emailListRepository.findById(obj.getId())
-      .orElseThrow(() -> new CouldNotFindException("Електронна пошта"));
+      .orElseThrow(() -> new CouldNotFindException("The email"));
 
     Email email =
       Email.builder().id(findEmail.getId()).email(obj.getEmail()).idCode(obj.getIdCode()).build();
@@ -71,7 +72,7 @@ public class EmailService implements BaseService<Email,Long> {
   @Override
   public void delete(Long userId) {
     Email email = emailListRepository.findById(userId)
-      .orElseThrow(() -> new CouldNotFindException("Електронна пошта"));
+      .orElseThrow(() -> new CouldNotFindException("The email"));
 
     emailListRepository.delete(email);
   }

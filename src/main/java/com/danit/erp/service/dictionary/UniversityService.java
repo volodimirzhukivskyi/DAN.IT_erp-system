@@ -32,7 +32,7 @@ public class UniversityService implements BaseService<University,Integer> {
   @Override
   public University findById(Integer userId) {
     return universityRepository.findByIdAndDeletedFalse(userId)
-      .orElseThrow(() -> new CouldNotFindException("Юніверситети"));
+      .orElseThrow(() -> new CouldNotFindException("The university"));
   }
 
 
@@ -45,7 +45,7 @@ public class UniversityService implements BaseService<University,Integer> {
   @Override
   public void update(University obj) {
     University findUniversity = universityRepository.findByIdAndDeletedFalse(obj.getId())
-      .orElseThrow(() -> new CouldNotFindException("Юніверситети"));
+      .orElseThrow(() -> new CouldNotFindException("The university"));
 
     University university =
       University.builder().id(findUniversity.getId()).name(obj.getName()).build();
@@ -55,7 +55,7 @@ public class UniversityService implements BaseService<University,Integer> {
   @Override
   public void delete(Integer userId) {
     University university = universityRepository.findById(userId)
-      .orElseThrow(() -> new CouldNotFindException("Юніверситети"));
+      .orElseThrow(() -> new CouldNotFindException("The university"));
 
     university.setDeleted(true);
     universityRepository.save(university);

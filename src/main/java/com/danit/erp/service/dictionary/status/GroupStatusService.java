@@ -32,7 +32,7 @@ public class GroupStatusService implements BaseService<GroupStatus,Byte> {
   @Override
   public GroupStatus findById(Byte userId) {
     return groupStatusRepository.findByIdAndDeletedFalse(userId)
-      .orElseThrow(() -> new CouldNotFindException("Статусу  групи"));
+      .orElseThrow(() -> new CouldNotFindException("The group status"));
   }
 
 
@@ -45,7 +45,7 @@ public class GroupStatusService implements BaseService<GroupStatus,Byte> {
   @Override
   public void update(GroupStatus obj) {
     GroupStatus findGroupStatus = groupStatusRepository.findByIdAndDeletedFalse(obj.getId())
-      .orElseThrow(() -> new CouldNotFindException("Статусу  групи"));
+      .orElseThrow(() -> new CouldNotFindException("The group status"));
 
     GroupStatus groupStatus =
       GroupStatus.builder().id(findGroupStatus.getId()).status(obj.getStatus()).build();
@@ -55,7 +55,7 @@ public class GroupStatusService implements BaseService<GroupStatus,Byte> {
   @Override
   public void delete(Byte userId) {
     GroupStatus findGroupStatus = groupStatusRepository.findById(userId)
-      .orElseThrow(() -> new CouldNotFindException("Статусу  групи"));
+      .orElseThrow(() -> new CouldNotFindException("The group status"));
 
     findGroupStatus.setDeleted(true);
     groupStatusRepository.save(findGroupStatus);

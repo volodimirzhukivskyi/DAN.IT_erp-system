@@ -8,6 +8,7 @@ import com.danit.erp.domain.dictionary.roles.Trainer;
 import com.danit.erp.domain.dictionary.status.GroupStatus;
 import com.danit.erp.domain.list.group_list.GroupList;
 import com.danit.erp.dto.list.group_list.GroupListRequest;
+import com.danit.erp.exception.name.CouldNotFindNameException;
 import com.danit.erp.facade.GeneralFacade;
 import com.danit.erp.repository.dictionary.GroupRepository;
 import com.danit.erp.repository.dictionary.ProgramRepository;
@@ -54,20 +55,20 @@ public class GroupListRequestMapper extends GeneralFacade<GroupList, GroupListRe
   @Override
   protected void decorateEntity(GroupList entity, GroupListRequest dto) {
     Group byGroupName = groupRepository.findByGroupName(dto.getGroupName())
-      .orElseThrow(() -> new Error("не має " + "групи з такою назвою"));
+      .orElseThrow(() ->  new CouldNotFindNameException("The group"));
 
     Program program = programRepository.findByProgram(dto.getProgramName())
-      .orElseThrow(() -> new Error("не має " + "такої програми "));
+      .orElseThrow(() -> new CouldNotFindNameException("The program"));
     GroupStatus status = groupStatusRepository.findByStatus(dto.getGroupStatus())
-      .orElseThrow(() -> new Error("не має " + "такого статусу "));
+      .orElseThrow(() ->  new CouldNotFindNameException("The group status"));
     Coordinator coordinator = coordinatorRepository.findByFullName(dto.getCoordinatorName())
-      .orElseThrow(() -> new Error("не має " + "такого координатора "));
+      .orElseThrow(() ->  new CouldNotFindNameException("The coordinator"));
 
     Trainer trainer = trainerRepository.findByFullName(dto.getTrainerName())
-      .orElseThrow(() -> new Error("не має " + "такого тренера "));
+      .orElseThrow(() ->  new CouldNotFindNameException("The trainer"));
 
     Mentor mentor = mentorRepository.findByFullName(dto.getMentorName())
-      .orElseThrow(() -> new Error("не має " + "такого mentor "));
+      .orElseThrow(() ->  new CouldNotFindNameException("The mentor"));
 
     entity.setGroup(byGroupName);
     entity.setProgram(program);
